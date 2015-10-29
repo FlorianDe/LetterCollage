@@ -1,3 +1,4 @@
+package main.java;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,7 +21,7 @@ public class BufferedImageView extends JPanel{
         this.setVisible(true);
     }
 	
-	public void setImage(BufferedImage actImage){
+	public void setBufferedImage(BufferedImage actImage){
 		this.actImage = actImage;
 		//this.revalidate();
 		this.repaint();
