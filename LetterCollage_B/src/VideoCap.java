@@ -1,5 +1,3 @@
-package test;
-
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
@@ -23,10 +21,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
-/*
-import org.opencv.highgui.Highgui;        
-import org.opencv.highgui.VideoCapture;        
-  */      
+  
 public class VideoCap extends JFrame{
 	
 	private static final String haarcascades_frontalface = "C:\\Users\\Florian\\Documents\\Git\\LetterCollage_B\\LetterCollage_B\\res\\haarcascades\\haarcascade_frontalface_default.xml";
@@ -35,7 +30,7 @@ public class VideoCap extends JFrame{
 	
 	private static final long serialVersionUID = -1421396949037115883L;
 
-	public static void main (String args[]){
+	public static void main(String args[]){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     	VideoCap vc = new VideoCap();
     	/*
@@ -43,11 +38,10 @@ public class VideoCap extends JFrame{
     	vc.openCVVidoReader(mainWindow);
     	*/
 
-		MainFrame mf = new MainFrame();
-		vc.openCVVidoReader(mf);
+		vc.openCVVidoReader(new MainFrame());
     }
     
-    public void openCVVidoReader(MainFrame mainWindow){
+    public void openCVVidoReader(MainFrame mf){
     	//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     	VideoCapture camera = new VideoCapture(0);
 		MatOfByte mof = new MatOfByte();
@@ -69,6 +63,7 @@ public class VideoCap extends JFrame{
 	    	    	    // MatOfRect is a special container class for Rect.
 	    	    		//CascadeClassifier faceDetector = new CascadeClassifier(this.getClass().getClassLoader().getResource("haarcascades/haarcascade_frontalface_default.xml").getPath());
 	    	    		//Kleiner fail, CascadeClassifier WILL ein pfad, aber classLoader kann keinen internen Pfad zurückgeben, somit nun erstmal hardcoded....
+	    	    		System.out.println(this.getClass().getClassLoader().getResource("haarcascades/haarcascade_frontalface_default.xml").getPath());
 	    	    		CascadeClassifier faceDetector = new CascadeClassifier(haarcascades_frontalface);
 	    	    		CascadeClassifier eyeDetector = new CascadeClassifier(haarcascades_eye);
 	    	    		if (!faceDetector.empty()) {
@@ -89,7 +84,7 @@ public class VideoCap extends JFrame{
 	    	    			System.out.println("Facedetector is empty...cannot detect faces!");
 	    	    		}
 
-	    	    		mainWindow.getBuffView().setImage(matToBufferdImage(image));
+	    	    		mf.getBuffView().setImage(matToBufferdImage(image));
 	    	    		Imgcodecs.imwrite(path, image);
 	    	    		//Imgcodecs.imwrite(path, mof);
 	    	    		//Highgui.imwrite("camera.jpg", frame);
