@@ -39,8 +39,10 @@ import org.opencv.videoio.Videoio;
  */
 public class VideoCap extends JFrame {
 
-	private static final String haarcascades_frontalface = "haarcascades/haarcascade_frontalface_default.xml";
+	//private static final String haarcascades_frontalface = "haarcascades/haarcascade_frontalface_default.xml";
+	private static final String haarcascades_frontalface = "haarcascades/haarcascade_frontalface_alt.xml";
 	private static final String haarcascades_eye = "haarcascades/haarcascade_eye.xml";
+	private static final String path = System.getProperty("user.home") + "/Desktop" + "/camera.jpg";
 	boolean faceDetectionOn = true;
 	boolean eyeDetectionOn = true;
 
@@ -55,11 +57,7 @@ public class VideoCap extends JFrame {
 
 	public void openCVVidoReader(MainFrame mf) {
 		VideoCapture camera = new VideoCapture(0);
-		MatOfByte mof = new MatOfByte();
-		String path = System.getProperty("user.home") + "/Desktop" + "/camera.jpg";
 		Mat image = null;
-		BufferedImage bufImage = null;
-		Object someObject = new Object();
 
 		if (!camera.isOpened()) {
 			System.out.println("No Camera found...=>Error");
@@ -106,7 +104,14 @@ public class VideoCap extends JFrame {
 						Imgproc.putText(image, "A-TEAM [B]", new Point(30, 30), 2, 0.8, new Scalar(200, 200, 250), 2);
 						mf.getBuffView().setBufferedImage(OpenCVUtils.matToBufferedImage(image));
 					}
+					else{
+						System.out.println("Frame empty...!");
+					}
 				}
+				else{
+					System.out.println("Couldnt read the camera!");
+				}
+
 			}
 
 			long ms = (System.currentTimeMillis() - startTime);
