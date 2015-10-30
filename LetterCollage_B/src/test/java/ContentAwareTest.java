@@ -14,10 +14,9 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
 
-import main.java.MainFrame;
-import main.java.OSUtils;
-import main.java.OpenCVUtils;
-import main.java.VideoCap;
+import main.java.utils.OSUtils;
+import main.java.utils.OpenCVUtils;
+import main.java.view.MainFrame;
 
 public class ContentAwareTest {
 	public static String horseCutted  = OSUtils.getResourcePathForOS("img/horsefenceCutted.png");

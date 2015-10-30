@@ -14,7 +14,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 
-import main.java.OpenCVUtils;
+import main.java.utils.OpenCVUtils;
 
 public class Benchmarks {
 	

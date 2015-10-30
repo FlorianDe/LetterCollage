@@ -1,4 +1,4 @@
-package main.java;
+package test.java;
 
 import java.awt.Dimension;
 
@@ -29,6 +29,10 @@ import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.photo.Photo;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
+
+import main.java.utils.OSUtils;
+import main.java.utils.OpenCVUtils;
+import main.java.view.MainFrame;
 
 //FUNKTIONEN ANSCHAUEN:
 /*
@@ -86,8 +90,9 @@ public class VideoCap extends JFrame {
 							// CascadeClassifier(haarcascades_eye);
 							if (!faceDetector.empty()) {
 								MatOfRect faceDetections = new MatOfRect();
+								
 								faceDetector.detectMultiScale(image, faceDetections);
-								System.out.println(String.format("Detected %s faces!", faceDetections.toArray().length));
+								System.out.println(String.format("Detected %s face(s)!", faceDetections.toArray().length));
 
 								// Draw a bounding box around each face.
 								for (Rect rect : faceDetections.toArray()) {
