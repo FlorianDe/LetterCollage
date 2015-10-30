@@ -65,7 +65,7 @@ public class VideoCap extends JFrame {
 			System.out.println("No Camera found...=>Error");
 		} else {
 			setDefaultCameraOption(camera);
-			cropCameraSizeByK(camera, 0.5);
+			//cropCameraSizeByK(camera, 0.5);
 
 			image = new Mat();
 
@@ -102,7 +102,7 @@ public class VideoCap extends JFrame {
 							}
 						}
 
-						Imgproc.GaussianBlur(image, image, new Size(15, 15), 2, 2);
+						//Imgproc.GaussianBlur(image, image, new Size(15, 15), 2, 2);
 						Imgproc.putText(image, "A-TEAM [B]", new Point(30, 30), 2, 0.8, new Scalar(200, 200, 250), 2);
 						mf.getBuffView().setBufferedImage(OpenCVUtils.matToBufferedImage(image));
 					}
