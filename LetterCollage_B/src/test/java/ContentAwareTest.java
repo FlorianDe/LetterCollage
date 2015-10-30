@@ -32,8 +32,11 @@ public class ContentAwareTest {
 	}
 	
 	public void contentAware(MainFrame mf){
+		horseCutted = horseCutted.replace("%20", " ");
+		horseMask = horseMask.replace("%20", " ");
 		Mat imgHorseCutted = Imgcodecs.imread(horseCutted);
 		Mat imgHorseMask = Imgcodecs.imread(horseMask);
+		System.out.println(horseCutted);
 
 		Imgproc.cvtColor(imgHorseMask, imgHorseMask, Imgproc.COLOR_RGB2GRAY);
 		//imgHorseMask.convertTo(imgHorseMask,  CvType.CV_8UC1);
