@@ -29,4 +29,8 @@ public final class OSUtils
 	   }
 	   return tmpPath;
    }
+   
+   public static String getResourcePathForOS(String filename){
+	   return preparePathForOS((new OSUtils()).getClass().getClassLoader().getResource(filename).getPath());
+   }
 }
