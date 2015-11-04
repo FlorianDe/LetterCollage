@@ -55,7 +55,7 @@ public final class OSUtils {
 	}
 
 	public static boolean isUnix() {
-		return OSEnum.equals(OS.UNIX);
+		return OSEnum.equals(OS.UNIX) | OSEnum.equals(OS.MAC_OS_X) | OSEnum.equals(OS.LINUX) | OSEnum.equals(OS.SOLARIS);
 	}
 	
 	public static boolean isLinux() {

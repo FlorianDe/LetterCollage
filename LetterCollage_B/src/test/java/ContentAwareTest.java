@@ -32,8 +32,10 @@ public class ContentAwareTest {
 	}
 	
 	public void contentAware(MainFrame mf){
+
 		Mat imgHorseCutted = Imgcodecs.imread(horseCutted);
 		Mat imgHorseMask = Imgcodecs.imread(horseMask);
+
 		System.out.println(horseCutted);
 
 		Imgproc.cvtColor(imgHorseMask, imgHorseMask, Imgproc.COLOR_RGB2GRAY);
