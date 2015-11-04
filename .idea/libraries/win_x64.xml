@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="win_x64">
+    <CLASSES />
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib/opencv3/win/x64" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>
