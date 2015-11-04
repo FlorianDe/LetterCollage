@@ -1,2 +1,11 @@
+# Untracked files:
+
+# Local IntelliJ Files
+.idea/workspace.xml
+# DataSource files cannot be commited due to system hash dependencies
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+
 # out folder needed for debugging/running
 out/**
