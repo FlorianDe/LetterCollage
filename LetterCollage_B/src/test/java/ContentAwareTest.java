@@ -27,6 +27,7 @@ public class ContentAwareTest {
 		if(OpenCVUtils.loadLibrary(Core.NATIVE_LIBRARY_NAME)){
 			ContentAwareTest cat = new ContentAwareTest();
 			cat.contentAware(new MainFrame());
+			
 		}
 	}
 	
