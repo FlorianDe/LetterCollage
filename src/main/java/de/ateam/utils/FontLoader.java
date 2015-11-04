@@ -1,4 +1,4 @@
-package de.ateam.utils;
+package main.java.de.ateam.utils;
 
 /**
  * Created by Florian on 04.11.2015.

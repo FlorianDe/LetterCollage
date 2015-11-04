@@ -1,8 +1,8 @@
-package de.ateam;
+package test.java.de.ateam;
 
 import java.awt.image.BufferedImage;
 
-import de.ateam.utils.OpenCVUtils;
+import main.java.de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;

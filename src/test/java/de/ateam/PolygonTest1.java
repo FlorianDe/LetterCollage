@@ -1,4 +1,4 @@
-package de.ateam;
+package test.java.de.ateam;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

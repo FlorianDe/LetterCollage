@@ -1,4 +1,4 @@
-package de.ateam.utils;
+package main.java.de.ateam.utils;
 
 import java.io.File;
 import java.net.MalformedURLException;

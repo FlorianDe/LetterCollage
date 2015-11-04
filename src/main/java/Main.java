@@ -1,4 +1,4 @@
-package de.ateam;
+package main.java;
 
 public class Main {
 

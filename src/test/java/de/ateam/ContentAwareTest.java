@@ -1,8 +1,8 @@
-package de.ateam;
+package test.java.de.ateam;
 
-import de.ateam.utils.OSUtils;
-import de.ateam.utils.OpenCVUtils;
-import de.ateam.view.MainFrame;
+import main.java.de.ateam.utils.OSUtils;
+import main.java.de.ateam.utils.OpenCVUtils;
+import main.java.de.ateam.view.MainFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;

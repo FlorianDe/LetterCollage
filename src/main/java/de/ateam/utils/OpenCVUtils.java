@@ -1,4 +1,4 @@
-package de.ateam.utils;
+package main.java.de.ateam.utils;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;

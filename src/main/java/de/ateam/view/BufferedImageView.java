@@ -1,4 +1,4 @@
-package de.ateam.view;
+package main.java.de.ateam.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

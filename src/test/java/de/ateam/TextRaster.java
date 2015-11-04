@@ -1,6 +1,6 @@
-package de.ateam;
+package test.java.de.ateam;
 
-import de.ateam.utils.FontLoader;
+import main.java.de.ateam.utils.FontLoader;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
