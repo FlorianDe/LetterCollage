@@ -38,6 +38,24 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
         refreshList();
     }
 
+    public void setStyle(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        Color color1 = getBackground();
+        Color color2 = color1.darker().darker();
+        int w = getWidth();
+        int h = getHeight();
+        GradientPaint gp = new GradientPaint(
+                0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setStyle(g);
+    }
+
 
 
     //Könnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!

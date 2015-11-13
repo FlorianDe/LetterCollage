@@ -18,7 +18,9 @@ public class ShowImageListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.controller.getResultImageModel().setZoomFactor(1.0);
-		this.controller.getResultImageModel().setActualVisibleImage(this.clickedImage);
+		if(!this.clickedImage.equals(this.controller.getResultImageModel().getActualVisibleImage())) {
+			this.controller.getResultImageModel().setZoomFactor(1.0);
+			this.controller.getResultImageModel().setActualVisibleImage(this.clickedImage);
+		}
 	}
 }

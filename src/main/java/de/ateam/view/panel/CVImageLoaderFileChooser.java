@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.loadedImages.OpenFileChooserListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,7 @@ public class CVImageLoaderFileChooser extends JPanel{
 
 
         this.btnOpenFileChooser = new JButton("Load");
+        this.btnOpenFileChooser.addActionListener(new OpenFileChooserListener(this.controller));
 
 
 

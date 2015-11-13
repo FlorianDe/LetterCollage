@@ -30,6 +30,24 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.controller.getResultImageModel().addObserver(this);
     }
 
+    public void setStyle(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        Color color1 = getBackground();
+        Color color2 = color1.darker();
+        int w = getWidth();
+        int h = getHeight();
+        GradientPaint gp = new GradientPaint(
+                0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setStyle(g);
+    }
+
     public void createToolbar(){
         this.btnNew = (JButton) createToolbarButton(new JButton(), "img/New.gif");
         this.add(this.btnNew);

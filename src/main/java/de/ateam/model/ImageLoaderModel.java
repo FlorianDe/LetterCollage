@@ -42,4 +42,10 @@ public class ImageLoaderModel extends CstmObservable {
         this.setChanged();
         this.notifyObservers(null);
     }
+
+    public void addImage(BufferedImage img) {
+        this.loadedImages.add(img);
+        this.setChanged();
+        this.notifyObservers(null);
+    }
 }
