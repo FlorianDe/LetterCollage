@@ -2,24 +2,23 @@ package test.java.de.ateam;
 
 import main.java.de.ateam.utils.OSUtils;
 import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.view.MainFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
+import test.java.de.ateam.view.MainFrame;
 
 
 public class ContentAwareTest {
-	public static String horseCutted  = OSUtils.getResourcePathForOS("img/horsefenceCutted.png");
-	public static String horseMask  = OSUtils.getResourcePathForOS("img/horsefenceMask.png");
+	public static String horseCutted  = OSUtils.getResourcePathForOS("img/test/horsefenceCutted.png");
+	public static String horseMask  = OSUtils.getResourcePathForOS("img/test/horsefenceMask.png");
 	public static String savePath = System.getProperty("user.home") + "/Desktop" + "/horseInpainted.jpg";
 	
 	public static void main(String args[]) {
 		if(OpenCVUtils.loadLibrary(Core.NATIVE_LIBRARY_NAME)){
 			ContentAwareTest cat = new ContentAwareTest();
 			cat.contentAware(new MainFrame());
-			
 		}
 	}
 	

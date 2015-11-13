@@ -1,11 +1,11 @@
 package test.java.de.ateam;
 
-import java.awt.image.BufferedImage;
-
 import main.java.de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
+
+import java.awt.image.BufferedImage;
 
 public class Benchmarks {
 	

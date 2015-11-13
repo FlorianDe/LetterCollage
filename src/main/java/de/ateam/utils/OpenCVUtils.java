@@ -11,7 +11,7 @@ public class OpenCVUtils {
 	/**
 	 * Converts/writes a Mat into a BufferedImage.
 	 * 
-	 * @param matrix Mat of type CV_8UC3 or CV_8UC1
+	 * @param m Mat of type CV_8UC3 or CV_8UC1
 	 * @return BufferedImage of type TYPE_3BYTE_BGR or TYPE_BYTE_GRAY
 	 */
 	public static BufferedImage matToBufferedImage(Mat m) {
@@ -29,7 +29,9 @@ public class OpenCVUtils {
 
 		return image;
 	}
-	
+
+
+
 	public static boolean loadLibrary(String libraryName){
 		try {
 			System.loadLibrary(libraryName);

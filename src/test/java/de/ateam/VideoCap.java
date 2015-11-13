@@ -1,20 +1,15 @@
 package test.java.de.ateam;
 
-import javax.swing.JFrame;
-
 import main.java.de.ateam.utils.OSUtils;
 import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.view.MainFrame;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
+import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
+import test.java.de.ateam.view.MainFrame;
+
+import javax.swing.*;
 
 //FUNKTIONEN ANSCHAUEN:
 /*
@@ -25,9 +20,9 @@ import org.opencv.videoio.Videoio;
  */
 public class VideoCap extends JFrame {
 
-	//private static final String haarcascades_frontalface = "haarcascades/haarcascade_frontalface_default.xml";
-	private static final String haarcascades_frontalface = "haarcascades/haarcascade_frontalface_alt.xml";
-	private static final String haarcascades_eye = "haarcascades/haarcascade_eye.xml";
+	//private static final String haarcascades_frontalface = "opencv.haarcascades/haarcascade_frontalface_default.xml";
+	private static final String haarcascades_frontalface = "opencv/haarcascades/haarcascade_frontalface_alt.xml";
+	private static final String haarcascades_eye = "opencv/haarcascades/haarcascade_eye.xml";
 	private static final String path = System.getProperty("user.home") + "/Desktop" + "/camera.jpg";
 	boolean faceDetectionOn = true;
 	boolean eyeDetectionOn = true;

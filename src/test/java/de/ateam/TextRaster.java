@@ -2,13 +2,8 @@ package test.java.de.ateam;
 
 import main.java.de.ateam.utils.FontLoader;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
 import javax.swing.*;
+import java.awt.*;
 
 
 

@@ -1,12 +1,8 @@
-package main.java.de.ateam.view;
+package test.java.de.ateam.view;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JPanel;
 
 
 public class BufferedImageView extends JPanel{

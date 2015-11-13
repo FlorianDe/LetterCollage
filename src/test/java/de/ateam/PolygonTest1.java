@@ -1,21 +1,10 @@
 package test.java.de.ateam;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class PolygonTest1 extends JPanel{
 
@@ -49,7 +38,7 @@ public class PolygonTest1 extends JPanel{
     }
 
     public static void main(String[] args) {
-        JFrame f = new JFrame("Test");
+        JFrame f = new JFrame("ScrollTest");
         Component c = new PolygonTest1();
         f.getContentPane().add(c);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

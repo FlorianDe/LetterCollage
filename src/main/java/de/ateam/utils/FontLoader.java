@@ -14,6 +14,7 @@ public class FontLoader {
     private static TreeMap<String, Font> fonts;
 
     static {
+        //TODO Remove (Just for test purposes!)
         String fontsss[] = getFonts();
         for(String font: fontsss) {
             System.out.println(font);
