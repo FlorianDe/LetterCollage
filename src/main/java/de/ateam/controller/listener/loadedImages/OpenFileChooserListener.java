@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class OpenFileChooserListener implements ActionListener {
 	protected ICollageController controller;
@@ -25,19 +27,29 @@ public class OpenFileChooserListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		CVFileChooser cvfc = new CVFileChooser(this.controller);
 
+		//TODO CHECK IF FILE IN SUBPATH IS IMG FILE!!
 		int result = cvfc.showDialog(null, "Load");
 		switch (result) {
 			case JFileChooser.APPROVE_OPTION:
-				//TODO IMPLEMENT LOGIC HERE
 				BufferedImage buf = null;
-				for(File f : cvfc.getSelectedFiles()){
+				for(File f0 : cvfc.getSelectedFiles()){
 					try {
-						buf = ImageIO.read(f.toURI().toURL());
-						this.controller.getImageLoaderModel().addImage(buf);
+						if(f0.isFile()) {
+							buf = ImageIO.read(f0.toURI().toURL());
+							this.controller.getImageLoaderModel().addImage(buf);
+						}
+						else if(f0.isDirectory()){
+							for(File  f1 : f0.listFiles()){
+								if(f1.isFile()) {
+									buf = ImageIO.read(f1.toURI().toURL());
+									this.controller.getImageLoaderModel().addImage(buf);
+								}
+							}
+						}
 					} catch (MalformedURLException err) {
-						System.out.println("Wrong path for :" + f.getPath());
+						System.out.println("Wrong path for :" + f0.getPath());
 					} catch (IOException err) {
-						System.out.println("Cannot load:" + f.getPath());
+						System.out.println("Cannot load:" + f0.getPath());
 					}
 				}
 				break;
@@ -47,6 +59,17 @@ public class OpenFileChooserListener implements ActionListener {
 			case JFileChooser.ERROR_OPTION:
 				System.out.println("Error");
 				break;
+		}
+	}
+
+	//TODO IMPLEMENT LOGIC HERE ATM ONLY DEPTH 1...
+	private void walkThroughFileTree(String path){
+		try {
+			Files.walk(Paths.get(path))
+                    .filter(Files::isRegularFile)
+                    .forEach(System.out::println);
+		} catch (IOException e) {
+			System.out.println("Error in walkThroughFileTree");
 		}
 	}
 }

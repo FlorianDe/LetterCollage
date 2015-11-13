@@ -21,7 +21,7 @@ public class CVFileChooser extends JFileChooser {
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         this.setFileFilter(imageFilter);
         this.setMultiSelectionEnabled(true);
-        this.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        this.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
     }
 
 
