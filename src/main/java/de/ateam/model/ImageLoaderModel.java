@@ -1,6 +1,7 @@
 package main.java.de.ateam.model;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.FileLoader;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class ImageLoaderModel {
+public class ImageLoaderModel extends CstmObservable {
     private ArrayList<BufferedImage> loadedImages;
 
     public ImageLoaderModel(){
@@ -32,5 +33,13 @@ public class ImageLoaderModel {
 
     public void setLoadedImages(ArrayList<BufferedImage> loadedImages) {
         this.loadedImages = loadedImages;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public void removeImage(BufferedImage img){
+        this.loadedImages.remove(img);
+        this.setChanged();
+        this.notifyObservers(null);
     }
 }

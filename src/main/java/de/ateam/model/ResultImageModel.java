@@ -18,12 +18,14 @@ public class ResultImageModel extends CstmObservable {
     private MouseMode mouseMode;
     private double zoomFactor;
     private BufferedImage resultImage;
+    private BufferedImage actualVisibleImage;
     public Rectangle viewRect;
 
     public ResultImageModel(){
         mouseMode = MouseMode.DRAG;
         try {
             this.resultImage = ImageIO.read(FileLoader.loadFile("img/resultImage.png"));
+            this.actualVisibleImage = resultImage;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,8 +36,8 @@ public class ResultImageModel extends CstmObservable {
 
     public Dimension getRenderSize(){
         if(resultImage!=null)
-            return new Dimension((int)(this.getResultImage().getWidth() * this.getZoomFactor()),
-                                (int)(this.getResultImage().getHeight() * this.getZoomFactor()));
+            return new Dimension((int)(this.getActualVisibleImage().getWidth() * this.getZoomFactor()),
+                                (int)(this.getActualVisibleImage().getHeight() * this.getZoomFactor()));
         return new Dimension(0,0);
     }
 
@@ -70,6 +72,15 @@ public class ResultImageModel extends CstmObservable {
         this.viewRect = viewRect;
         this.setChanged();
         this.notifyObservers(null);
+    }
 
+    public BufferedImage getActualVisibleImage() {
+        return actualVisibleImage;
+    }
+
+    public void setActualVisibleImage(BufferedImage actualVisibleImage) {
+        this.actualVisibleImage = actualVisibleImage;
+        this.setChanged();
+        this.notifyObservers(null);
     }
 }

@@ -52,7 +52,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         }
 
 
-        g2d.drawImage(this.controller.getResultImageModel().getResultImage(),
+        g2d.drawImage(this.controller.getResultImageModel().getActualVisibleImage(),
                 0,0,
                 (int)this.controller.getResultImageModel().getRenderSize().getWidth(),
                 (int)this.controller.getResultImageModel().getRenderSize().getHeight(),
@@ -65,7 +65,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     @Override
     public Dimension getPreferredSize() {
         ResultImageModel m = this.controller.getResultImageModel();
-        if(m.getResultImage()==null)
+        if(m.getActualVisibleImage()==null)
             return new Dimension(0,0);
         return new Dimension(m.getRenderSize());
     }

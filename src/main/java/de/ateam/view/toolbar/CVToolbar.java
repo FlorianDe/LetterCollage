@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.loadedImages.ShowImageListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomInListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomOutListener;
 import main.java.de.ateam.utils.CstmObservable;
@@ -20,6 +21,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnOpen;
     private JButton btnZoomIn;
     private JButton btnZoomOut;
+    private JButton btnSetResultImage;
 
     ICollageController controller;
     public CVToolbar(ICollageController controller){
@@ -44,6 +46,10 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnZoomOut = (JButton) createToolbarButton(new JButton(), "img/ZoomOut.gif");
         this.btnZoomOut.addActionListener(new ZoomOutListener(this.controller));
         this.add(this.btnZoomOut);
+
+        this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImage.gif");
+        this.btnSetResultImage.addActionListener(new ShowImageListener(controller, controller.getResultImageModel().getResultImage()));
+        this.add(this.btnSetResultImage);
     }
 
     public AbstractButton createToolbarButton(AbstractButton btn, String filePath){

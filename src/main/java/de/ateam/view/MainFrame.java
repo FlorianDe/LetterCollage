@@ -44,7 +44,8 @@ public class MainFrame extends JFrame {
         this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, loadedImagesScrollPane, resultImageScrollPane);;
 
         this.splitPane.setOneTouchExpandable(true);
-        this.splitPane.setDividerLocation(100);
+        //TODO Anpassen mit getPrefSize dies das
+        this.splitPane.setDividerLocation(250);
 
 
         /*
