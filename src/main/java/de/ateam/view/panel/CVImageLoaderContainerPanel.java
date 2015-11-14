@@ -62,7 +62,9 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
     public void refreshList(){
         this.imageContainer.removeAll();
         for(BufferedImage buf : this.controller.getImageLoaderModel().getLoadedImages()){
-            this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
+            if(buf!=null) {
+                this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
+            }
         }
     }
 
