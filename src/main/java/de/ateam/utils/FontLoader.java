@@ -32,7 +32,7 @@ public class FontLoader {
         return font;
     }
 
-    private static String[] getFonts() {
+    public static String[] getFonts() {
         String[] systemFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fonts = new TreeMap<>();
         String path = OSUtils.getResourcePathForOS("fonts");

@@ -3,6 +3,7 @@ package main.java.de.ateam.utils;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 public class OpenCVUtils {
@@ -30,6 +31,55 @@ public class OpenCVUtils {
 		return image;
 	}
 
+	public static Mat bufferedImageToMat2(BufferedImage img) {
+        Mat out;
+        byte[] data;
+        int r, g, b, width = img.getWidth(), height = img.getHeight();
+
+        if(img.getType() == BufferedImage.TYPE_INT_RGB)
+        {
+            out = new Mat(height, width, CvType.CV_8UC3);
+            data = new byte[width * height * (int)out.elemSize()];
+            int[] dataBuff = img.getRGB(0, 0, width, height, null, 0, width);
+            for(int i = 0; i < dataBuff.length; i++)
+            {
+                data[i*3] = (byte) ((dataBuff[i] >> 16) & 0xFF);
+                data[i*3 + 1] = (byte) ((dataBuff[i] >> 8) & 0xFF);
+                data[i*3 + 2] = (byte) ((dataBuff[i] >> 0) & 0xFF);
+            }
+        }
+        else
+        {
+            out = new Mat(height, width, CvType.CV_8UC1);
+            data = new byte[width * height * (int)out.elemSize()];
+            int[] dataBuff = img.getRGB(0, 0, width, height, null, 0, width);
+            for(int i = 0; i < dataBuff.length; i++)
+            {
+                r = (byte) ((dataBuff[i] >> 16) & 0xFF);
+                g = (byte) ((dataBuff[i] >> 8) & 0xFF);
+                b = (byte) ((dataBuff[i] >> 0) & 0xFF);
+                data[i] = (byte)((0.21 * r) + (0.71 * g) + (0.07 * b)); //luminosity
+            }
+        }
+        out.put(0, 0, data);
+        return out;
+	}
+
+
+    // Convert image to Mat
+    public static Mat bufferedImageToMat(BufferedImage im) {
+        // Convert INT to BYTE
+        // im = new BufferedImage(im.getWidth(), im.getHeight(),BufferedImage.TYPE_3BYTE_BGR);
+        // Convert bufferedimage to byte array
+        byte[] pixels = ((DataBufferByte) im.getRaster().getDataBuffer()).getData();
+
+        // Create a Matrix the same size of image
+        Mat image = new Mat(im.getHeight(), im.getWidth(), CvType.CV_8UC3);
+        // Fill Matrix with image values
+        image.put(0, 0, pixels);
+
+        return image;
+    }
 
 
 	public static boolean loadLibrary(String libraryName){
@@ -41,6 +91,7 @@ public class OpenCVUtils {
 			sb.append("To change it in Eclipse:\n");
 			sb.append("Build path\n\t-> Configure Build path...\n\t\t-> Libraries\n\t\t\t-> Click on 'OpenCV'\n\t\t\t\t-> Native library location\n\t\t\t\t\t-> Edit... \n");
 			System.err.println(sb.toString());
+            e.printStackTrace();
 			return false;
 		}
 		return true;

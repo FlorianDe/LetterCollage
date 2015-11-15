@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowImageListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomInListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomOutListener;
@@ -22,6 +23,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnZoomIn;
     private JButton btnZoomOut;
     private JButton btnSetResultImage;
+    private JComboBox cbxFonts;
 
     ICollageController controller;
     public CVToolbar(ICollageController controller){
@@ -68,6 +70,11 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImage.gif");
         this.btnSetResultImage.addActionListener(new ShowImageListener(controller, controller.getResultImageModel().getResultImage()));
         this.add(this.btnSetResultImage);
+
+        String[] fonts = this.controller.getCollageModel().getAllFonts();
+        this.cbxFonts = new JComboBox(fonts);
+        this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));
+        this.add(cbxFonts);
     }
 
     public AbstractButton createToolbarButton(AbstractButton btn, String filePath){
