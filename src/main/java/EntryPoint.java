@@ -10,7 +10,7 @@ import org.opencv.core.Core;
 
 public class EntryPoint {
     public static void main(String[] args) {
-        OpenCVUtils.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        //OpenCVUtils.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
         new EntryPoint().startGUI();
     }
