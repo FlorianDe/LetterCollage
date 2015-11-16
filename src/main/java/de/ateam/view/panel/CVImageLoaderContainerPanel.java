@@ -33,8 +33,8 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
         this.add(this.imageLoaderFileChooser, BorderLayout.NORTH);
         this.add(this.imageContainer, BorderLayout.CENTER);
 
-        this.controller.getImageLoaderModel().addObserver(this);
-
+        //this.controller.getImageLoaderModel().addObserver(this);
+        this.controller.getCollageModel().addObserver(this);
         refreshList();
     }
 
@@ -58,10 +58,17 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
 
 
 
-    //Könnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!
+    //Kï¿½nnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!
     public void refreshList(){
         this.imageContainer.removeAll();
+        /*
         for(BufferedImage buf : this.controller.getImageLoaderModel().getLoadedImages()){
+            if(buf!=null) {
+                this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
+            }
+        }
+        */
+        for(BufferedImage buf : this.controller.getCollageModel().getLoadedImages()){
             if(buf!=null) {
                 this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
             }

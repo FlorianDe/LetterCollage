@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Created by viktorspadi on 15.11.15.
  */
 public class LetterCollection implements Serializable{
-    private static final int LETTER_SIZE = 250;
+    private static final int LETTER_SIZE = 150;
     public static final int SAMPLER_SIZE = 30;
     private HashMap<Character, Letter> letterMap;
     private FontMetrics metrics;
@@ -83,26 +83,28 @@ public class LetterCollection implements Serializable{
     }
 
     public BufferedImage drawBufFromString(String str){
+        int maxWidth = 0;
         int width = 0;
         int maxHeight = 0;
         int height = 0;
         for(int i = 0; i < str.length(); i++){
-            Letter let = getLetter(str.charAt(i));
-            width+= let.getWidth()+let.getHeight()/25;
-            maxHeight = (maxHeight<let.getHeight())?let.getHeight():maxHeight;
             if(str.charAt(i) == '\n') {
                 if(height == 0)
                     height = maxHeight;
                 height += maxHeight;
+                width = 0;
             }
-
+            Letter let = getLetter(str.charAt(i));
+            width+= let.getWidth()+let.getHeight()/25;
+            maxWidth = (width > maxWidth)?width:maxWidth;
+            maxHeight = (maxHeight<let.getHeight())?let.getHeight():maxHeight;
         }
         if(height == 0)
             height = maxHeight;
-        BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+        BufferedImage buf = new BufferedImage(maxWidth, height, BufferedImage.TYPE_3BYTE_BGR);
 
         Graphics2D g2d = buf.createGraphics();
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, buf.getWidth(), buf.getHeight());
 
         // TODO hab hier jez mal fix zeilenumbruch reingebaut...hier willste ja nur die maske zurückgeben wenn ich das

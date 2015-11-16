@@ -38,12 +38,14 @@ public class OpenFileChooserListener implements ActionListener {
 						if(f0.isFile()) {
 							buf = ImageIO.read(f0.toURI().toURL());
 							this.controller.getImageLoaderModel().addImage(buf);
+							this.controller.getCollageModel().getROICollection().addImage(buf); // TODO achtung hier nur testweise
 						}
 						else if(f0.isDirectory()){
 							for(File  f1 : f0.listFiles()){
 								if(f1.isFile() && imageFileSuffixFilter(f1.toPath())) {
 									buf = ImageIO.read(f1.toURI().toURL());
 									this.controller.getImageLoaderModel().addImage(buf);
+                                    this.controller.getCollageModel().getROICollection().addImage(buf); // TODO achtung hier nur testweise
 								}
 							}
 						}
@@ -82,7 +84,8 @@ public class OpenFileChooserListener implements ActionListener {
 			if(fPath.isFile()) {
 				BufferedImage buf = ImageIO.read(fPath.toURI().toURL());
 				this.controller.getImageLoaderModel().addImage(buf);
-			}
+                this.controller.getCollageModel().getROICollection().addImage(buf); // TODO achtung hier nur testweise
+            }
 		} catch (MalformedURLException err) {
 			System.out.println("Wrong path for :" + fPath.getPath());
 		} catch (IOException err) {

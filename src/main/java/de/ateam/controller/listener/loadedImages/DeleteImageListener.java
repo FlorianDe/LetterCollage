@@ -12,7 +12,6 @@ public class DeleteImageListener implements ActionListener {
 	BufferedImage clickedImage;
 
 	public DeleteImageListener(ICollageController controller, BufferedImage clickedImage) {
-
 		this.controller = controller;
 		this.clickedImage = clickedImage;
 	}

@@ -20,7 +20,7 @@ public class FontSelectionChangedListener implements ItemListener {
 		if(e.getStateChange() == ItemEvent.SELECTED) {
 			this.controller.getCollageModel().loadFont((String) e.getItem());
 			// Todo Möglicher Weise noch umbrüche betrachten ?
-			this.controller.getImageLoaderModel().addImage(this.controller.getCollageModel().getLetterCollection().drawBufFromString("Florian stinkt \nnach pups!\nUnd zwar zieml doll...\nJAAA"));
+			this.controller.getImageLoaderModel().addImage(this.controller.getCollageModel().getLetterCollection().drawBufFromString("Hallo Welt!\ntest"));
 			this.controller.getResultImageModel().setActualVisibleImage(this.controller.getImageLoaderModel().getLastAddedImage());
 		}
 	}

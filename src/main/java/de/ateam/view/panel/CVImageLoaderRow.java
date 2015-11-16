@@ -3,6 +3,8 @@ package main.java.de.ateam.view.panel;
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.loadedImages.DeleteImageListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowImageListener;
+import main.java.de.ateam.controller.listener.loadedImages.ShowROIImageListener;
+import main.java.de.ateam.model.roi.RegionOfInterest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +37,9 @@ public class CVImageLoaderRow extends JPanel {
         btnImage.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
         btnImage.setOpaque(false);
         btnImage.setBackground(Color.WHITE);
-        btnImage.addActionListener(new ShowImageListener(this.controller, img));
+
+        btnImage.addActionListener(new ShowROIImageListener(this.controller, img));
+        //btnImage.addActionListener(new ShowImageListener(this.controller, img));
 
         this.add(btnImage);
 
