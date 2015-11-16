@@ -19,9 +19,8 @@ public class FontSelectionChangedListener implements ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getStateChange() == ItemEvent.SELECTED) {
 			this.controller.getCollageModel().loadFont((String) e.getItem());
-			String text = "Viktor stinkt nach pups!";
-			this.controller.getImageLoaderModel().addImage(this.controller.getCollageModel().getLetterCollection().drawBufFromString(text));
-
+			this.controller.getImageLoaderModel().addImage(this.controller.getCollageModel().getLetterCollection().drawBufFromString("Viktor stinkt nach pups!"));
+			this.controller.getResultImageModel().setActualVisibleImage(this.controller.getImageLoaderModel().getLastAddedImage());
 		}
 	}
 }

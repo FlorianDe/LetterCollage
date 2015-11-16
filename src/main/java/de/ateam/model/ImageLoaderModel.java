@@ -48,4 +48,11 @@ public class ImageLoaderModel extends CstmObservable {
         this.setChanged();
         this.notifyObservers(null);
     }
+
+    public BufferedImage getLastAddedImage(){
+        if(loadedImages!= null && loadedImages.size() > 0){
+            return loadedImages.get(loadedImages.size()-1);
+        }
+        return null;
+    }
 }

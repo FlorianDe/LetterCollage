@@ -11,8 +11,8 @@ import java.io.Serializable;
 /**
  * Created by viktorspadi on 15.11.15.
  */
-public class Letter implements Serializable{
-    private transient Mat letterMask;
+public class Letter{
+    private Mat letterMask;
     private int width;
     private int height;
     private char symbol;
@@ -24,7 +24,7 @@ public class Letter implements Serializable{
         init(map);
     }
 
-    public void init(BufferedImage map) {
+    private void init(BufferedImage map) {
         this.letterMask = OpenCVUtils.bufferedImageToMat(map);
         Imgproc.cvtColor(this.letterMask, this.letterMask, Imgproc.COLOR_BGR2GRAY);
     }

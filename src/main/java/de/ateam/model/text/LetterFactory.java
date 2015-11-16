@@ -9,19 +9,25 @@ import java.util.HashMap;
 /**
  * Created by viktorspadi on 15.11.15.
  */
-public class LetterFactory {
+public abstract class LetterFactory {
+    private static HashMap<String, LetterCollection> fontCollection;
+    private static String lastSelectedFont = null;
 
-    public LetterFactory() {
-
+    static{
+        init();
     }
 
-    public static Font getFont(String name) {
-        return FontLoader.getFont(name);
+    public static void init(){
+        fontCollection = new HashMap<>();
     }
 
-    public LetterCollection loadFont(String font) {
-        LetterCollection collection = new LetterCollection(FontLoader.getFont(font));
+    public static LetterCollection getCollection(String fontName) {
+        lastSelectedFont = fontName;
+        if(fontCollection.containsKey(fontName)){
+            return fontCollection.get(fontName);
+        }
+        LetterCollection collection = new LetterCollection(FontLoader.getFont(fontName));
+        LetterFactory.fontCollection.put(fontName, collection);
         return collection;
     }
-
 }

@@ -8,6 +8,7 @@ import main.java.de.ateam.controller.listener.resultImage.ZoomOutListener;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
 import main.java.de.ateam.utils.FileLoader;
+import main.java.de.ateam.utils.FontLoader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -71,8 +72,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnSetResultImage.addActionListener(new ShowImageListener(controller, controller.getResultImageModel().getResultImage()));
         this.add(this.btnSetResultImage);
 
-        String[] fonts = this.controller.getCollageModel().getAllFonts();
-        this.cbxFonts = new JComboBox(fonts);
+        this.cbxFonts = new JComboBox(FontLoader.getFonts());
         this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));
         this.add(cbxFonts);
     }
