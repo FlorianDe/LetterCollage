@@ -9,4 +9,4 @@
 # out folder needed for debugging/running
 out/**
 # Local IntelliJ Files
-.idea/workspace.xml
+/.idea/workspace.xml
