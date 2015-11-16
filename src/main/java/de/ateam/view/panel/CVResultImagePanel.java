@@ -17,10 +17,19 @@ import java.awt.image.BufferedImage;
 public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollable {
     private final Cursor defaultCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     private final Cursor handCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+    private RenderingHints renderingHints;
 
     ICollageController controller;
 
     public CVResultImagePanel(ICollageController controller){
+        // MASSIVE speed improvement
+        renderingHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        renderingHints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        renderingHints.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        renderingHints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);
 
@@ -38,12 +47,8 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        rh.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        rh.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        rh.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g2d.setRenderingHints(rh);
+
+        g2d.setRenderingHints(renderingHints);
 
         if(this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.DRAG) {
             this.setCursor(handCursor);

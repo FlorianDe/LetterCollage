@@ -13,7 +13,8 @@ import java.util.HashMap;
  * Created by viktorspadi on 15.11.15.
  */
 public class LetterCollection implements Serializable{
-    private static final int LETTER_SIZE = 50;
+    private static final int LETTER_SIZE = 250;
+    public static final int SAMPLER_SIZE = 30;
     private HashMap<Character, Letter> letterMap;
     private FontMetrics metrics;
     private Graphics2D g2d;
@@ -49,13 +50,21 @@ public class LetterCollection implements Serializable{
         if((metrics.getMaxAscent()+metrics.getDescent())>=metrics.getHeight()){
             lineAsc = metrics.getHeight();
         }
-        System.out.printf("metrics.getAscent():%s\n, metrics.getDescent():%s\n, metrics.getHeight():%s\n, metrics.getLeading():%s\n, metrics.getMaxAscent():%s\n, metrics.getMaxDescent():%s\n", metrics.getAscent(), metrics.getDescent(), metrics.getHeight(), metrics.getLeading(), metrics.getMaxAscent(), metrics.getMaxDescent());
+        //System.out.printf("metrics.getAscent():%s\n, metrics.getDescent():%s\n, metrics.getHeight():%s\n, metrics.getLeading():%s\n, metrics.getMaxAscent():%s\n, metrics.getMaxDescent():%s\n", metrics.getAscent(), metrics.getDescent(), metrics.getHeight(), metrics.getLeading(), metrics.getMaxAscent(), metrics.getMaxDescent());
 
 
         //Das ist eigtl der rechenaufwändigste Part neben dem Algo später, dies sollte serialized werden ggfs. braucht für 72Buchstaben beim ersten Mal iwie lange, danach 50ms :D!!!!
         for(char c: characters) {
-            BufferedImage tempBuf = new BufferedImage(this.metrics.charWidth(c), lineAsc, BufferedImage.TYPE_3BYTE_BGR);
+            // Workaround weil scheinbar unter linux viele schriften einfach 0 bei charWidth zurückgeben... Aber durch das croppen kommen dennoch verwertbare schrifen raus
+            int width = this.metrics.charWidth(c);
+            if(width == 0){
+                width = height;
+            }
+            BufferedImage tempBuf = new BufferedImage(width, lineAsc, BufferedImage.TYPE_3BYTE_BGR);
             g2d = tempBuf.createGraphics();
+            g2d.setRenderingHint(
+                    RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
             g2d.setFont(this.font);
             g2d.setColor(Color.WHITE);
             g2d.drawString(c+"", 0, lineAsc - lineDesc);
