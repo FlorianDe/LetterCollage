@@ -76,22 +76,41 @@ public class LetterCollection implements Serializable{
     public BufferedImage drawBufFromString(String str){
         int width = 0;
         int maxHeight = 0;
+        int height = 0;
         for(int i = 0; i < str.length(); i++){
             Letter let = getLetter(str.charAt(i));
             width+= let.getWidth()+let.getHeight()/25;
             maxHeight = (maxHeight<let.getHeight())?let.getHeight():maxHeight;
+            if(str.charAt(i) == '\n') {
+                if(height == 0)
+                    height = maxHeight;
+                height += maxHeight;
+            }
+
         }
-        BufferedImage buf = new BufferedImage(width, maxHeight, BufferedImage.TYPE_3BYTE_BGR);
+        if(height == 0)
+            height = maxHeight;
+        BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 
         Graphics2D g2d = buf.createGraphics();
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, buf.getWidth(), buf.getHeight());
 
-        int widhtOffset = 0;
+        // TODO hab hier jez mal fix zeilenumbruch reingebaut...hier willste ja nur die maske zurückgeben wenn ich das
+        // richtig verstanden habe. Da müsste man noch gucken, wenn man ne center prop hat, dass man oben berechnet wie weit für die jeweilige
+        // line der initiale offset wert sein soll, damit man so schöne blöcke hat wie bei word beim zentrieren von Text. Huii
+        int widthOffset = 0;
+        int heightOffset = 0;
         for (int i = 0; i < str.length(); i++) {
             Letter let = getLetter(str.charAt(i));
-            g2d.drawImage(OpenCVUtils.matToBufferedImage(let.getLetterMask()), widhtOffset, 0, null);
-            widhtOffset += let.getWidth() + (let.getHeight()/25);
+            if(str.charAt(i) == '\n') {
+                heightOffset += maxHeight;
+                widthOffset = 0;
+            }
+            else {
+                g2d.drawImage(OpenCVUtils.matToBufferedImage(let.getLetterMask()), widthOffset, heightOffset, null);
+                widthOffset += let.getWidth() + (let.getHeight() / 25);
+            }
         }
 
         return buf;
