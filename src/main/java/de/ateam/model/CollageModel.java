@@ -1,5 +1,6 @@
 package main.java.de.ateam.model;
 
+import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.model.text.Letter;
 import main.java.de.ateam.model.text.LetterCollection;
 import main.java.de.ateam.model.text.LetterFactory;

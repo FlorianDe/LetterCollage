@@ -1,5 +1,6 @@
 package main.java.de.ateam.model.text;
 
+import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.utils.FontLoader;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.util.HashMap;
  * Created by viktorspadi on 15.11.15.
  */
 public class LetterFactory {
+
     public LetterFactory() {
 
     }

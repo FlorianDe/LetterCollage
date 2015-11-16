@@ -2,6 +2,7 @@ package main.java.de.ateam.utils;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.IOException;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -86,13 +87,17 @@ public class OpenCVUtils {
 		try {
 			System.loadLibrary(libraryName);
 		} catch (UnsatisfiedLinkError e) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(String.format("Wrong native %s library selected:\n", libraryName));
-			sb.append("To change it in Eclipse:\n");
-			sb.append("Build path\n\t-> Configure Build path...\n\t\t-> Libraries\n\t\t\t-> Click on 'OpenCV'\n\t\t\t\t-> Native library location\n\t\t\t\t\t-> Edit... \n");
-			System.err.println(sb.toString());
-            e.printStackTrace();
-			return false;
+            try {
+                NativeUtils.loadLibraryFromJar("/opencv3/win/x64/opencv_java300.dll"); // during runtime. .DLL within .JAR
+            } catch (IOException e1) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(String.format("Wrong native %s library selected:\n", libraryName));
+                sb.append("To change it in Eclipse:\n");
+                sb.append("Build path\n\t-> Configure Build path...\n\t\t-> Libraries\n\t\t\t-> Click on 'OpenCV'\n\t\t\t\t-> Native library location\n\t\t\t\t\t-> Edit... \n");
+                System.err.println(sb.toString());
+                e.printStackTrace();
+                return false;
+            }
 		}
 		return true;
 	}

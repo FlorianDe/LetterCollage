@@ -32,4 +32,16 @@ public class Letter implements Serializable{
     public char getSymbol() {
         return symbol;
     }
+
+    public Mat getLetterMask() {
+        return letterMask;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

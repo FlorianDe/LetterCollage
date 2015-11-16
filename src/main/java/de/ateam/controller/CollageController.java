@@ -29,10 +29,25 @@ public class CollageController implements ICollageController{
         return collageModel;
     }
 
+    public CollageController(){
+
+    }
 
     public CollageController(ResultImageModel resultImageModel, ImageLoaderModel imageLoaderModel, CollageModel collageModel){
         this.resultImageModel = resultImageModel;
         this.imageLoaderModel = imageLoaderModel;
+        this.collageModel = collageModel;
+    }
+
+    public void setResultImageModel(ResultImageModel resultImageModel) {
+        this.resultImageModel = resultImageModel;
+    }
+
+    public void setImageLoaderModel(ImageLoaderModel imageLoaderModel) {
+        this.imageLoaderModel = imageLoaderModel;
+    }
+
+    public void setCollageModel(CollageModel collageModel) {
         this.collageModel = collageModel;
     }
 }
