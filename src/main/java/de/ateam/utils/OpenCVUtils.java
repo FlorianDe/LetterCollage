@@ -32,7 +32,7 @@ public class OpenCVUtils {
 		return image;
 	}
 
-	public static Mat bufferedImageToMat(BufferedImage img) {
+	public static Mat bufferedImageToMat2(BufferedImage img) {
         Mat out;
         byte[] data;
         int r, g, b, width = img.getWidth(), height = img.getHeight();
@@ -67,8 +67,8 @@ public class OpenCVUtils {
 	}
 
     //LIEBER NICHT VERWERDEN, DIE ANDERE DROPPT KEINE ERRORS!!!!
-    /*
-    public static Mat bufferedImageToMat2(BufferedImage im) {
+    ///*
+    public static Mat bufferedImageToMat(BufferedImage im) {
         // Convert INT to BYTE
         // im = new BufferedImage(im.getWidth(), im.getHeight(),BufferedImage.TYPE_3BYTE_BGR);
         // Convert bufferedimage to byte array
@@ -81,7 +81,7 @@ public class OpenCVUtils {
 
         return image;
     }
-    */
+    //*/
 
 
 	public static boolean loadLibrary(String libraryName){

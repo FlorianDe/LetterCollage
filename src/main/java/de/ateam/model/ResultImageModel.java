@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class ResultImageModel extends CstmObservable {
     public enum MouseMode{
-        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT;
+        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT, SIMILAR_SELECT;
     }
     private MouseMode mouseMode;
     private double zoomFactor;

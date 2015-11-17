@@ -61,7 +61,7 @@ public class MouseAdapterListener extends MouseAdapter {
             this.controller.getResultImageModel().setActualDrawnRoi(null);
         }
         else if(isSetWeightMode(e)){
-            //TODO evtl für alle rois einbaun
+            //TODO evtl fï¿½r alle rois einbaun
             ArrayList<RegionOfInterest> rois = this.controller.getResultImageModel().getActualVisibleRoiImage().getIntersectingRegionOfInterests(this.controller.getResultImageModel().getRealCoordinates(pReleased));
             if(rois.size()>0){
                 SwingUtilities.convertPointToScreen(pReleased, this.controller.getCollageView().getResultImagePanel());
@@ -76,6 +76,10 @@ public class MouseAdapterListener extends MouseAdapter {
                 });
                 srwd.setVisible(true);
             }
+        }
+        else if(isSelectSimilarMode(e)) {
+            Rectangle r =  this.controller.getResultImageModel().getRealCoordinates(new Rectangle(pPressed));
+            this.controller.getRoiController().similarDetection(this.controller.getResultImageModel().getActualVisibleRoiImage(), pPressed.getLocation());
         }
 
         this.controller.getResultImageModel().setMouseMode(this.lastMouseMode);
@@ -137,4 +141,9 @@ public class MouseAdapterListener extends MouseAdapter {
     public boolean isSetWeightMode(MouseEvent e){
         return (this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.SETWEIGHT);
     }
+
+    private boolean isSelectSimilarMode(MouseEvent e) {
+        return (this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.SIMILAR_SELECT);
+    }
+
 }

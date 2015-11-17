@@ -18,6 +18,7 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
     JMenu subMenuMouseMode;
     JMenuItem menuItemMouseModeDrag;
     JMenuItem menuItemMouseModePaint;
+    JMenuItem menuItemMouseModeSimilarSelect;
     JMenuItem menuItemMouseModeErase;
     JMenuItem menuItemMouseModeDefault;
     JMenuItem menuItemMouseModeZoomIn;
@@ -27,7 +28,7 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
     ICollageController controller;
 
 
-    //Könnte man auch dynamischer über die Enum Liste machen....
+    //Kï¿½nnte man auch dynamischer ï¿½ber die Enum Liste machen....
     public CVMenuImageManipulation(String name, ICollageController controller){
         super(name);
         this.controller = controller;
@@ -47,6 +48,10 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
 
         this.menuItemMouseModePaint = this.jme.createJMenuItem(new JMenuItem("Paint"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModePaint.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.PAINT));
+
+        this.menuItemMouseModeSimilarSelect = this.jme.createJMenuItem(new JMenuItem("Select Similar"), 'E', "STRING_DESCRIPTION", this.subMenuMouseMode);
+        this.menuItemMouseModeSimilarSelect.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.SIMILAR_SELECT));
+
 
         this.menuItemMouseModeErase = this.jme.createJMenuItem(new JMenuItem("Erase"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeErase.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ERASE));

@@ -25,9 +25,9 @@ public class RoiModel extends CstmObservable{
 
         //TODO JUST FOR DEVELOPING!
         try {
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/1.jpg")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/2.gif")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/3.gif")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/slide1.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/people2.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/people.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

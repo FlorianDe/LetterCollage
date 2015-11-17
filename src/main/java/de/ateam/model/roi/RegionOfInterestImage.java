@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -85,9 +86,6 @@ public class RegionOfInterestImage{
 
     // weitere funktionen könnten hier stehen um bsp selektion zu erweitern
     public Rectangle findRegionBySimilarity(Point point) {
-        // klickste aufn punkt sucht er von dort aus mit schwellenwert in der umgebung die ähnlichen pixel
-        // und macht aus den bounds ne region / woher schwellenwert? entweder in parameter oder in ne klasse reinpacken
-
         repaintRoiImage();
         return null;
     }
