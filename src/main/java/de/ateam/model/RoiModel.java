@@ -17,13 +17,14 @@ import java.util.ArrayList;
  */
 public class RoiModel extends CstmObservable{
 
+    private String inputText;
     private LetterCollection letterCollection;
     private RegionOfInterestImageCollection roiImageCollection;
 
     public RoiModel() {
         this.roiImageCollection = new RegionOfInterestImageCollection();
-
         //TODO JUST FOR DEVELOPING!
+        this.inputText = "A-Team B";
         try {
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/slide1.jpg")));
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/people2.jpg")));
@@ -60,5 +61,13 @@ public class RoiModel extends CstmObservable{
         if(this.roiImageCollection.isArrangeable()) {
             this.roiImageCollection.arrangeImages();
         }
+    }
+
+    public String getInputText() {
+        return inputText;
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
     }
 }

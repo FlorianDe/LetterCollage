@@ -24,6 +24,7 @@ public class ResultImageModel extends CstmObservable {
     private Rectangle actualDrawnRoi;
     private Color actualDrawColor;
 
+
     public ResultImageModel(){
         mouseMode = MouseMode.SETWEIGHT;
         try {

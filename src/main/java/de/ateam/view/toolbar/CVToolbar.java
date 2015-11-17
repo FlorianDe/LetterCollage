@@ -2,6 +2,7 @@ package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
+import main.java.de.ateam.controller.listener.collage.InputTextChangedListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
 import main.java.de.ateam.controller.listener.resultImage.FaceDetectionListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomInListener;
@@ -26,6 +27,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnZoomOut;
     private JButton btnSetResultImage;
     private JButton btnFaceDetection;
+    private JTextField tfText;
     private JComboBox cbxFonts;
 
     ICollageController controller;
@@ -77,6 +79,10 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnFaceDetection = (JButton) createToolbarButton(new JButton(), "img/FaceDetection.gif");
         this.btnFaceDetection.addActionListener(new FaceDetectionListener(controller));
         this.add(this.btnFaceDetection);
+
+        this.tfText = new JTextField(this.controller.getRoiModel().getInputText());
+        this.tfText.getDocument().addDocumentListener(new InputTextChangedListener(controller));
+        this.add(this.tfText);
 
         this.cbxFonts = new JComboBox(FontLoader.getFonts());
         this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));
