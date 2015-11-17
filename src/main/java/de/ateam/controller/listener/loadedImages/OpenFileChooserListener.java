@@ -36,14 +36,12 @@ public class OpenFileChooserListener implements ActionListener {
 						if(f0.isFile()) {
 							buf = ImageIO.read(f0.toURI().toURL());
 							this.controller.getRoiModel().getRoiCollection().addImage(new RegionOfInterestImage(buf));
-							this.controller.getRoiModel().getRoiCollection().addImage(buf); // TODO achtung hier nur testweise
 						}
 						else if(f0.isDirectory()){
 							for(File  f1 : f0.listFiles()){
 								if(f1.isFile() && imageFileSuffixFilter(f1.toPath())) {
 									buf = ImageIO.read(f1.toURI().toURL());
 									this.controller.getRoiModel().getRoiCollection().addImage(new RegionOfInterestImage(buf));
-                                    this.controller.getRoiModel().getRoiCollection().addImage(buf); // TODO achtung hier nur testweise
 								}
 							}
 						}

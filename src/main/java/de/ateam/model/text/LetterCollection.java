@@ -1,5 +1,6 @@
 package main.java.de.ateam.model.text;
 
+import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.OpenCVUtils;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by viktorspadi on 15.11.15.
  */
-public class LetterCollection implements Serializable{
+public class LetterCollection extends CstmObservable{
     private static final int LETTER_SIZE = 150;
     public static final int SAMPLER_SIZE = 30;
     private HashMap<Character, Letter> letterMap;
@@ -104,7 +105,7 @@ public class LetterCollection implements Serializable{
         BufferedImage buf = new BufferedImage(maxWidth, height, BufferedImage.TYPE_3BYTE_BGR);
 
         Graphics2D g2d = buf.createGraphics();
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, buf.getWidth(), buf.getHeight());
 
         // TODO hab hier jez mal fix zeilenumbruch reingebaut...hier willste ja nur die maske zurückgeben wenn ich das

@@ -18,7 +18,7 @@ public class FontSelectionChangedListener implements ItemListener {
 		if(e.getStateChange() == ItemEvent.SELECTED) {
 			this.controller.getRoiModel().loadFont((String) e.getItem());
 			// Todo Möglicher Weise noch umbrüche betrachten ?
-			this.controller.getRoiModel().getRoiCollection().addImage(this.controller.getRoiModel().getLetterCollection().drawBufFromString("Hallo Welt!\ntest"));
+			this.controller.getRoiModel().getRoiCollection().addImage(this.controller.getRoiModel().getLetterCollection().drawBufFromString(this.controller.getRoiModel().getInputText()));
 			this.controller.getResultImageModel().setActualVisibleRoiImage(this.controller.getRoiModel().getRoiCollection().getLastAddedImage());
 		}
 	}
