@@ -1,5 +1,7 @@
 package main.java.de.ateam.model.roi;
 
+import main.java.de.ateam.utils.CstmObservable;
+
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
@@ -11,7 +13,7 @@ import java.util.Iterator;
 /**
  * Created by vspadi on 16.11.15.
  */
-public class RegionOfInterestImage {
+public class RegionOfInterestImage{
 
     private BufferedImage normalImage;
     private BufferedImage roiImage;
@@ -36,10 +38,14 @@ public class RegionOfInterestImage {
         repaintRoiImage();
     }
 
-    public void addRegionOfInterest(Rectangle rect) {
+    public void addRegionOfInterest(Rectangle rect, Color color) {
         // hier hab ich mir gedacht könnte man noch von extern regions einfügen /klick drag area markieren?
-        rois.add(new RegionOfInterest(rect));
+        rois.add(new RegionOfInterest(rect, color));
         repaintRoiImage();
+    }
+
+    public void addRegionOfInterest(Rectangle rect) {
+        this.addRegionOfInterest(rect, RegionOfInterest.DEFAULT_COLOR);
     }
 
     public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Point point) {
@@ -87,12 +93,15 @@ public class RegionOfInterestImage {
     }
 
     //TODO SOLLTE ER EIGTL NICHT TUN, SELBER ZEICHNEN :/!
-    private void repaintRoiImage() {
+    public void repaintRoiImage() {
+        int strokeThickness = 3;
+        int fontConstHeight = 10;
         this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
-        this.g2dRoiImage.setStroke(new BasicStroke(3));
-        this.g2dRoiImage.setColor(Color.RED);
+        this.g2dRoiImage.setStroke(new BasicStroke(strokeThickness));
         for(RegionOfInterest roi : rois){
+            this.g2dRoiImage.setColor(roi.getColor());
             Rectangle2D r = roi.getShape().getBounds2D();
+            this.g2dRoiImage.drawString(roi.getWeighting()+"",(int)r.getX()+strokeThickness,(int)r.getY()+strokeThickness+fontConstHeight);
             this.g2dRoiImage.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
         }
     }

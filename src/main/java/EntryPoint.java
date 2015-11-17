@@ -21,5 +21,6 @@ public class EntryPoint {
         this.collageModel = new CollageModel();
         this.collageController = new CollageController(this.collageModel);
         this.collageFrame = new CollageFrame(this.collageController);
+        this.collageController.setView(this.collageFrame);
     }
 }

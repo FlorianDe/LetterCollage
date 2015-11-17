@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class ResultImageModel extends CstmObservable {
     public enum MouseMode{
-        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE;
+        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT;
     }
     private MouseMode mouseMode;
     private double zoomFactor;
@@ -25,7 +25,7 @@ public class ResultImageModel extends CstmObservable {
     private Color actualDrawColor;
 
     public ResultImageModel(){
-        mouseMode = MouseMode.DEFAULT;
+        mouseMode = MouseMode.SETWEIGHT;
         try {
             this.endResultVisibleRoiImage = new RegionOfInterestImage(ImageIO.read(FileLoader.loadFile("img/resultImage.png")));
             this.actualVisibleRoiImage = endResultVisibleRoiImage;

@@ -78,4 +78,10 @@ public class RegionOfInterestImageCollection extends CstmObservable {
         }
         return null;
     }
+
+    public void roiImageUpdated(RegionOfInterestImage roiImage){
+        roiImage.repaintRoiImage();
+        this.setChanged();
+        this.notifyObservers(null);
+    }
 }

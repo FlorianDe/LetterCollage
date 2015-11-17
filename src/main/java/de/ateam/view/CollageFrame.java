@@ -90,7 +90,29 @@ public class CollageFrame extends JFrame {
         this.setVisible(true);
     }
 
+    public CVMenubar getMenubar() {
+        return menubar;
+    }
 
+    public CVToolbar getToolbar() {
+        return toolbar;
+    }
+
+    public JScrollPane getLoadedImagesScrollPane() {
+        return loadedImagesScrollPane;
+    }
+
+    public JScrollPane getResultImageScrollPane() {
+        return resultImageScrollPane;
+    }
+
+    public CVImageLoaderContainerPanel getLoadedImagesPanel() {
+        return loadedImagesPanel;
+    }
+
+    public CVResultImagePanel getResultImagePanel() {
+        return resultImagePanel;
+    }
 
     @Override
     public Dimension getPreferredSize() {

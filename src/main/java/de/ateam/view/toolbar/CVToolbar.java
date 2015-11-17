@@ -3,6 +3,7 @@ package main.java.de.ateam.view.toolbar;
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
+import main.java.de.ateam.controller.listener.resultImage.FaceDetectionListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomInListener;
 import main.java.de.ateam.controller.listener.resultImage.ZoomOutListener;
 import main.java.de.ateam.utils.CstmObservable;
@@ -24,6 +25,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnZoomIn;
     private JButton btnZoomOut;
     private JButton btnSetResultImage;
+    private JButton btnFaceDetection;
     private JComboBox cbxFonts;
 
     ICollageController controller;
@@ -71,6 +73,10 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImage.gif");
         this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, controller.getResultImageModel().getEndResultRoiImage()));
         this.add(this.btnSetResultImage);
+
+        this.btnFaceDetection = (JButton) createToolbarButton(new JButton(), "img/FaceDetection.gif");
+        this.btnFaceDetection.addActionListener(new FaceDetectionListener(controller));
+        this.add(this.btnFaceDetection);
 
         this.cbxFonts = new JComboBox(FontLoader.getFonts());
         this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));

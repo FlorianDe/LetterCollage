@@ -22,10 +22,12 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
     JMenuItem menuItemMouseModeDefault;
     JMenuItem menuItemMouseModeZoomIn;
     JMenuItem menuItemMouseModeZoomOut;
+    JMenuItem menuItemMouseModeSetWeight;
 
     ICollageController controller;
 
 
+    //Könnte man auch dynamischer über die Enum Liste machen....
     public CVMenuImageManipulation(String name, ICollageController controller){
         super(name);
         this.controller = controller;
@@ -35,8 +37,13 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
 
         this.subMenuMouseMode = this.jme.createJMenu(new JMenu("MouseMode"), "STRING_DESCRIPTION", this);
 
+        this.menuItemMouseModeDefault = this.jme.createJMenuItem(new JMenuItem("Default"), 'D', "STRING_DESCRIPTION", this.subMenuMouseMode);
+        this.menuItemMouseModeDefault.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.DEFAULT));
+
         this.menuItemMouseModeDrag = this.jme.createJMenuItem(new JMenuItem("Drag"), 'D', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeDrag.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.DRAG));
+
+        this.subMenuMouseMode.addSeparator();
 
         this.menuItemMouseModePaint = this.jme.createJMenuItem(new JMenuItem("Paint"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModePaint.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.PAINT));
@@ -44,14 +51,18 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
         this.menuItemMouseModeErase = this.jme.createJMenuItem(new JMenuItem("Erase"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeErase.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ERASE));
 
-        this.menuItemMouseModeDefault = this.jme.createJMenuItem(new JMenuItem("Default"), 'D', "STRING_DESCRIPTION", this.subMenuMouseMode);
-        this.menuItemMouseModeDefault.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.DEFAULT));
+        this.subMenuMouseMode.addSeparator();
 
         this.menuItemMouseModeZoomIn = this.jme.createJMenuItem(new JMenuItem("ZoomIn"), 'I', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeZoomIn.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMIN));
 
         this.menuItemMouseModeZoomOut = this.jme.createJMenuItem(new JMenuItem("ZoomOut"), 'O', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeZoomOut.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMOUT));
+
+        this.subMenuMouseMode.addSeparator();
+
+        this.menuItemMouseModeSetWeight = this.jme.createJMenuItem(new JMenuItem("SetWeight"), 'S', "STRING_DESCRIPTION", this.subMenuMouseMode);
+        this.menuItemMouseModeSetWeight.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.SETWEIGHT));
 
 
         update(null, null);
@@ -66,5 +77,6 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
         this.menuItemMouseModeDefault.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.DEFAULT));
         this.menuItemMouseModeZoomIn.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ZOOMIN));
         this.menuItemMouseModeZoomOut.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ZOOMOUT));
+        this.menuItemMouseModeSetWeight.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.SETWEIGHT));
     }
 }

@@ -1,9 +1,8 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.MouseDragListener;
+import main.java.de.ateam.controller.listener.resultImage.MouseAdapterListener;
 import main.java.de.ateam.controller.listener.resultImage.MouseWheelZoomListener;
-import main.java.de.ateam.controller.listener.resultImage.ResultImageKeyEventListener;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
@@ -64,9 +63,10 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
 
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);
+        this.controller.getRoiModel().getRoiCollection().addObserver(this);
 
 
-        MouseDragListener mal = new MouseDragListener(controller);
+        MouseAdapterListener mal = new MouseAdapterListener(controller);
         this.addMouseListener(mal);
         this.addMouseMotionListener(mal);
         MouseWheelZoomListener mwzl = new MouseWheelZoomListener(controller);

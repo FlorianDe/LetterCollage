@@ -3,24 +3,23 @@ package main.java.de.ateam.controller.listener.resultImage;
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.model.roi.RegionOfInterest;
+import main.java.de.ateam.view.dialog.SetRoiWeightingDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
  * Created by Florian on 13.11.2015.
  */
-public class MouseDragListener extends MouseAdapter {
+public class MouseAdapterListener extends MouseAdapter {
     Point pPressed;
     Point pReleased;
     ResultImageModel.MouseMode lastMouseMode;
 
     ICollageController controller;
-    public MouseDragListener(ICollageController controller){
+    public MouseAdapterListener(ICollageController controller){
         this.controller  = controller;
     }
 
@@ -60,6 +59,23 @@ public class MouseDragListener extends MouseAdapter {
             }
 
             this.controller.getResultImageModel().setActualDrawnRoi(null);
+        }
+        else if(isSetWeightMode(e)){
+            //TODO evtl für alle rois einbaun
+            ArrayList<RegionOfInterest> rois = this.controller.getResultImageModel().getActualVisibleRoiImage().getIntersectingRegionOfInterests(this.controller.getResultImageModel().getRealCoordinates(pReleased));
+            if(rois.size()>0){
+                SwingUtilities.convertPointToScreen(pReleased, this.controller.getCollageView().getResultImagePanel());
+                SetRoiWeightingDialog srwd = new SetRoiWeightingDialog(this.controller.getCollageView(), pReleased ,rois.get(0).getWeighting());
+                srwd.setOnAcceptListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        rois.get(0).setWeighting(srwd.getWeighting());
+                        srwd.closeAction();
+                        controller.getResultImageModel().getActualVisibleRoiImage().repaintRoiImage();
+                    }
+                });
+                srwd.setVisible(true);
+            }
         }
 
         this.controller.getResultImageModel().setMouseMode(this.lastMouseMode);
@@ -116,5 +132,9 @@ public class MouseDragListener extends MouseAdapter {
 
     public boolean isDragMode(MouseEvent e){
         return (((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) || this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.DRAG);
+    }
+
+    public boolean isSetWeightMode(MouseEvent e){
+        return (this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.SETWEIGHT);
     }
 }
