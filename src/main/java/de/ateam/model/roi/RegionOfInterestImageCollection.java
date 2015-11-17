@@ -14,17 +14,7 @@ public class RegionOfInterestImageCollection extends CstmObservable {
 
     public RegionOfInterestImageCollection() {
         this.roiImages = new ArrayList<>();
-
     }
-
-    /*Brauchen wir hier eigtl nicht, dafür haben wir unser RoiModel
-    public void setLetterCollection(LetterCollection letterCollection) {
-        this.letterCollection = letterCollection;
-        // evtl direkt berechnen, sonst irgendwo button einbauen der called
-        if(regions.size() > 0 && autoArrange)
-            arrangeImages();
-    }
-    */
 
     public void addImage(BufferedImage image) {
         roiImages.add(new RegionOfInterestImage(image));
@@ -51,12 +41,19 @@ public class RegionOfInterestImageCollection extends CstmObservable {
         return false;
     }
 
+    public void removeAllImages(){
+        this.getRoiImages().clear();
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
     public RegionOfInterestImage getImage(int index) {
         if(0 < index && index < roiImages.size())
             return roiImages.get(index);
         return null;
     }
 
+    //TODO implement magic
     public void arrangeImages() {
         // hier heftige magic um bilder anzuordnen würde ich mal behaupten
         this.setChanged();

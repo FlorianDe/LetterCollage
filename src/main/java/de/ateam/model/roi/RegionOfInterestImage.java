@@ -1,17 +1,22 @@
 package main.java.de.ateam.model.roi;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by vspadi on 16.11.15.
  */
 public class RegionOfInterestImage {
+
     private BufferedImage normalImage;
     private BufferedImage roiImage;
     private Graphics2D g2dRoiImage;
-    private ArrayList<Rectangle> rois;
+    private ArrayList<RegionOfInterest> rois;
     private boolean roiMode;
 
     public RegionOfInterestImage(BufferedImage normalImage) {
@@ -31,35 +36,44 @@ public class RegionOfInterestImage {
         repaintRoiImage();
     }
 
-    public void addRegion(Rectangle rect) {
+    public void addRegionOfInterest(Rectangle rect) {
         // hier hab ich mir gedacht könnte man noch von extern regions einfügen /klick drag area markieren?
-
+        rois.add(new RegionOfInterest(rect));
         repaintRoiImage();
     }
 
-    public ArrayList<Rectangle> getRegion(Point point) {
-        // die funktion soll auf einen punkt der man ihr gibt alle regions zurückgeben,
-        // damit man ggf ne referenz löschen kann um eine Region zu löschen
-
-        return null;
-    }
-
-    public ArrayList<Rectangle> getRegion(Rectangle rect) {
-        // hier soll man mit einer region referenzen auf intersecting regions bekommen,
-        // bsp: markieren und alle markierten löschen oder so ODER sogar sowas wie "Besondere wichtigkeit"
-        // verschieben oder was weiß ich
-
-        return null;
-    }
-
-    public void deleteRegion(Rectangle rect) {
-        // wenn ne referenz kommt, lösch sie sonst such alle regions auf intersection ab und lösch die
-        if(rois.contains(rect))
-            rois.remove(rect);
-        else {
-            //TODO WHAT?
+    public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Point point) {
+        ArrayList<RegionOfInterest> selectedRois = new ArrayList<>();
+        for(RegionOfInterest roi : rois){
+            if(roi.getShape().contains(point)) {
+                selectedRois.add(roi);
+            }
         }
+        return selectedRois;
+    }
 
+    public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Rectangle rect) {
+        ArrayList<RegionOfInterest> selectedRois = new ArrayList<>();
+        for(RegionOfInterest r : rois){
+            if(r.getShape().intersects(rect)) {
+                selectedRois.add(r);
+            }
+        }
+        return selectedRois;
+    }
+
+    public synchronized void deleteRegionOfInterests(ArrayList<RegionOfInterest> rois){
+        for(RegionOfInterest roi : rois){
+            this.rois.remove(roi);
+        }
+        repaintRoiImage();
+    }
+
+    public  synchronized void deleteRegionOfInterest(RegionOfInterest roi) {
+        // wenn ne referenz kommt, lösch sie sonst such alle regions auf intersection ab und lösch die
+        if (rois.contains(roi)){
+            rois.remove(roi);
+        }
         repaintRoiImage();
     }
 
@@ -72,10 +86,15 @@ public class RegionOfInterestImage {
         return null;
     }
 
+    //TODO SOLLTE ER EIGTL NICHT TUN, SELBER ZEICHNEN :/!
     private void repaintRoiImage() {
         this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
+        this.g2dRoiImage.setStroke(new BasicStroke(3));
         this.g2dRoiImage.setColor(Color.RED);
-        this.g2dRoiImage.drawRect(10, 10, 20, 20);
+        for(RegionOfInterest roi : rois){
+            Rectangle2D r = roi.getShape().getBounds2D();
+            this.g2dRoiImage.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+        }
     }
 
     public BufferedImage getNormalImage() {

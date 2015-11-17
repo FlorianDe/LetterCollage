@@ -1,6 +1,8 @@
 package main.java.de.ateam.view;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.resultImage.ResultImageKeyEventListener;
+import main.java.de.ateam.controller.listener.resultImage.ScrollbarValueChangedListener;
 import main.java.de.ateam.view.menu.CVMenubar;
 import main.java.de.ateam.view.panel.CVImageLoaderContainerPanel;
 import main.java.de.ateam.view.panel.CVResultImagePanel;
@@ -8,6 +10,7 @@ import main.java.de.ateam.view.toolbar.CVToolbar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentListener;
 
 /**
  * Created by Florian on 13.11.2015.
@@ -29,6 +32,8 @@ public class CollageFrame extends JFrame {
         this.setMinimumSize(new Dimension());
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.addKeyListener(new ResultImageKeyEventListener(controller));
+        this.setFocusable(true);
 
         this.menubar = new CVMenubar(controller);
         this.toolbar = new CVToolbar(controller);
@@ -40,12 +45,15 @@ public class CollageFrame extends JFrame {
         this.resultImageScrollPane = new JScrollPane(this.resultImagePanel,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        AdjustmentListener listener = new ScrollbarValueChangedListener(controller, resultImageScrollPane.getViewport());
+        this.resultImageScrollPane.getHorizontalScrollBar().addAdjustmentListener(listener);
+        this.resultImageScrollPane.getVerticalScrollBar().addAdjustmentListener(listener);
 
         this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, loadedImagesScrollPane, resultImageScrollPane);;
 
         this.splitPane.setOneTouchExpandable(true);
         //TODO Anpassen mit getPrefSize dies das
-        this.splitPane.setDividerLocation(250);
+        this.splitPane.setDividerLocation(260);
 
 
         /*

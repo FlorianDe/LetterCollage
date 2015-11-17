@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.loadedImages.DeleteAllLoadedImagesListener;
 import main.java.de.ateam.controller.listener.loadedImages.OpenFileChooserListener;
 
 import javax.swing.*;
@@ -13,33 +14,31 @@ public class CVImageLoaderFileChooser extends JPanel{
     //int WIDTH = 200;
     int HEIGHT = 40;
 
-
-    JTextField textFieldPath;
-    JButton btnAddFile;
     JButton btnOpenFileChooser;
+    JButton btnDeleteAll;
 
     ICollageController controller;
     public CVImageLoaderFileChooser(ICollageController controller){
         this.controller = controller;
-
         this.createFileChooser();
     }
 
     private void createFileChooser() {
         this.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-
-        this.textFieldPath = new JTextField(10);
 
 
-
-
-        this.btnOpenFileChooser = new JButton("Load");
+        this.btnOpenFileChooser = new JButton("Load Images");
         this.btnOpenFileChooser.addActionListener(new OpenFileChooserListener(this.controller));
 
+        this.btnDeleteAll = new JButton("Delete All");
+        this.btnDeleteAll.addActionListener(new DeleteAllLoadedImagesListener(this.controller));
 
 
 
+
+        /*
+        GridBagConstraints c = new GridBagConstraints();
+        this.textFieldPath = new JTextField(10);
         this.btnAddFile = new JButton("Add");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 1.0;
@@ -50,8 +49,10 @@ public class CVImageLoaderFileChooser extends JPanel{
         c.fill = GridBagConstraints.NONE;
         c.weightx = 0.0;
         this.add(this.btnAddFile, c);
+        */
 
-
+        this.add(this.btnOpenFileChooser);
+        this.add(this.btnDeleteAll);
     }
 
 

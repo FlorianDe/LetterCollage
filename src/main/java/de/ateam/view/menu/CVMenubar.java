@@ -9,6 +9,7 @@ import javax.swing.*;
  */
 public class CVMenubar extends JMenuBar {
     private CVMenuFile menuFile;
+    private CVMenuImageManipulation menuImageManipulation;
 
     ICollageController controller;
     public CVMenubar(ICollageController controller){
@@ -18,8 +19,9 @@ public class CVMenubar extends JMenuBar {
 
     private void initializeUI_Menu() {
         this.menuFile = new CVMenuFile("File");
-
+        this.menuImageManipulation = new CVMenuImageManipulation("Manipulation", controller);
 
         this.add(this.menuFile);
+        this.add(this.menuImageManipulation);
     }
 }

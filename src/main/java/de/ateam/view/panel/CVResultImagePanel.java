@@ -1,22 +1,54 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.MouseScrollListener;
+import main.java.de.ateam.controller.listener.resultImage.MouseDragListener;
 import main.java.de.ateam.controller.listener.resultImage.MouseWheelZoomListener;
+import main.java.de.ateam.controller.listener.resultImage.ResultImageKeyEventListener;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
+import main.java.de.ateam.utils.FileLoader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Created by Florian on 13.11.2015.
  */
 public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollable {
-    private final Cursor defaultCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-    private final Cursor handCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+    private final static Cursor defaultCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+    private final static Cursor handCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+    private static Cursor cstm_crosshair = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+    private static Cursor cstm_eraser = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+
+    static{
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image image = null;
+
+        //Load custom crosshair cursor
+        try {
+            image = ImageIO.read(FileLoader.loadFile("img/icons/cursor/32_cstm_crosshair_gray.png"));
+            Point hotspot = new Point(16,16);
+            cstm_crosshair = toolkit.createCustomCursor(image, hotspot, "cstm_crosshair");
+        } catch (IOException e) {
+            // ignore
+        }
+
+        //Load custom eraser cursor
+        try {
+            image = ImageIO.read(FileLoader.loadFile("img/icons/cursor/32_cstm_eraser.png"));
+            Point hotspot = new Point(0,31);
+            cstm_eraser = toolkit.createCustomCursor(image, hotspot, "cstm_eraser");
+        } catch (IOException e) {
+            // ignore
+        }
+
+    }
+
+
+
     private RenderingHints renderingHints;
 
     ICollageController controller;
@@ -34,12 +66,16 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         this.controller.getResultImageModel().addObserver(this);
 
 
-        MouseScrollListener mal = new MouseScrollListener(controller);
+        MouseDragListener mal = new MouseDragListener(controller);
         this.addMouseListener(mal);
         this.addMouseMotionListener(mal);
         MouseWheelZoomListener mwzl = new MouseWheelZoomListener(controller);
         this.addMouseWheelListener(mwzl);
+
         this.setAutoscrolls(true);
+
+
+        update(null, null);
     }
 
 
@@ -50,18 +86,32 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
 
         g2d.setRenderingHints(renderingHints);
 
-        if(this.controller.getResultImageModel().getMouseMode() == ResultImageModel.MouseMode.DRAG) {
-            this.setCursor(handCursor);
-        } else {
-            this.setCursor(defaultCursor);
+        switch (this.controller.getResultImageModel().getMouseMode()){
+            case DRAG:
+                this.setCursor(handCursor);
+                break;
+            case PAINT:
+                this.setCursor(cstm_crosshair);
+                break;
+            case ERASE:
+                this.setCursor(cstm_eraser);
+                break;
+            default:
+                this.setCursor(defaultCursor);
+                break;
         }
 
-
         g2d.drawImage(this.controller.getResultImageModel().getActualVisibleImage(),
-                0,0,
-                (int)this.controller.getResultImageModel().getRenderSize().getWidth(),
-                (int)this.controller.getResultImageModel().getRenderSize().getHeight(),
+                0, 0,
+                (int) this.controller.getResultImageModel().getRenderSize().getWidth(),
+                (int) this.controller.getResultImageModel().getRenderSize().getHeight(),
                 null);
+
+        Rectangle r = this.controller.getResultImageModel().getActualDrawnRoi();
+        if(r!=null) {
+            g2d.setColor(this.controller.getResultImageModel().getActualDrawColor());
+            g2d.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+        }
 
         g2d.dispose();
     }

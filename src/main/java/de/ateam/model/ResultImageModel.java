@@ -14,16 +14,18 @@ import java.io.IOException;
  */
 public class ResultImageModel extends CstmObservable {
     public enum MouseMode{
-        DRAG, ZOOMIN, ZOOMOUT, NORMAL;
+        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE;
     }
     private MouseMode mouseMode;
     private double zoomFactor;
     private RegionOfInterestImage endResultVisibleRoiImage;
     private RegionOfInterestImage actualVisibleRoiImage;
-    public Rectangle viewRect;
+    private Rectangle viewRect;
+    private Rectangle actualDrawnRoi;
+    private Color actualDrawColor;
 
     public ResultImageModel(){
-        mouseMode = MouseMode.DRAG;
+        mouseMode = MouseMode.DEFAULT;
         try {
             this.endResultVisibleRoiImage = new RegionOfInterestImage(ImageIO.read(FileLoader.loadFile("img/resultImage.png")));
             this.actualVisibleRoiImage = endResultVisibleRoiImage;
@@ -32,8 +34,23 @@ public class ResultImageModel extends CstmObservable {
         }
         this.viewRect = new Rectangle();
         this.zoomFactor = 1;
+        this.actualDrawnRoi = null;
+        this.actualDrawColor = Color.RED;
     }
 
+
+    public Rectangle getRealCoordinates(Rectangle rect){
+        Rectangle rTemp = new Rectangle();
+        rTemp.setRect((rect.getX() / zoomFactor), (rect.getY() / zoomFactor), (rect.getWidth() / zoomFactor), (rect.getHeight() / zoomFactor));
+        return rTemp;
+    }
+    public Point getRealCoordinates(Point p){
+        return new Point((int)(p.getX()/zoomFactor), (int)(p.getY()/zoomFactor));
+    }
+
+    public double getStrokeThickness(){
+        return 1.0/zoomFactor;
+    }
 
     public Dimension getRenderSize(){
         if(actualVisibleRoiImage!=null && actualVisibleRoiImage.getVisualImage() != null)
@@ -75,6 +92,31 @@ public class ResultImageModel extends CstmObservable {
         this.viewRect = viewRect;
         this.setChanged();
         this.notifyObservers(null);
+    }
+
+    public Rectangle getActualDrawnRoi() {
+        return actualDrawnRoi;
+    }
+
+    public void setActualDrawnRoi(Rectangle actualDrawnRoi) {
+        this.actualDrawnRoi = actualDrawnRoi;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public RegionOfInterestImage getEndResultVisibleRoiImage() {
+        return endResultVisibleRoiImage;
+    }
+    public void setEndResultVisibleRoiImage(RegionOfInterestImage endResultVisibleRoiImage) {
+        this.endResultVisibleRoiImage = endResultVisibleRoiImage;
+    }
+
+    public Color getActualDrawColor() {
+        return actualDrawColor;
+    }
+
+    public void setActualDrawColor(Color actualDrawColor) {
+        this.actualDrawColor = actualDrawColor;
     }
 
     public RegionOfInterestImage getActualVisibleRoiImage() {

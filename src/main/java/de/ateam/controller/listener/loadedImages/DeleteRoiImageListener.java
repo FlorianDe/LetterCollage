@@ -8,11 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-public class DeleteImageListener implements ActionListener {
+public class DeleteRoiImageListener implements ActionListener {
 	protected ICollageController controller;
 	RegionOfInterestImage clickedRoiImage;
 
-	public DeleteImageListener(ICollageController controller, RegionOfInterestImage clickedRoiImage) {
+	public DeleteRoiImageListener(ICollageController controller, RegionOfInterestImage clickedRoiImage) {
 		this.controller = controller;
 		this.clickedRoiImage = clickedRoiImage;
 	}

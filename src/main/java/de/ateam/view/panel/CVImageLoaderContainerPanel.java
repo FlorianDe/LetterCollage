@@ -35,7 +35,10 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
         //this.controller.getImageLoaderModel().addObserver(this);
         this.controller.getRoiModel().addObserver(this);
         this.controller.getRoiModel().getRoiCollection().addObserver(this);
-        refreshList();
+
+
+
+        update(null, null);
     }
 
     public void setStyle(Graphics g){

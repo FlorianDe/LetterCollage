@@ -1,7 +1,7 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.loadedImages.DeleteImageListener;
+import main.java.de.ateam.controller.listener.loadedImages.DeleteRoiImageListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 
@@ -45,7 +45,7 @@ public class CVRoiImageLoaderRow extends JPanel {
         btnDelete.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
         btnDelete.setOpaque(false);
         btnDelete.setBackground(Color.WHITE);
-        btnDelete.addActionListener(new DeleteImageListener(this.controller, roiImage));
+        btnDelete.addActionListener(new DeleteRoiImageListener(this.controller, roiImage));
 
         this.add(btnDelete);
 

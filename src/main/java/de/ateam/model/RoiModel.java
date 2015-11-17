@@ -23,6 +23,7 @@ public class RoiModel extends CstmObservable{
     public RoiModel() {
         this.roiImageCollection = new RegionOfInterestImageCollection();
 
+        //TODO JUST FOR DEVELOPING!
         try {
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/1.jpg")));
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/2.gif")));
