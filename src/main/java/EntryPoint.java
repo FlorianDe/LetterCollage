@@ -2,10 +2,8 @@ package main.java;
 
 import main.java.de.ateam.controller.CollageController;
 import main.java.de.ateam.model.CollageModel;
-import main.java.de.ateam.model.ImageLoaderModel;
-import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.view.MainFrame;
+import main.java.de.ateam.view.CollageFrame;
 import org.opencv.core.Core;
 
 public class EntryPoint {
@@ -15,21 +13,13 @@ public class EntryPoint {
         new EntryPoint().startGUI();
     }
 
-    ResultImageModel resultImageModel;
-    ImageLoaderModel imageLoaderModel;
     CollageModel collageModel;
-
-    CollageController controller;
-    MainFrame mainFrame;
+    CollageController collageController;
+    CollageFrame collageFrame;
 
     public void startGUI(){
-
-        this.resultImageModel = new ResultImageModel();
-        this.imageLoaderModel = new ImageLoaderModel();
         this.collageModel = new CollageModel();
-
-        this.controller = new CollageController(resultImageModel, imageLoaderModel, collageModel);
-
-        mainFrame = new MainFrame(this.controller);
+        this.collageController = new CollageController(this.collageModel);
+        this.collageFrame = new CollageFrame(this.collageController);
     }
 }

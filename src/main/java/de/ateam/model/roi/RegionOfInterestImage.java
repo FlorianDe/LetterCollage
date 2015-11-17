@@ -7,18 +7,20 @@ import java.util.ArrayList;
 /**
  * Created by vspadi on 16.11.15.
  */
-public class RegionOfInterest {
-    private BufferedImage image;
-    private BufferedImage debug;
-    private Graphics2D g2d;
-    private ArrayList<Rectangle> areas;
+public class RegionOfInterestImage {
+    private BufferedImage normalImage;
+    private BufferedImage roiImage;
+    private Graphics2D g2dRoiImage;
+    private ArrayList<Rectangle> rois;
+    private boolean roiMode;
 
-    protected RegionOfInterest(BufferedImage image) {
-        this.image = image;
-        this.debug = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-        this.g2d = this.debug.createGraphics();
-        this.g2d.drawImage(this.image, 0,0,null);
-        this.areas = new ArrayList<>();
+    public RegionOfInterestImage(BufferedImage normalImage) {
+        this.roiMode = true;
+        this.normalImage = normalImage;
+        this.roiImage = new BufferedImage(normalImage.getWidth(), normalImage.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+        this.g2dRoiImage = this.roiImage.createGraphics();
+        this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
+        this.rois = new ArrayList<>();
         findRegions();
     }
 
@@ -26,13 +28,13 @@ public class RegionOfInterest {
         // hier regions finden augen und so was, gesicht, alles einschließen was erstmal so interessant sein könnte
         // da müsste man gucken welche params man so abfucken kann
 
-        repaintDebugImage();
+        repaintRoiImage();
     }
 
     public void addRegion(Rectangle rect) {
         // hier hab ich mir gedacht könnte man noch von extern regions einfügen /klick drag area markieren?
 
-        repaintDebugImage();
+        repaintRoiImage();
     }
 
     public ArrayList<Rectangle> getRegion(Point point) {
@@ -52,13 +54,13 @@ public class RegionOfInterest {
 
     public void deleteRegion(Rectangle rect) {
         // wenn ne referenz kommt, lösch sie sonst such alle regions auf intersection ab und lösch die
-        if(areas.contains(rect))
-            areas.remove(rect);
+        if(rois.contains(rect))
+            rois.remove(rect);
         else {
-
+            //TODO WHAT?
         }
 
-        repaintDebugImage();
+        repaintRoiImage();
     }
 
     // weitere funktionen könnten hier stehen um bsp selektion zu erweitern
@@ -66,21 +68,35 @@ public class RegionOfInterest {
         // klickste aufn punkt sucht er von dort aus mit schwellenwert in der umgebung die ähnlichen pixel
         // und macht aus den bounds ne region / woher schwellenwert? entweder in parameter oder in ne klasse reinpacken
 
-        repaintDebugImage();
+        repaintRoiImage();
         return null;
     }
 
-    private void repaintDebugImage() {
-        this.g2d.drawImage(this.image, 0,0, null);
-        this.g2d.setColor(Color.RED);
-        this.g2d.drawRect(10,10, 20,20);
+    private void repaintRoiImage() {
+        this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
+        this.g2dRoiImage.setColor(Color.RED);
+        this.g2dRoiImage.drawRect(10, 10, 20, 20);
     }
 
-    public BufferedImage getImage() {
-        return this.image;
+    public BufferedImage getNormalImage() {
+        return this.normalImage;
     }
 
-    public BufferedImage getDebugImage() {
-        return this.debug;
+    public BufferedImage getRoiImage() {
+        return this.roiImage;
+    }
+
+    public boolean isRoiMode() {
+        return roiMode;
+    }
+
+    public void setRoiMode(boolean roiMode) {
+        this.roiMode = roiMode;
+    }
+
+    public BufferedImage getVisualImage(){
+        if(isRoiMode())
+            return getRoiImage();
+        return getNormalImage();
     }
 }

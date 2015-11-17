@@ -14,11 +14,7 @@ public class FontLoader {
     private static TreeMap<String, Font> fonts;
 
     static {
-        //TODO Remove (Just for test purposes!)
-        String fontsss[] = getFonts();
-        for(String font: fontsss) {
-            System.out.println(font);
-        }
+        fonts = new TreeMap<>();
     }
 
     public static Font getFont(String fontName) {
@@ -33,19 +29,21 @@ public class FontLoader {
     }
 
     public static String[] getFonts() {
-        String[] systemFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fonts = new TreeMap<>();
+        String[] systemFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String path = OSUtils.getResourcePathForOS("fonts");
         File folder = new File(path);
-        for(File f: folder.listFiles()) {
-            try {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, f);
-                GraphicsEnvironment ge =
-                        GraphicsEnvironment.getLocalGraphicsEnvironment();
-                ge.registerFont(font);
-                fonts.put(font.getName(), font);
-            } catch (IOException|FontFormatException e) {
-                System.out.printf("File %s is not a loadable Font!\n", f.getName());
+        if(folder != null) {
+            for (File f : folder.listFiles()) {
+                try {
+                    Font font = Font.createFont(Font.TRUETYPE_FONT, f);
+                    GraphicsEnvironment ge =
+                            GraphicsEnvironment.getLocalGraphicsEnvironment();
+                    ge.registerFont(font);
+                    fonts.put(font.getName(), font);
+                } catch (IOException | FontFormatException e) {
+                    System.out.printf("File %s is not a loadable Font!\n", f.getName());
+                }
             }
         }
 

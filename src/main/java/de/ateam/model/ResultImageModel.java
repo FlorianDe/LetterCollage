@@ -1,5 +1,6 @@
 package main.java.de.ateam.model;
 
+import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.FileLoader;
 
@@ -17,15 +18,15 @@ public class ResultImageModel extends CstmObservable {
     }
     private MouseMode mouseMode;
     private double zoomFactor;
-    private BufferedImage resultImage;
-    private BufferedImage actualVisibleImage;
+    private RegionOfInterestImage endResultVisibleRoiImage;
+    private RegionOfInterestImage actualVisibleRoiImage;
     public Rectangle viewRect;
 
     public ResultImageModel(){
         mouseMode = MouseMode.DRAG;
         try {
-            this.resultImage = ImageIO.read(FileLoader.loadFile("img/resultImage.png"));
-            this.actualVisibleImage = resultImage;
+            this.endResultVisibleRoiImage = new RegionOfInterestImage(ImageIO.read(FileLoader.loadFile("img/resultImage.png")));
+            this.actualVisibleRoiImage = endResultVisibleRoiImage;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,7 @@ public class ResultImageModel extends CstmObservable {
 
 
     public Dimension getRenderSize(){
-        if(resultImage!=null)
+        if(actualVisibleRoiImage!=null && actualVisibleRoiImage.getVisualImage() != null)
             return new Dimension((int)(this.getActualVisibleImage().getWidth() * this.getZoomFactor()),
                                 (int)(this.getActualVisibleImage().getHeight() * this.getZoomFactor()));
         return new Dimension(0,0);
@@ -57,14 +58,16 @@ public class ResultImageModel extends CstmObservable {
         this.setChanged();
         this.notifyObservers(null);
     }
-    public BufferedImage getResultImage() {
-        return resultImage;
+
+    public RegionOfInterestImage getEndResultRoiImage() {
+        return endResultVisibleRoiImage;
     }
-    public void setResultImage(BufferedImage resultImage) {
-        this.resultImage = resultImage;
+    public void setEndResultRoiImage(RegionOfInterestImage resultImage) {
+        this.endResultVisibleRoiImage = resultImage;
         this.setChanged();
         this.notifyObservers(null);
     }
+
     public Rectangle getViewRect() {
         return viewRect;
     }
@@ -74,12 +77,16 @@ public class ResultImageModel extends CstmObservable {
         this.notifyObservers(null);
     }
 
-    public BufferedImage getActualVisibleImage() {
-        return actualVisibleImage;
+    public RegionOfInterestImage getActualVisibleRoiImage() {
+        return actualVisibleRoiImage;
     }
 
-    public void setActualVisibleImage(BufferedImage actualVisibleImage) {
-        this.actualVisibleImage = actualVisibleImage;
+    public BufferedImage getActualVisibleImage() {
+        return actualVisibleRoiImage.getVisualImage();
+    }
+
+    public void setActualVisibleRoiImage(RegionOfInterestImage actualVisibleRoiImage) {
+        this.actualVisibleRoiImage = actualVisibleRoiImage;
         this.setChanged();
         this.notifyObservers(null);
     }

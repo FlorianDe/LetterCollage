@@ -28,6 +28,7 @@ public class Letter{
     }
 
     private void init(BufferedImage map) {
+        //TODO mir erklären :D!
         float ratio = (float)map.getHeight() / (float)map.getWidth();
         int width = LetterCollection.SAMPLER_SIZE;
         int height = LetterCollection.SAMPLER_SIZE;
@@ -38,7 +39,7 @@ public class Letter{
             height = (int)((float)height * ratio);
         }
         Size sz = new Size(width,height);
-        System.out.println(sz);
+        //System.out.println("Size:" + sz);
         this.letterMask = OpenCVUtils.bufferedImageToMat(map);
         this.calculationMask = new Mat(sz, CvType.CV_8UC3);
         Imgproc.resize(this.letterMask, this.calculationMask, sz);

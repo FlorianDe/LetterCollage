@@ -1,14 +1,13 @@
 package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
 
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * Created by Florian on 13.11.2015.
@@ -17,7 +16,7 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
 
     ICollageController controller;
     public CVImageLoaderFileChooser imageLoaderFileChooser;
-    public JPanel imageContainer;
+    public JPanel roiImageContainer;
 
     public CVImageLoaderContainerPanel(ICollageController controller){
         this.controller = controller;
@@ -26,15 +25,16 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
 
         this.imageLoaderFileChooser = new CVImageLoaderFileChooser(controller);
 
-        this.imageContainer = new JPanel();
-        this.imageContainer.setLayout(new BoxLayout(this.imageContainer, BoxLayout.Y_AXIS));
-        this.imageContainer.setOpaque(false);
+        this.roiImageContainer = new JPanel();
+        this.roiImageContainer.setLayout(new BoxLayout(this.roiImageContainer, BoxLayout.Y_AXIS));
+        this.roiImageContainer.setOpaque(false);
 
         this.add(this.imageLoaderFileChooser, BorderLayout.NORTH);
-        this.add(this.imageContainer, BorderLayout.CENTER);
+        this.add(this.roiImageContainer, BorderLayout.CENTER);
 
         //this.controller.getImageLoaderModel().addObserver(this);
-        this.controller.getCollageModel().addObserver(this);
+        this.controller.getRoiModel().addObserver(this);
+        this.controller.getRoiModel().getRoiCollection().addObserver(this);
         refreshList();
     }
 
@@ -60,17 +60,17 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
 
     //K�nnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!
     public void refreshList(){
-        this.imageContainer.removeAll();
+        this.roiImageContainer.removeAll();
         /*
         for(BufferedImage buf : this.controller.getImageLoaderModel().getLoadedImages()){
             if(buf!=null) {
-                this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
+                this.roiImageContainer.add(new CVRoiImageLoaderRow(this.controller, buf));
             }
         }
         */
-        for(BufferedImage buf : this.controller.getCollageModel().getLoadedImages()){
-            if(buf!=null) {
-                this.imageContainer.add(new CVImageLoaderRow(this.controller, buf));
+        for(RegionOfInterestImage roiImg : this.controller.getRoiModel().getLoadedImages()){
+            if(roiImg!=null ) {
+                this.roiImageContainer.add(new CVRoiImageLoaderRow(this.controller, roiImg));
             }
         }
     }

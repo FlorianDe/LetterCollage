@@ -2,43 +2,39 @@ package main.java.de.ateam.view.panel;
 
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.loadedImages.DeleteImageListener;
-import main.java.de.ateam.controller.listener.loadedImages.ShowImageListener;
-import main.java.de.ateam.controller.listener.loadedImages.ShowROIImageListener;
-import main.java.de.ateam.model.roi.RegionOfInterest;
+import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
+import main.java.de.ateam.model.roi.RegionOfInterestImage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVImageLoaderRow extends JPanel {
+public class CVRoiImageLoaderRow extends JPanel {
 
     int BTN_HEIGHT = 50;
     int BTN_WIDTH = 50;
     ICollageController controller;
-    BufferedImage img;
+    RegionOfInterestImage roiImage;
 
-    public CVImageLoaderRow(ICollageController controller, BufferedImage img){
+    public CVRoiImageLoaderRow(ICollageController controller, RegionOfInterestImage roiImage){
         this.controller = controller;
-        this.img = img;
+        this.roiImage = roiImage;
 
         this.setLayout(new GridLayout(1, 2));
-        this.createRow(img);
+        this.createRow(roiImage);
     }
 
 
-    public void createRow( BufferedImage img){
-        Image newimg = img.getScaledInstance( BTN_WIDTH, BTN_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;
+    public void createRow(RegionOfInterestImage roiImage){
+        Image newimg = roiImage.getVisualImage().getScaledInstance(BTN_WIDTH, BTN_HEIGHT, java.awt.Image.SCALE_SMOOTH) ;
         JButton btnImage = new JButton(new ImageIcon(newimg));
         btnImage.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
         btnImage.setOpaque(false);
         btnImage.setBackground(Color.WHITE);
 
-        btnImage.addActionListener(new ShowROIImageListener(this.controller, img));
+        btnImage.addActionListener(new ShowRoiImageListener(this.controller, roiImage));
         //btnImage.addActionListener(new ShowImageListener(this.controller, img));
 
         this.add(btnImage);
@@ -49,7 +45,7 @@ public class CVImageLoaderRow extends JPanel {
         btnDelete.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
         btnDelete.setOpaque(false);
         btnDelete.setBackground(Color.WHITE);
-        btnDelete.addActionListener(new DeleteImageListener(this.controller, img));
+        btnDelete.addActionListener(new DeleteImageListener(this.controller, roiImage));
 
         this.add(btnDelete);
 

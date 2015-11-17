@@ -1,6 +1,7 @@
 package main.java.de.ateam.controller.listener.loadedImages;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.model.roi.RegionOfInterestImage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,15 +10,15 @@ import java.awt.image.BufferedImage;
 
 public class DeleteImageListener implements ActionListener {
 	protected ICollageController controller;
-	BufferedImage clickedImage;
+	RegionOfInterestImage clickedRoiImage;
 
-	public DeleteImageListener(ICollageController controller, BufferedImage clickedImage) {
+	public DeleteImageListener(ICollageController controller, RegionOfInterestImage clickedRoiImage) {
 		this.controller = controller;
-		this.clickedImage = clickedImage;
+		this.clickedRoiImage = clickedRoiImage;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.controller.getImageLoaderModel().removeImage(this.clickedImage);
+		this.controller.getRoiModel().getRoiCollection().removeImage(this.clickedRoiImage);
 	}
 }

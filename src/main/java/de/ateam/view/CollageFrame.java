@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class MainFrame extends JFrame {
+public class CollageFrame extends JFrame {
     private CVMenubar menubar;
     private CVToolbar toolbar;
     private JScrollPane loadedImagesScrollPane;
@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
 
     ICollageController controller;
 
-    public MainFrame(ICollageController controller){
+    public CollageFrame(ICollageController controller){
         this.controller = controller;
         this.setTitle("OpenCV - Buchstaben Collage [A-Team B]");
         this.setMinimumSize(new Dimension());
