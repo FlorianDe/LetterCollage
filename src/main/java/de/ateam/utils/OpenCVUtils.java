@@ -102,6 +102,78 @@ public class OpenCVUtils {
 		return true;
 	}
 
+    // konvertiert rgb in hsv - müsste ggf in eine andere helper klasse wenn mehrere statische umwandlungsfunktionen gebraucht werden
+    public static float[] rgbTohsv(int[] color) {
+        float r = (float)color[0] / 255, g = (float)color[1] / 255, b = (float)color[2] / 255;
+        float[] hsv = new float[3];
+        int id = 0;
+        float max = r;
+        float min = r;
+        // min max
+        if(max < g) {
+            max = g; id = 1;
+        }
+        if(max < b) {
+            max = b; id = 2;
+        }
+        if(min > g) {
+            min = g; id = 1;
+        }
+        if(min > b) {
+            min = b; id = 2;
+        }
+
+        // sonderfall
+        if(max == min) {
+            hsv[0] = 0;
+        }
+        else {
+            // h setzen
+            switch (id) {
+                case 0:
+                    hsv[0] =60 * ((g-b)/(max-min));
+                    break;
+                case 1:
+                    hsv[0] =60 * ((b-r)/(max-min));
+                    break;
+                case 2:
+                    hsv[0] =60 * ((r-g)/(max-min));
+                    break;
+            }
+        }
+        // um in 360 zu bleiben
+        if(hsv[0] < 0)
+            hsv[0] += 360;
+        // s setzen
+        if(max == 0)
+            hsv[1] = 0;
+        else
+            hsv[1] = (max-min) / max;
+
+        // v setzen
+        hsv[2] = max;
+
+        return hsv;
+    }
+
+    public static float hsvSimilarity(float[] a, float[] b) {
+        float sim = 0;
+        float h = Math.abs(a[0] - b[0]) / 360, s = Math.abs(a[1] - b[1]), v = Math.abs(a[2] - b[2]);
+        sim = (1-h) * a[1] * a[2];
+        if(s < 0.6 || v < 0.6) {
+            sim = ((1-v) + (1-s)) / 2;
+        }
+        return sim;
+    }
+
+    public static float[] getHSVPixel(byte[] pixels, int x, int y, int width) {
+        int j = x + (y * width);
+        int[] ref = new int[3];
+        ref[0] = pixels[3*j+2] & 0xFF;
+        ref[1] = pixels[3*j+1] & 0xFF;
+        ref[2] = pixels[3*j] & 0xFF;
+        return rgbTohsv(ref);
+    }
 	
 	/*
 	 * ////// Imgcodecs.imencode(path, frame, mof); byte[] byteArray =

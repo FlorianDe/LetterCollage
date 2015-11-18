@@ -53,24 +53,103 @@ public class RegionOfInterestController {
     }
 
     public void similarDetection(RegionOfInterestImage roiImage, Point p) {
+        long startTime = System.currentTimeMillis();
         // get Buffer
         byte[] pixels = ((DataBufferByte) roiImage.getNormalImage().getRaster().getDataBuffer()).getData();
-        System.out.println(roiImage.getNormalImage().getWidth() + " " + roiImage.getNormalImage().getHeight());
+        int width = roiImage.getNormalImage().getWidth();
+        int height = roiImage.getNormalImage().getHeight();
+        boolean[][] isChecked = new boolean[width][height];
+        boolean pass = false;
+        int samples = 0;
+
+        float[] average = new float[3];
+
 
         // create Sample
+        int xS = p.x + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
+        int yS = p.y + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
 
-        int xS = p.getLocation().x + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
-        int yS = p.getLocation().y + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
-        System.out.println(p.getLocation());
-        for(int x = p.getLocation().x - RegionOfInterest.SIMILAR_SAMPLER_RADIUS-1; x < xS; x++) {
-            for(int y = p.getLocation().y - RegionOfInterest.SIMILAR_SAMPLER_RADIUS-1; y < yS; y++) {
-                System.out.print("("+x+", "+y + ")\t");
+        for(int x = p.x - RegionOfInterest.SIMILAR_SAMPLER_RADIUS+1; x < xS; x++) {
+            for(int y = p.y - RegionOfInterest.SIMILAR_SAMPLER_RADIUS+1; y < yS; y++) {
+                if(x >= 0 && y >= 0 && x < width && y < height){
+                    float[] hsv = OpenCVUtils.getHSVPixel(pixels, x, y, width);
+                    average[0] += hsv[0];
+                    average[1] += hsv[1];
+                    average[2] += hsv[2];
+                    samples++;
+                }
             }
-            System.out.println();
         }
+        if(samples != 0) {
+            // durchschnitt
+            average[0] /= samples;
+            average[1] /= samples;
+            average[2] /= samples;
 
-        System.out.println(pixels.length);
-        roiImage.repaintRoiImage();
+            int lMax = p.x;
+            int rMax = p.x;
+            float difA = 1;
+            float difB = 1;
+            // kreiself*cker
+            while(!pass) {
+                if(lMax > 1 && difA > RegionOfInterest.SIMILAR_THRESHOLD) {
+                    difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, lMax--, p.y, width));
+                } else {
+                    difA = 0;
+                }
+                if(rMax < width && difB > RegionOfInterest.SIMILAR_THRESHOLD) {
+                    difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, rMax++, p.y, width));
+                } else{
+                    difB = 0;
+                }
+                if(difA < RegionOfInterest.SIMILAR_THRESHOLD && difB < RegionOfInterest.SIMILAR_THRESHOLD) {
+                    pass = true;
+                }
+            }
+            int yMin = p.y;
+            int yMax = p.y;
+            int tMax = p.y;
+            int bMin = p.y;
+            int tSam = 0;
+            int bSam = 0;
+            pass = false;
+            samples = 0;
+            difA = 1;
+            difB = 1;
+            for(int x = lMax; x < rMax; x++) {
+                // top pass
+                pass = false;
+                while(!pass) {
+                    if(tMax > 1 && difA > RegionOfInterest.SIMILAR_THRESHOLD/2) {
+                        difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x , tMax--, width));
+                        if(tMax < yMin)
+                            yMin = tMax;
+                    } else {
+                        difA = 0;
+                    }
+                    if(bMin < height && difB > RegionOfInterest.SIMILAR_THRESHOLD/2) {
+                        difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x, bMin++, width));
+                        if(bMin > yMax)
+                            yMax = bMin;
+                    } else{
+                        difB = 0;
+                    }
+                    if(difA < RegionOfInterest.SIMILAR_THRESHOLD && difB < RegionOfInterest.SIMILAR_THRESHOLD) {
+                        pass = true;
+                        tMax = p.y;
+                        bMin = p.y;
+                    }
+                }
+            }
+            System.out.printf("yMax %d  yMin %d\n", yMax, yMin);
+            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin));
+
+
+            roiImage.repaintRoiImage();
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            System.out.printf("Calculationtime for magic wand: %d\n",elapsedTime);
+        }
     }
 
     private CascadeClassifier loadCascadeFile(String file){
