@@ -1,6 +1,11 @@
 package main.java.de.ateam.model.roi;
 
 import main.java.de.ateam.utils.CstmObservable;
+import main.java.de.ateam.utils.OpenCVUtils;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 
 import java.awt.*;
 import java.awt.geom.Area;
@@ -76,8 +81,7 @@ public class RegionOfInterestImage{
         repaintRoiImage();
     }
 
-    public  synchronized void deleteRegionOfInterest(RegionOfInterest roi) {
-        // wenn ne referenz kommt, lösch sie sonst such alle regions auf intersection ab und lösch die
+    public synchronized void deleteRegionOfInterest(RegionOfInterest roi) {
         if (rois.contains(roi)){
             rois.remove(roi);
         }
@@ -102,6 +106,27 @@ public class RegionOfInterestImage{
             this.g2dRoiImage.drawString(roi.getWeighting()+"",(int)r.getX()+strokeThickness,(int)r.getY()+strokeThickness+fontConstHeight);
             this.g2dRoiImage.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
         }
+    }
+
+    public BufferedImage getCalculationMaskHelper() {
+        BufferedImage roiMask = new BufferedImage(roiImage.getWidth(),roiImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        Graphics2D g2d = roiMask.createGraphics();
+        g2d.setColor(Color.WHITE);
+        for(RegionOfInterest roi : rois){
+            g2d.fill(roi.getShape());
+            System.out.println("Fill Shape:"+roi.getShape().toString());
+        }
+        g2d.dispose();
+        return roiMask;
+    }
+
+    public Mat getCalculationMask() {
+        //TODO HIER IEIN DUMMER FEHLER BEI DER KONVERTIERUNG?!
+        BufferedImage roiMask = getCalculationMaskHelper();
+        Mat mat = OpenCVUtils.bufferedImageToMat(roiMask);
+
+        //Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2GRAY);
+        return mat;
     }
 
     public BufferedImage getNormalImage() {

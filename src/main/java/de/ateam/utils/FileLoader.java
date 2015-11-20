@@ -1,5 +1,7 @@
 package main.java.de.ateam.utils;
 
+import org.opencv.objdetect.CascadeClassifier;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -50,5 +52,18 @@ public class FileLoader {
     //TODO CHECK WHETHER JAR OR NOT!
     public static URL loadFile(String filePath){
         return instance.getClass().getClassLoader().getResource(filePath);
+    }
+
+    public static CascadeClassifier loadCascadeFile(String filePath){
+        URL url = loadFile(filePath);
+        if(url != null) {
+            String cascadesFilePath = OSUtils.preparePathForOS(url.getPath());
+            CascadeClassifier detector = new CascadeClassifier(cascadesFilePath);
+            System.out.println(detector);
+            return detector;
+        } else {
+            System.out.println("Cannot find: "+filePath.toString());
+        }
+        return null;
     }
 }

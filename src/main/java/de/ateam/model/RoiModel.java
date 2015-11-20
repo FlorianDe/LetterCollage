@@ -26,9 +26,9 @@ public class RoiModel extends CstmObservable{
         //TODO JUST FOR DEVELOPING!
         this.inputText = "A-Team B";
         try {
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/slide1.jpg")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/people2.jpg")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/people.png")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/1.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/2.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/3.jpg")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,9 +36,9 @@ public class RoiModel extends CstmObservable{
 
     public void loadFont(String fontName) {
         if(fontName != null) {
-            this.letterCollection = LetterFactory.getCollection(fontName);
-            if(this.letterCollection!= null) {
-                this.setLetterCollection(this.letterCollection);
+            LetterCollection lc = LetterFactory.getCollection(fontName);
+            if(lc != null) {
+                this.setLetterCollection(lc);
             }
         }
     }

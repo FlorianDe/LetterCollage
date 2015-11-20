@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public abstract class LetterFactory {
     private static HashMap<String, LetterCollection> fontCollection;
-    private static String lastSelectedFont = null;
+    private static LetterCollection lastLoadedFont;
 
     static{
         init();
@@ -22,12 +22,16 @@ public abstract class LetterFactory {
     }
 
     public static LetterCollection getCollection(String fontName) {
-        lastSelectedFont = fontName;
         if(fontCollection.containsKey(fontName)){
-            return fontCollection.get(fontName);
+            lastLoadedFont = fontCollection.get(fontName);
+            return lastLoadedFont;
         }
-        LetterCollection collection = new LetterCollection(FontLoader.getFont(fontName));
-        LetterFactory.fontCollection.put(fontName, collection);
-        return collection;
+        lastLoadedFont = new LetterCollection(FontLoader.getFont(fontName));
+        LetterFactory.fontCollection.put(fontName, lastLoadedFont);
+        return lastLoadedFont;
+    }
+
+    public static LetterCollection getLastLoadedFont() {
+        return lastLoadedFont;
     }
 }

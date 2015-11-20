@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.collage.CalculateTestListener;
 import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
 import main.java.de.ateam.controller.listener.collage.InputTextChangedListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
@@ -25,8 +26,10 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnOpen;
     private JButton btnZoomIn;
     private JButton btnZoomOut;
+    private JButton btnCalc;
     private JButton btnSetResultImage;
     private JButton btnFaceDetection;
+
     private JTextField tfText;
     private JComboBox cbxFonts;
 
@@ -64,13 +67,17 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
         this.addSeparator();
 
-        this.btnZoomIn = (JButton) createToolbarButton(new JButton(), "img/ZoomIn.gif");
+        this.btnZoomIn = (JButton) createToolbarButton(new JButton(), "img/ZIn.gif");
         this.btnZoomIn.addActionListener(new ZoomInListener(this.controller));
         this.add(this.btnZoomIn);
 
-        this.btnZoomOut = (JButton) createToolbarButton(new JButton(), "img/ZoomOut.gif");
+        this.btnZoomOut = (JButton) createToolbarButton(new JButton(), "img/ZOut.gif");
         this.btnZoomOut.addActionListener(new ZoomOutListener(this.controller));
         this.add(this.btnZoomOut);
+
+        this.btnCalc = (JButton) createToolbarButton(new JButton(), "img/Calc.gif");
+        this.btnCalc.addActionListener(new CalculateTestListener(this.controller));
+        this.add(this.btnCalc);
 
         this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImage.gif");
         this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, controller.getResultImageModel().getEndResultRoiImage()));

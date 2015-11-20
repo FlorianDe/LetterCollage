@@ -1,24 +1,24 @@
-package main.java.de.ateam.controller;
+package main.java.de.ateam.controller.roi;
 
+import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.model.roi.RegionOfInterest;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.OSUtils;
+import main.java.de.ateam.utils.FileLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
-import org.opencv.core.*;
-import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
 import org.opencv.objdetect.CascadeClassifier;
 
 import java.awt.*;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
-import java.awt.image.DataBufferInt;
-import java.net.URL;
 
 /**
- * Created by Florian on 17.11.2015.
+ * Created by Florian on 20.11.2015.
  */
-public class RegionOfInterestController {
+public class RegionOfInterestDetector {
+    public static final int SIMILAR_SAMPLER_RADIUS = 10;
+    public static final float SIMILAR_THRESHOLD = 0.85f;
     private static final String haarcascades_frontalfaceString = "opencv/haarcascades/haarcascade_frontalface_default.xml";
     private static final String haarcascades_eyeStringString = "opencv/haarcascades/haarcascade_eye.xml";
 
@@ -27,11 +27,11 @@ public class RegionOfInterestController {
 
     ICollageController controller;
 
-    public RegionOfInterestController(ICollageController controller){
+    public RegionOfInterestDetector(ICollageController controller){
         this.controller = controller;
 
-        this.frontalfaceDetector = loadCascadeFile(haarcascades_frontalfaceString);
-        this.eyeDetector = loadCascadeFile(haarcascades_eyeStringString);
+        this.frontalfaceDetector = FileLoader.loadCascadeFile(haarcascades_frontalfaceString);
+        this.eyeDetector = FileLoader.loadCascadeFile(haarcascades_eyeStringString);
     }
 
     public void faceRecognition(RegionOfInterestImage roiImage){
@@ -66,11 +66,11 @@ public class RegionOfInterestController {
 
 
         // create Sample
-        int xS = p.x + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
-        int yS = p.y + RegionOfInterest.SIMILAR_SAMPLER_RADIUS;
+        int xS = p.x + SIMILAR_SAMPLER_RADIUS;
+        int yS = p.y + SIMILAR_SAMPLER_RADIUS;
 
-        for(int x = p.x - RegionOfInterest.SIMILAR_SAMPLER_RADIUS+1; x < xS; x++) {
-            for(int y = p.y - RegionOfInterest.SIMILAR_SAMPLER_RADIUS+1; y < yS; y++) {
+        for(int x = p.x - SIMILAR_SAMPLER_RADIUS+1; x < xS; x++) {
+            for(int y = p.y - SIMILAR_SAMPLER_RADIUS+1; y < yS; y++) {
                 if(x >= 0 && y >= 0 && x < width && y < height){
                     float[] hsv = OpenCVUtils.getHSVPixel(pixels, x, y, width);
                     average[0] += hsv[0];
@@ -92,17 +92,17 @@ public class RegionOfInterestController {
             float difB = 1;
             // kreiself*cker
             while(!pass) {
-                if(lMax > 1 && difA > RegionOfInterest.SIMILAR_THRESHOLD) {
+                if(lMax > 1 && difA > SIMILAR_THRESHOLD) {
                     difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, lMax--, p.y, width));
                 } else {
                     difA = 0;
                 }
-                if(rMax < width && difB > RegionOfInterest.SIMILAR_THRESHOLD) {
+                if(rMax < width && difB > SIMILAR_THRESHOLD) {
                     difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, rMax++, p.y, width));
                 } else{
                     difB = 0;
                 }
-                if(difA < RegionOfInterest.SIMILAR_THRESHOLD && difB < RegionOfInterest.SIMILAR_THRESHOLD) {
+                if(difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
                     pass = true;
                 }
             }
@@ -120,21 +120,21 @@ public class RegionOfInterestController {
                 // top pass
                 pass = false;
                 while(!pass) {
-                    if(tMax > 1 && difA > RegionOfInterest.SIMILAR_THRESHOLD/2) {
+                    if(tMax > 1 && difA > SIMILAR_THRESHOLD/2) {
                         difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x , tMax--, width));
                         if(tMax < yMin)
                             yMin = tMax;
                     } else {
                         difA = 0;
                     }
-                    if(bMin < height && difB > RegionOfInterest.SIMILAR_THRESHOLD/2) {
+                    if(bMin < height && difB > SIMILAR_THRESHOLD/2) {
                         difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x, bMin++, width));
                         if(bMin > yMax)
                             yMax = bMin;
                     } else{
                         difB = 0;
                     }
-                    if(difA < RegionOfInterest.SIMILAR_THRESHOLD && difB < RegionOfInterest.SIMILAR_THRESHOLD) {
+                    if(difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
                         pass = true;
                         tMax = p.y;
                         bMin = p.y;
@@ -152,17 +152,5 @@ public class RegionOfInterestController {
         }
     }
 
-    private CascadeClassifier loadCascadeFile(String file){
-        ClassLoader cl = this.getClass().getClassLoader();
-        URL url = cl.getResource(file);
-        if(url != null) {
-            String cascadesFilePath = OSUtils.preparePathForOS(url.getPath());
-            CascadeClassifier detector = new CascadeClassifier(cascadesFilePath);
-            System.out.println(detector);
-            return detector;
-        } else {
-            System.out.println("Cannot find: "+file.toString());
-        }
-        return null;
-    }
+
 }

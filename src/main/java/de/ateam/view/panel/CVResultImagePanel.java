@@ -28,7 +28,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
 
         //Load custom crosshair cursor
         try {
-            image = ImageIO.read(FileLoader.loadFile("img/icons/cursor/32_cstm_crosshair_gray.png"));
+            image = ImageIO.read(FileLoader.loadFile("img/icons/cursor/32_cstm_crosshair.png"));
             Point hotspot = new Point(16,16);
             cstm_crosshair = toolkit.createCustomCursor(image, hotspot, "cstm_crosshair");
         } catch (IOException e) {
@@ -53,13 +53,11 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     ICollageController controller;
 
     public CVResultImagePanel(ICollageController controller){
-        // MASSIVE speed improvement
         renderingHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         renderingHints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         renderingHints.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         renderingHints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
 
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);

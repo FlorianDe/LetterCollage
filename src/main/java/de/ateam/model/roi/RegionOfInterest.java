@@ -9,8 +9,6 @@ public class RegionOfInterest {
     public static final Color DEFAULT_COLOR = Color.RED;
     public static final Color FACEDETECTION_COLOR = Color.GREEN;
     public static final Color EYEDETECTION_COLOR = Color.BLUE;
-    public static final int SIMILAR_SAMPLER_RADIUS = 10;
-    public static final float SIMILAR_THRESHOLD = 0.85f;
 
     private Shape shape;
     private Color color;

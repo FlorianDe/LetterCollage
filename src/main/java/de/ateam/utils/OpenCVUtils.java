@@ -73,8 +73,18 @@ public class OpenCVUtils {
         // Convert bufferedimage to byte array
         byte[] pixels = ((DataBufferByte) im.getRaster().getDataBuffer()).getData();
 
+
         // Create a Matrix the same size of image
-        Mat image = new Mat(im.getHeight(), im.getWidth(), CvType.CV_8UC3);
+        int im_cvType;
+        switch(im.getType()){
+            case BufferedImage.TYPE_BYTE_GRAY:
+                im_cvType = CvType.CV_8UC1;
+                break;
+            default:
+                im_cvType = CvType.CV_8UC3;
+                break;
+        }
+        Mat image = new Mat(im.getHeight(), im.getWidth(), im_cvType);
         // Fill Matrix with image values
         image.put(0, 0, pixels);
 

@@ -4,6 +4,7 @@ import main.java.de.ateam.utils.OpenCVUtils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.*;
@@ -28,7 +29,7 @@ public class Letter{
     }
 
     private void init(BufferedImage map) {
-        //TODO mir erklären :D!
+        //TODO mir erklï¿½ren :D!
         float ratio = (float)map.getHeight() / (float)map.getWidth();
         int width = LetterCollection.SAMPLER_SIZE;
         int height = LetterCollection.SAMPLER_SIZE;
@@ -42,8 +43,10 @@ public class Letter{
         //System.out.println("Size:" + sz);
         this.letterMask = OpenCVUtils.bufferedImageToMat(map);
         this.calculationMask = new Mat(sz, CvType.CV_8UC3);
+
         Imgproc.resize(this.letterMask, this.calculationMask, sz);
         Imgproc.cvtColor(this.letterMask, this.letterMask, Imgproc.COLOR_BGR2GRAY);
+        Imgproc.cvtColor(this.calculationMask, this.calculationMask, Imgproc.COLOR_BGR2GRAY);
     }
 
     public char getSymbol() {

@@ -49,7 +49,7 @@ public class CollageFrame extends JFrame {
         this.resultImageScrollPane.getHorizontalScrollBar().addAdjustmentListener(listener);
         this.resultImageScrollPane.getVerticalScrollBar().addAdjustmentListener(listener);
 
-        this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, loadedImagesScrollPane, resultImageScrollPane);;
+        this.splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, loadedImagesScrollPane, resultImageScrollPane);
 
         this.splitPane.setOneTouchExpandable(true);
         //TODO Anpassen mit getPrefSize dies das
@@ -57,6 +57,7 @@ public class CollageFrame extends JFrame {
 
 
         /*
+        //ATM NOT USABLE!
         //CENTER STUFF INSIDE THE SCROLLPANE!
         resultImageScrollPane.setLayout(new ScrollPaneLayout() {
             public void layoutContainer(Container parent) {

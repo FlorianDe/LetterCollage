@@ -40,10 +40,14 @@ public class MouseAdapterListener extends MouseAdapter {
         this.pReleased = new Point(e.getPoint());
 
         if(isPaintMode(e)){
-            this.controller.getResultImageModel().setMouseMode(ResultImageModel.MouseMode.PAINT);
-            Rectangle r = new Rectangle(pPressed);
-            r.add(pReleased);
-            this.controller.getResultImageModel().getActualVisibleRoiImage().addRegionOfInterest(this.controller.getResultImageModel().getRealCoordinates(r));
+            if(!pReleased.equals(pPressed)) {
+                if((pReleased.distance(pPressed)>4.0)){
+                    this.controller.getResultImageModel().setMouseMode(ResultImageModel.MouseMode.PAINT);
+                    Rectangle r = new Rectangle(pPressed);
+                    r.add(pReleased);
+                    this.controller.getResultImageModel().getActualVisibleRoiImage().addRegionOfInterest(this.controller.getResultImageModel().getRealCoordinates(r));
+                }
+            }
             this.controller.getResultImageModel().setActualDrawnRoi(null);
         }
         else if(isEraseMode(e)){
@@ -79,7 +83,7 @@ public class MouseAdapterListener extends MouseAdapter {
         }
         else if(isSelectSimilarMode(e)) {
             Rectangle r =  this.controller.getResultImageModel().getRealCoordinates(new Rectangle(pPressed));
-            this.controller.getRoiController().similarDetection(this.controller.getResultImageModel().getActualVisibleRoiImage(), pPressed.getLocation());
+            this.controller.getRoiController().getRoiDetector().similarDetection(this.controller.getResultImageModel().getActualVisibleRoiImage(), pPressed.getLocation());
         }
 
         this.controller.getResultImageModel().setMouseMode(this.lastMouseMode);

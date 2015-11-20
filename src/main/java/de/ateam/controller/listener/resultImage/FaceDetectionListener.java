@@ -14,6 +14,6 @@ public class FaceDetectionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.controller.getRoiController().faceRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
+		this.controller.getRoiController().getRoiDetector().faceRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
 	}
 }

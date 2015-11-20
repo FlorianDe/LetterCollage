@@ -83,5 +83,7 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
         this.menuItemMouseModeZoomIn.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ZOOMIN));
         this.menuItemMouseModeZoomOut.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ZOOMOUT));
         this.menuItemMouseModeSetWeight.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.SETWEIGHT));
+        this.menuItemMouseModeSimilarSelect.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.SIMILAR_SELECT));
+
     }
 }
