@@ -114,7 +114,6 @@ public class RegionOfInterestImage{
         g2d.setColor(Color.WHITE);
         for(RegionOfInterest roi : rois){
             g2d.fill(roi.getShape());
-            System.out.println("Fill Shape:"+roi.getShape().toString());
         }
         g2d.dispose();
         return roiMask;

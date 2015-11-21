@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public class LetterCollection extends CstmObservable{
     private static final int LETTER_SIZE = 150;
-    public static final int SAMPLER_SIZE = 30;
+    public static final int SAMPLER_SIZE = 50; //TODO EVTL ANPASSBAR MACHEN!
     private HashMap<Character, Letter> letterMap;
     private FontMetrics metrics;
     private Graphics2D g2d;
@@ -63,11 +63,9 @@ public class LetterCollection extends CstmObservable{
             }
             BufferedImage tempBuf = new BufferedImage(width, lineAsc, BufferedImage.TYPE_3BYTE_BGR);
             g2d = tempBuf.createGraphics();
-            g2d.setRenderingHint(
-                    RenderingHints.KEY_TEXT_ANTIALIASING,
-                    RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
-            g2d.setFont(this.font);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
             g2d.setColor(Color.WHITE);
+            g2d.setFont(this.font);
             g2d.drawString(c+"", 0, lineAsc - lineDesc);
             tempLetters.put(c,new Letter(tempBuf,c));
         }

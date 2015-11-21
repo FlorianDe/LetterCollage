@@ -8,16 +8,7 @@ import main.java.de.ateam.controller.ICollageController;
 public class RegionOfInterestController {
 
     ICollageController controller;
-    RegionOfInterestCalculator roiCalculator;
     RegionOfInterestDetector roiDetector;
-
-    public RegionOfInterestCalculator getRoiCalculator() {
-        return roiCalculator;
-    }
-
-    public void setRoiCalculator(RegionOfInterestCalculator roiCalculator) {
-        this.roiCalculator = roiCalculator;
-    }
 
     public RegionOfInterestDetector getRoiDetector() {
         return roiDetector;
@@ -29,7 +20,6 @@ public class RegionOfInterestController {
 
     public RegionOfInterestController(ICollageController controller){
         this.controller = controller;
-        this.roiCalculator = new RegionOfInterestCalculator(controller);
         this.roiDetector = new RegionOfInterestDetector(controller);
     }
 
