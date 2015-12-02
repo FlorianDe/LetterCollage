@@ -14,8 +14,8 @@ import java.util.HashMap;
  * Created by viktorspadi on 15.11.15.
  */
 public class LetterCollection extends CstmObservable{
-    private static final int LETTER_SIZE = 150;
-    public static final int SAMPLER_SIZE = 50; //TODO EVTL ANPASSBAR MACHEN!
+    public static final int LETTER_SIZE = 1000; //TODO ANPASSBAR ENTW MAX IMGLOADER HEIGHT ODER FIX!
+    public static final int SAMPLER_SIZE = 12; //TODO EVTL ANPASSBAR MACHEN!
     private HashMap<Character, Letter> letterMap;
     private FontMetrics metrics;
     private Graphics2D g2d;
@@ -24,7 +24,7 @@ public class LetterCollection extends CstmObservable{
 
     static {
         //TODO Sollte am Besten ersetzt werden, durch die Buchstaben, die benötigt werden!
-        characters = "#1234567890qwertzuiopüasdfghjklöäyxcvbnmQWERTZUIOPÜASDFGHJKLÖÄYXCVBNM?! -".toCharArray();
+        characters = "#123aeiouAEIOU".toCharArray();
     }
 
     protected LetterCollection(Font font) {
@@ -124,5 +124,13 @@ public class LetterCollection extends CstmObservable{
         }
 
         return buf;
+    }
+
+    public FontMetrics getMetrics() {
+        return metrics;
+    }
+
+    public Font getFont() {
+        return font;
     }
 }

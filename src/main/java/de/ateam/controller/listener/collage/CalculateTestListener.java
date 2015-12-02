@@ -1,15 +1,21 @@
 package main.java.de.ateam.controller.listener.collage;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.roi.CalculationResult;
 import main.java.de.ateam.controller.roi.RegionOfInterestCalculator;
-import main.java.de.ateam.model.roi.RegionOfInterest;
+import main.java.de.ateam.exception.NoFontSelectedException;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.model.text.Letter;
-import main.java.de.ateam.model.text.LetterFactory;
+import main.java.de.ateam.model.text.LetterCollection;
+import main.java.de.ateam.utils.OpenCVUtils;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalculateTestListener implements ActionListener {
 	protected ICollageController controller;
@@ -20,13 +26,79 @@ public class CalculateTestListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		try{
+
 		ArrayList<Letter> letters = new ArrayList<>();
-		for(Character c : this.controller.getRoiModel().getInputText().toCharArray()){
-			letters.add(this.controller.getRoiModel().getLetterCollection().getLetter(c));
+		try {
+			for (Character c : this.controller.getRoiModel().getInputText().toCharArray()) {
+				letters.add(this.controller.getRoiModel().getLetterCollection().getLetter(c));
+			}
+		}
+		catch(NullPointerException npExce){
+			throw new NoFontSelectedException();
 		}
 		RegionOfInterestCalculator roic = new RegionOfInterestCalculator(this.controller.getRoiModel().getLoadedImages(), letters, controller);
 		roic.calculateIntersectionMatrix();
 
-		//this.controller.getRoiController().getRoiCalculator().calculateIntersection(roii, l, 1, 0, 0);
+		HashMap<Integer, Integer> imMapLetter = new HashMap<>();
+		for (int letterCounter = 0; letterCounter < roic.getMat_letters().length; letterCounter++){
+			CalculationResult calcRes = CalculationResult.getZero();
+			Integer tempNumber = 0;
+			for (int imgCounter = 0; imgCounter < roic.getMat_roiImages().length; imgCounter++){
+				if(!imMapLetter.containsValue(imgCounter) && imgCounter<roic.getMat_letters().length) {
+					CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imgCounter, letterCounter);
+					if (calcRes.getIntersectAreaPercentage() <= tempCalcRes.getIntersectAreaPercentage()) {
+							calcRes = tempCalcRes;
+							tempNumber = imgCounter;
+							if(calcRes.getIntersectAreaPercentage() >= 1.0){
+								break;
+							}
+					}
+				}
+			}
+			imMapLetter.put(letterCounter,tempNumber);
+		}
+
+		int width = 0;
+		for (int i = 0; i <letters.size(); i++) {
+			width+=letters.get(i).getWidth();
+		}
+		BufferedImage biRes = new BufferedImage(width, LetterCollection.LETTER_SIZE, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g2dGes = biRes.createGraphics();
+		g2dGes.setColor(Color.WHITE);
+		g2dGes.fillRect(0,0,biRes.getWidth(),biRes.getHeight());
+		int xOffset = 0;
+		for (int i = 0; i < letters.size(); i++) {
+			BufferedImage letterImgBuf = OpenCVUtils.matToBufferedImage(letters.get(i).getLetterMask());
+			BufferedImage letterImgBufCopy = new BufferedImage(letterImgBuf.getWidth(), letterImgBuf.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D g2dLetterImgBufCopy = letterImgBufCopy.createGraphics();
+			CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imMapLetter.get(i), i);
+			System.out.println(tempCalcRes);
+			BufferedImage bufImg = this.controller.getRoiModel().getLoadedImages().get(imMapLetter.get(i)).getNormalImage();
+			double maxAspectRatio = Math.max((double) letterImgBuf.getWidth() / (double) bufImg.getWidth(), (double) letterImgBuf.getHeight() / (double) bufImg.getHeight());
+			g2dLetterImgBufCopy.drawImage(bufImg,
+					-(int) ((double) tempCalcRes.getdX() * ((double)LetterCollection.LETTER_SIZE/LetterCollection.SAMPLER_SIZE)),
+					-(int) ((double) tempCalcRes.getdY() * ((double)LetterCollection.LETTER_SIZE/LetterCollection.SAMPLER_SIZE)),
+					(int) (bufImg.getWidth() * (maxAspectRatio * tempCalcRes.getScaleFactor())),
+					(int) (bufImg.getHeight() * (maxAspectRatio * tempCalcRes.getScaleFactor())),
+					null);
+			byte[] alphaPixels = ((DataBufferByte)letterImgBuf.getRaster().getDataBuffer()).getData();
+			byte[] colorPixels = ((DataBufferByte)letterImgBufCopy.getRaster().getDataBuffer()).getData();
+
+			for (int j = 0; j < colorPixels.length; j=j+4) {
+				colorPixels[j] = alphaPixels[j/4];
+			}
+			g2dGes.drawImage(letterImgBufCopy,xOffset,0,null);
+			xOffset+=letterImgBuf.getWidth();
+		}
+
+		this.controller.getResultImageModel().setEndResultRoiImage(new RegionOfInterestImage(biRes));
+		this.controller.getResultImageModel().setActualVisibleRoiImage(this.controller.getResultImageModel().getEndResultVisibleRoiImage());
+		System.out.println(imMapLetter.toString());
+
+		}
+		catch(NoFontSelectedException nfsExce){
+			this.controller.getRoiModel().notifyViewFromController();
+		}
 	}
 }

@@ -26,8 +26,11 @@ public abstract class LetterFactory {
             lastLoadedFont = fontCollection.get(fontName);
             return lastLoadedFont;
         }
-        lastLoadedFont = new LetterCollection(FontLoader.getFont(fontName));
-        LetterFactory.fontCollection.put(fontName, lastLoadedFont);
+        Font font = FontLoader.getFont(fontName);
+        if(font!=null) {
+            lastLoadedFont = new LetterCollection(font);
+            LetterFactory.fontCollection.put(fontName, lastLoadedFont);
+        }
         return lastLoadedFont;
     }
 

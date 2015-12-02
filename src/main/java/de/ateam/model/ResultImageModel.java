@@ -20,9 +20,11 @@ public class ResultImageModel extends CstmObservable {
     private double zoomFactor;
     private RegionOfInterestImage endResultVisibleRoiImage;
     private RegionOfInterestImage actualVisibleRoiImage;
+    private boolean resolutionRasterVisible;
     private Rectangle viewRect;
     private Rectangle actualDrawnRoi;
     private Color actualDrawColor;
+    private int margin;
 
 
     public ResultImageModel(){
@@ -37,6 +39,7 @@ public class ResultImageModel extends CstmObservable {
         this.zoomFactor = 1;
         this.actualDrawnRoi = null;
         this.actualDrawColor = Color.RED;
+        this.margin = 0;
     }
 
 
@@ -130,6 +133,24 @@ public class ResultImageModel extends CstmObservable {
 
     public void setActualVisibleRoiImage(RegionOfInterestImage actualVisibleRoiImage) {
         this.actualVisibleRoiImage = actualVisibleRoiImage;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public boolean isResolutionRasterVisible() {
+        return resolutionRasterVisible;
+    }
+
+    public int getMargin() {
+        return margin;
+    }
+
+    public void setMargin(int margin) {
+        this.margin = margin;
+    }
+
+    public void setResolutionRasterVisible(boolean resolutionRasterVisible) {
+        this.resolutionRasterVisible = resolutionRasterVisible;
         this.setChanged();
         this.notifyObservers(null);
     }

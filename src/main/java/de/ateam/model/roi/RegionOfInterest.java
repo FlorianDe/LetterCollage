@@ -9,6 +9,7 @@ public class RegionOfInterest {
     public static final Color DEFAULT_COLOR = Color.RED;
     public static final Color FACEDETECTION_COLOR = Color.GREEN;
     public static final Color EYEDETECTION_COLOR = Color.BLUE;
+    public static final Color SIMILARSELECTION_COLOR = Color.MAGENTA;
 
     private Shape shape;
     private Color color;

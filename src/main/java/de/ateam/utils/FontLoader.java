@@ -14,7 +14,7 @@ public class FontLoader {
     private static TreeMap<String, Font> fonts;
 
     static {
-        fonts = new TreeMap<>();
+        fonts = loadFontHelper();
     }
 
     public static Font getFont(String fontName) {
@@ -28,7 +28,8 @@ public class FontLoader {
         return font;
     }
 
-    public static String[] getFonts() {
+
+    private static TreeMap<String, Font> loadFontHelper(){
         fonts = new TreeMap<>();
         String[] systemFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String path = OSUtils.getResourcePathForOS("fonts");
@@ -47,9 +48,20 @@ public class FontLoader {
             }
         }
 
-        for(String systemFontName: systemFonts)
+        for(String systemFontName: systemFonts) {
             fonts.put(systemFontName, null);
+        }
+        return fonts;
+    }
 
+    public static String[] reloadFonts() {
+        return loadFontHelper().keySet().toArray(new String[fonts.size()]);
+    }
+
+    public static String[] loadFonts() {
+        if(fonts==null) {
+            return loadFontHelper().keySet().toArray(new String[fonts.size()]);
+        }
         return fonts.keySet().toArray(new String[fonts.size()]);
     }
 

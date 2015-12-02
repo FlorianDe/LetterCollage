@@ -59,7 +59,6 @@ public class FileLoader {
         if(url != null) {
             String cascadesFilePath = OSUtils.preparePathForOS(url.getPath());
             CascadeClassifier detector = new CascadeClassifier(cascadesFilePath);
-            System.out.println(detector);
             return detector;
         } else {
             System.out.println("Cannot find: "+filePath.toString());

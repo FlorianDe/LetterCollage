@@ -34,23 +34,31 @@ public class RegionOfInterestDetector {
         this.eyeDetector = FileLoader.loadCascadeFile(haarcascades_eyeStringString);
     }
 
-    public void faceRecognition(RegionOfInterestImage roiImage){
+    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor){
         if (!frontalfaceDetector.empty()) {
-            MatOfRect faceDetections = new MatOfRect();
+            MatOfRect detections = new MatOfRect();
             Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
 
-            frontalfaceDetector.detectMultiScale(image, faceDetections);
-            System.out.println(String.format("Detected %s face(s)!", faceDetections.toArray().length));
+            cascadeClassifier.detectMultiScale(image, detections);
+            System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
 
-            // Draw a bounding box around each face.
-            for (Rect rect : faceDetections.toArray()) {
-                roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), RegionOfInterest.FACEDETECTION_COLOR);
+            // Draw a bounding box around each detection.
+            for (Rect rect : detections.toArray()) {
+                roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor);
             }
             this.controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
         } else {
-            System.out.println("Facedetector is empty...cannot detect faces!");
+            System.out.println("Detector [" + cascadeClassifier.toString() + "] is empty...cannot detect faces!");
         }
     }
+    public void faceRecognition(RegionOfInterestImage roiImage){
+        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.FACEDETECTION_COLOR);
+    }
+    public void eyeRecognition(RegionOfInterestImage roiImage){
+        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.EYEDETECTION_COLOR);
+    }
+
+
 
     public void similarDetection(RegionOfInterestImage roiImage, Point p) {
         long startTime = System.currentTimeMillis();
@@ -142,7 +150,7 @@ public class RegionOfInterestDetector {
                 }
             }
             System.out.printf("yMax %d  yMin %d\n", yMax, yMin);
-            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin));
+            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin),RegionOfInterest.SIMILARSELECTION_COLOR);
 
 
             roiImage.repaintRoiImage();

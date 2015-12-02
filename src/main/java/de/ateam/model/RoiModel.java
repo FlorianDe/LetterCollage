@@ -29,6 +29,10 @@ public class RoiModel extends CstmObservable{
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/1.jpg")));
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/2.jpg")));
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/3.jpg")));
+
+            String defaultFontName = "Showcard Gothic";
+            if(LetterFactory.getCollection(defaultFontName)!=null)
+                this.setLetterCollection(LetterFactory.getCollection(defaultFontName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,6 +65,8 @@ public class RoiModel extends CstmObservable{
         if(this.roiImageCollection.isArrangeable()) {
             this.roiImageCollection.arrangeImages();
         }
+        this.setChanged();
+        this.notifyObservers(null);
     }
 
     public String getInputText() {

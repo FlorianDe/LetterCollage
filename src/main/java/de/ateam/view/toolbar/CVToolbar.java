@@ -5,9 +5,7 @@ import main.java.de.ateam.controller.listener.collage.CalculateTestListener;
 import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
 import main.java.de.ateam.controller.listener.collage.InputTextChangedListener;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
-import main.java.de.ateam.controller.listener.resultImage.FaceDetectionListener;
-import main.java.de.ateam.controller.listener.resultImage.ZoomInListener;
-import main.java.de.ateam.controller.listener.resultImage.ZoomOutListener;
+import main.java.de.ateam.controller.listener.resultImage.*;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
 import main.java.de.ateam.utils.FileLoader;
@@ -24,11 +22,13 @@ import java.awt.*;
 public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnNew;
     private JButton btnOpen;
+    private JButton btnGrid;
     private JButton btnZoomIn;
     private JButton btnZoomOut;
     private JButton btnCalc;
     private JButton btnSetResultImage;
     private JButton btnFaceDetection;
+    private JButton btnEyeDetection;
 
     private JTextField tfText;
     private JComboBox cbxFonts;
@@ -38,6 +38,9 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.controller = controller;
         this.createToolbar();
         this.controller.getResultImageModel().addObserver(this);
+        this.controller.getRoiModel().addObserver(this);
+
+        update(null, this);
     }
 
     public void setStyle(Graphics g){
@@ -67,6 +70,12 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
         this.addSeparator();
 
+        this.btnGrid = (JButton) createToolbarButton(new JButton(), "img/Raster.gif");
+        this.btnGrid.addActionListener(new GridOnOffListener(this.controller));
+        this.add(this.btnGrid);
+
+        this.addSeparator();
+
         this.btnZoomIn = (JButton) createToolbarButton(new JButton(), "img/ZIn.gif");
         this.btnZoomIn.addActionListener(new ZoomInListener(this.controller));
         this.add(this.btnZoomIn);
@@ -79,19 +88,23 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnCalc.addActionListener(new CalculateTestListener(this.controller));
         this.add(this.btnCalc);
 
-        this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImage.gif");
-        this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, controller.getResultImageModel().getEndResultRoiImage()));
+        this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImg.gif");
+        this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, null));
         this.add(this.btnSetResultImage);
 
-        this.btnFaceDetection = (JButton) createToolbarButton(new JButton(), "img/FaceDetection.gif");
+        this.btnFaceDetection = (JButton) createToolbarButton(new JButton(), "img/FaceDet.gif");
         this.btnFaceDetection.addActionListener(new FaceDetectionListener(controller));
         this.add(this.btnFaceDetection);
+
+        this.btnEyeDetection = (JButton) createToolbarButton(new JButton(), "img/EyeDet.gif");
+        this.btnEyeDetection.addActionListener(new EyeDetectionListener(controller));
+        this.add(this.btnEyeDetection);
 
         this.tfText = new JTextField(this.controller.getRoiModel().getInputText());
         this.tfText.getDocument().addDocumentListener(new InputTextChangedListener(controller));
         this.add(this.tfText);
 
-        this.cbxFonts = new JComboBox(FontLoader.getFonts());
+        this.cbxFonts = new JComboBox(FontLoader.loadFonts());
         this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));
         this.add(cbxFonts);
     }
@@ -114,6 +127,13 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
     @Override
     public void update(CstmObservable arg0, Object arg1) {
+        if(this.controller.getRoiModel().getLetterCollection()==null){
+            this.cbxFonts.setBorder(BorderFactory.createLineBorder(Color.RED));
+        }else{
+            this.cbxFonts.setSelectedItem(this.controller.getRoiModel().getLetterCollection().getFont().getFontName());
+            this.cbxFonts.setBorder(BorderFactory.createEmptyBorder());
+        }
+
         this.revalidate();
         this.repaint();
     }

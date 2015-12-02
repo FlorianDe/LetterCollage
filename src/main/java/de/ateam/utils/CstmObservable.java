@@ -156,4 +156,9 @@ public class CstmObservable {
         return obs.size();
     }
 
+    public synchronized void notifyViewFromController(){
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
 }
