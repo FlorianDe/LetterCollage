@@ -48,12 +48,14 @@ public class RegionOfInterestCalculator {
             for (int letter_index = 0; letter_index < mat_letters.length; letter_index++) {
                 calculations[roii_index][letter_index] = new ArrayList<>();
                 double maxAspectRatio = Math.max((double)mat_letters[letter_index].width() / (double)mat_roiImages[roii_index].width(), (double)mat_letters[letter_index].height() / (double)mat_roiImages[roii_index].height());
-                for (double step_scaleFactor = 1.0; step_scaleFactor <= 4.0; step_scaleFactor=step_scaleFactor+1.0) {
+                System.out.printf("\nImg:%s, Letter:%s, Scale:", roii_index, letter_index);
+                for (double step_scaleFactor = 1.0; step_scaleFactor <= 4.0; step_scaleFactor=step_scaleFactor+0.25) {
+                    System.out.print(step_scaleFactor + ", ");
                     int stepHeightMax = (int)(mat_roiImages[roii_index].height()*maxAspectRatio*step_scaleFactor)-mat_letters[letter_index].height();
                     for (int step_dy = 0; step_dy < stepHeightMax; step_dy+=step_scaleFactor) {
                         int stepWidthMax = (int)(mat_roiImages[roii_index].width()*maxAspectRatio*step_scaleFactor)-mat_letters[letter_index].width();
                         for (int step_dx = 0; step_dx < stepWidthMax; step_dx+=step_scaleFactor) {
-                            calculations[roii_index][letter_index].add(calculateIntersection(mat_roiImages[roii_index], mat_letters[letter_index], maxAspectRatio, step_scaleFactor, step_dy, step_dx));
+                            calculations[roii_index][letter_index].add(calculateIntersection(mat_roiImages[roii_index], mat_letters[letter_index], maxAspectRatio, step_scaleFactor, step_dx, step_dy));
                             possibilities++;
                         }
                     }
@@ -65,7 +67,7 @@ public class RegionOfInterestCalculator {
 
 
     //return the overlapped roi area in percentage/100
-    public CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dY, int dX){
+    public CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY){
         //long start = System.currentTimeMillis();
         //double maxAspectRatio = Math.max((double)mat_letter.width() / (double)mat_roiImage.width(), (double)mat_letter.height() / (double)mat_roiImage.height());
         Rect subMatRect = new Rect( dX, dY, mat_letter.width(), mat_letter.height());
@@ -96,7 +98,7 @@ public class RegionOfInterestCalculator {
         //System.out.printf("Count [Before:%s, After:%s] Percentage intersected:%s\n", countBefore, countAfter, (100.0 / countBefore) * countAfter);
         //this.controller.getResultImageModel().setActualVisibleRoiImage(new RegionOfInterestImage(OpenCVUtils.matToBufferedImage(xoredMat)));
 
-        return new CalculationResult(scaleFactor,(maxAspectRatio*scaleFactor*((double)LetterCollection.LETTER_SIZE/(double)LetterCollection.SAMPLER_SIZE)), dX, dY, percentage);
+        return new CalculationResult(scaleFactor,(maxAspectRatio*scaleFactor*((double)this.controller.getRoiModel().getLetterCollection().getLETTER_SIZE()/(double)this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE())), dX/newSize.width, dY/newSize.height, percentage);
     }
 
     public CalculationResult getBestResultsForImageLeter(int image, int letter){

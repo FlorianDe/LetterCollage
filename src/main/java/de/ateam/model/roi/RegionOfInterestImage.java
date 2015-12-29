@@ -128,6 +128,10 @@ public class RegionOfInterestImage{
         return mat;
     }
 
+    public ArrayList<RegionOfInterest> getRois() {
+        return rois;
+    }
+
     public BufferedImage getNormalImage() {
         return this.normalImage;
     }

@@ -4,6 +4,8 @@ import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.resultImage.MouseAdapterListener;
 import main.java.de.ateam.controller.listener.resultImage.MouseWheelZoomListener;
 import main.java.de.ateam.model.ResultImageModel;
+import main.java.de.ateam.model.roi.RegionOfInterest;
+import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.model.text.LetterCollection;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
@@ -12,6 +14,7 @@ import main.java.de.ateam.utils.FileLoader;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 /**
@@ -23,7 +26,8 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     private static Cursor cstm_crosshair = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     private static Cursor cstm_eraser = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     private static Cursor cstm_magicwand = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-    private static final AlphaComposite OVER_HALF = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
+    private static final AlphaComposite TRANSPARENCY_25 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
+    private static final AlphaComposite TRANSPARENCY_100 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
 
     static{
         cstm_crosshair = tryLoadCursor("img/icons/cursor/32_cstm_crosshair.png", new Point(16,16));
@@ -59,6 +63,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);
         this.controller.getRoiModel().getRoiCollection().addObserver(this);
+        this.controller.getRoiModel().getLetterCollection().addObserver(this);
 
 
         MouseAdapterListener mal = new MouseAdapterListener(controller);
@@ -78,9 +83,9 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-
         g2d.setRenderingHints(renderingHints);
 
+        //REPAINT MOUSE
         switch (this.controller.getResultImageModel().getMouseMode()){
             case DRAG:
                 this.setCursor(handCursor);
@@ -99,15 +104,16 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
                 break;
         }
 
+        //SHOW IMAGE
         g2d.drawImage(this.controller.getResultImageModel().getActualVisibleImage(),
                 0, 0,
                 (int) this.controller.getResultImageModel().getRenderSize().getWidth(),
                 (int) this.controller.getResultImageModel().getRenderSize().getHeight(),
                 null);
 
-
+        //DRAW RASTER!
         if(this.controller.getResultImageModel().isResolutionRasterVisible()){
-            g2d.setComposite(OVER_HALF);
+            g2d.setComposite(TRANSPARENCY_25);
             g2d.setColor(Color.GRAY);
             ResultImageModel rim = this.controller.getResultImageModel();
 
@@ -123,14 +129,56 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
                 }
             }
 
-            int heightStepSize = (int)(rim.getRenderSize().getHeight()/LetterCollection.SAMPLER_SIZE);
-            int widthStepSize =  (int)(rim.getRenderSize().getWidth()/LetterCollection.SAMPLER_SIZE);
+            int heightStepSize = (int)(rim.getRenderSize().getHeight()/this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
+            int widthStepSize =  (int)(rim.getRenderSize().getWidth()/this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
 
             for (int y = 0; y <= maxHeight; y+= heightStepSize)
                 g2d.drawLine(rim.getMargin(), rim.getMargin()+y, maxWidth+rim.getMargin(), rim.getMargin()+y);
             for (int x = 0; x <= maxWidth; x+= widthStepSize)
                 g2d.drawLine(rim.getMargin()+x, rim.getMargin(), rim.getMargin()+x, maxHeight+rim.getMargin());
+
+
+            //DRAW TOLERANCE //TODO TAKE OTHER/EXTRA CONDITION
+            RegionOfInterestImage roii = this.controller.getResultImageModel().getActualVisibleRoiImage();
+            g2d.setColor(Color.YELLOW);
+
+            for(RegionOfInterest roi : roii.getRois()) {
+                Rectangle2D r = roi.getShape().getBounds2D();
+
+                int diffStepSize = Math.abs(heightStepSize-widthStepSize)/2;
+
+                int left=(int)(r.getX()*rim.getZoomFactor());
+                int top=(int)(r.getY()*rim.getZoomFactor());
+                int right=(int)((r.getX()+r.getWidth())*rim.getZoomFactor());
+                int bottom=(int)((r.getY()+r.getHeight())*rim.getZoomFactor());
+
+                if(heightStepSize>widthStepSize){
+                    g2d.setStroke(new BasicStroke(heightStepSize));
+                    g2d.drawLine(left+diffStepSize+widthStepSize, top, right-diffStepSize-widthStepSize, top);
+                    g2d.drawLine(left+diffStepSize+widthStepSize, bottom, right-diffStepSize-widthStepSize, bottom);
+                    g2d.setStroke(new BasicStroke(widthStepSize));
+                    g2d.drawLine(left,bottom+diffStepSize,left,top-diffStepSize);
+                    g2d.drawLine(right,bottom+diffStepSize,right,top-diffStepSize);
+                }else if(heightStepSize<widthStepSize){
+                    g2d.setStroke(new BasicStroke(heightStepSize));
+                    g2d.drawLine(left-diffStepSize, top, right+diffStepSize, top);
+                    g2d.drawLine(left-diffStepSize, bottom, right+diffStepSize, bottom);
+                    g2d.setStroke(new BasicStroke(widthStepSize));
+                    g2d.drawLine(left,bottom-diffStepSize-heightStepSize,left,top+diffStepSize+heightStepSize);
+                    g2d.drawLine(right,bottom-diffStepSize-heightStepSize,right,top+diffStepSize+heightStepSize);
+                }
+
+
+                //Rectangle rectTol = rim.getRealCoordinates(new Rectangle((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight()));
+                //g2d.drawRect((int)(r.getX()*rim.getZoomFactor()), (int)( r.getY()*rim.getZoomFactor()), (int)( r.getWidth()*rim.getZoomFactor()), (int)( r.getHeight()*rim.getZoomFactor()));
+                //g2d.drawRect((int)(r.getX()*rim.getZoomFactor()), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+            }
+            g2d.setComposite(TRANSPARENCY_100);
+            g2d.setStroke(new BasicStroke(1));
         }
+
+
+
 
         Rectangle r = this.controller.getResultImageModel().getActualDrawnRoi();
         if(r!=null) {

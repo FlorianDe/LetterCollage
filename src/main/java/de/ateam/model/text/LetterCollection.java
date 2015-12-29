@@ -3,23 +3,22 @@ package main.java.de.ateam.model.text;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.OpenCVUtils;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by viktorspadi on 15.11.15.
  */
 public class LetterCollection extends CstmObservable{
-    public static final int LETTER_SIZE = 1000; //TODO ANPASSBAR ENTW MAX IMGLOADER HEIGHT ODER FIX!
-    public static final int SAMPLER_SIZE = 12; //TODO EVTL ANPASSBAR MACHEN!
+    public static int SAMPLER_MIN = 5;
+    public static int SAMPLER_MAX = 80;
+    public int LETTER_SIZE = 1000; //TODO ANPASSBAR ENTW MAX IMGLOADER HEIGHT ODER FIX!
+    public int SAMPLER_SIZE = 20;
     private HashMap<Character, Letter> letterMap;
-    private FontMetrics metrics;
+    private FontMetrics metricsResultImage;
     private Graphics2D g2d;
-    private Font font;
+    private Font fontResultImage;
     private static char[] characters;
 
     static {
@@ -29,7 +28,7 @@ public class LetterCollection extends CstmObservable{
 
     protected LetterCollection(Font font) {
         this.letterMap = new HashMap<>();
-        this.font = font;
+        this.fontResultImage = font;
 
         long start = System.currentTimeMillis();
         this.letterMap.putAll(calculateLetters(characters, LETTER_SIZE));
@@ -43,31 +42,53 @@ public class LetterCollection extends CstmObservable{
     public HashMap<Character, Letter> calculateLetters(char[] characters, int height) {
         HashMap<Character, Letter> tempLetters = new HashMap<>();
         Canvas can = new Canvas();
-        this.font = this.font.deriveFont((float) height);
-        this.metrics =  can.getFontMetrics(this.font);
-        int lineAsc = metrics.getMaxAscent();
-        int lineDesc = metrics.getDescent();
+        this.fontResultImage = this.fontResultImage.deriveFont((float) LETTER_SIZE);
+        Font fontCalculateImage = this.fontResultImage.deriveFont((float) SAMPLER_SIZE);
+        this.metricsResultImage =  can.getFontMetrics(this.fontResultImage);
+        FontMetrics metricsCalculateImage =  can.getFontMetrics(fontCalculateImage);
+
+        int lineAscResultImage = metricsResultImage.getMaxAscent();
+        int lineAscCalculateImage = metricsCalculateImage.getMaxAscent();
+        int lineDescResultImage = metricsResultImage.getDescent();
+        int lineDescCalculateImage = metricsCalculateImage.getDescent();
+
         //Wenn man das gleich entfernt, funktionieren einige Schriften nicht mehr so hübsch, jedoch alle anderen sehr gut!
-        if((metrics.getMaxAscent()+metrics.getDescent())>=metrics.getHeight()){
-            lineAsc = metrics.getHeight();
+        if((metricsResultImage.getMaxAscent()+ metricsResultImage.getDescent())>= metricsResultImage.getHeight()){
+            lineAscResultImage = metricsResultImage.getHeight();
         }
-        //System.out.printf("metrics.getAscent():%s\n, metrics.getDescent():%s\n, metrics.getHeight():%s\n, metrics.getLeading():%s\n, metrics.getMaxAscent():%s\n, metrics.getMaxDescent():%s\n", metrics.getAscent(), metrics.getDescent(), metrics.getHeight(), metrics.getLeading(), metrics.getMaxAscent(), metrics.getMaxDescent());
+        if((metricsCalculateImage.getMaxAscent()+ metricsCalculateImage.getDescent())>= metricsCalculateImage.getHeight()){
+            lineAscCalculateImage = metricsCalculateImage.getHeight();
+        }
+        //System.out.printf("metricsResultImage.getAscent():%s\n, metricsResultImage.getDescent():%s\n, metricsResultImage.getHeight():%s\n, metricsResultImage.getLeading():%s\n, metricsResultImage.getMaxAscent():%s\n, metricsResultImage.getMaxDescent():%s\n", metricsResultImage.getAscent(), metricsResultImage.getDescent(), metricsResultImage.getHeight(), metricsResultImage.getLeading(), metricsResultImage.getMaxAscent(), metricsResultImage.getMaxDescent());
 
 
         //Das ist eigtl der rechenaufwändigste Part neben dem Algo später, dies sollte serialized werden ggfs. braucht für 72Buchstaben beim ersten Mal iwie lange, danach 50ms :D!!!!
         for(char c: characters) {
             // Workaround weil scheinbar unter linux viele schriften einfach 0 bei charWidth zurückgeben... Aber durch das croppen kommen dennoch verwertbare schrifen raus
-            int width = this.metrics.charWidth(c);
-            if(width == 0){
-                width = height;
+            int widthResultImage = this.metricsResultImage.charWidth(c);
+            if(widthResultImage == 0){
+                widthResultImage = height;
             }
-            BufferedImage tempBuf = new BufferedImage(width, lineAsc, BufferedImage.TYPE_3BYTE_BGR);
-            g2d = tempBuf.createGraphics();
+            int widthCalculateImage = metricsCalculateImage.charWidth(c);
+            if(widthCalculateImage == 0){
+                widthCalculateImage = height;
+            }
+            BufferedImage bufResultImage = new BufferedImage(widthResultImage, fontResultImage.getSize(), BufferedImage.TYPE_3BYTE_BGR);
+            g2d = bufResultImage.createGraphics();
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
             g2d.setColor(Color.WHITE);
-            g2d.setFont(this.font);
-            g2d.drawString(c+"", 0, lineAsc - lineDesc);
-            tempLetters.put(c,new Letter(tempBuf,c));
+            g2d.setFont(this.fontResultImage);
+            g2d.drawString(c+"", 0, lineAscResultImage - lineDescResultImage);
+
+            BufferedImage bufCalculateImage = new BufferedImage(widthCalculateImage, fontCalculateImage.getSize(), BufferedImage.TYPE_3BYTE_BGR);
+            g2d = bufCalculateImage.createGraphics();
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(fontCalculateImage);
+            g2d.drawString(c+"", 0, lineAscCalculateImage - lineDescCalculateImage);
+
+
+            tempLetters.put(c,new Letter(c,bufResultImage,bufCalculateImage));
         }
 
 
@@ -94,9 +115,9 @@ public class LetterCollection extends CstmObservable{
                 width = 0;
             }
             Letter let = getLetter(str.charAt(i));
-            width+= let.getWidth()+let.getHeight()/25;
+            width+= let.getResultMask().width()+let.getResultMask().height()/25;
             maxWidth = (width > maxWidth)?width:maxWidth;
-            maxHeight = (maxHeight<let.getHeight())?let.getHeight():maxHeight;
+            maxHeight = (maxHeight<let.getResultMask().height())?let.getResultMask().height():maxHeight;
         }
         if(height == 0)
             height = maxHeight;
@@ -118,19 +139,44 @@ public class LetterCollection extends CstmObservable{
                 widthOffset = 0;
             }
             else {
-                g2d.drawImage(OpenCVUtils.matToBufferedImage(let.getLetterMask()), widthOffset, heightOffset, null);
-                widthOffset += let.getWidth() + (let.getHeight() / 25);
+                g2d.drawImage(OpenCVUtils.matToBufferedImage(let.getResultMask()), widthOffset, heightOffset, null);
+                widthOffset += let.getResultMask().width() + (let.getResultMask().height() / 25);
             }
         }
 
         return buf;
     }
 
-    public FontMetrics getMetrics() {
-        return metrics;
+    public FontMetrics getMetricsResultImage() {
+        return metricsResultImage;
     }
 
-    public Font getFont() {
-        return font;
+    public Font getFontResultImage() {
+        return fontResultImage;
+    }
+
+    public void setLetterSize(int letterSize) {
+        if(letterSize!=LETTER_SIZE && letterSize>0) {
+            LETTER_SIZE = letterSize;
+            this.setChanged();
+            this.notifyObservers(null);
+        }
+    }
+
+
+    public void setSamplerSize(int samplerSize) {
+        if(samplerSize!=SAMPLER_SIZE && samplerSize>0) {
+            SAMPLER_SIZE = samplerSize;
+            this.setChanged();
+            this.notifyObservers(null);
+        }
+    }
+
+    public int getLETTER_SIZE() {
+        return LETTER_SIZE;
+    }
+
+    public int getSAMPLER_SIZE() {
+        return SAMPLER_SIZE;
     }
 }

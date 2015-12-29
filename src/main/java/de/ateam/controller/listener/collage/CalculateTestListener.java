@@ -61,26 +61,37 @@ public class CalculateTestListener implements ActionListener {
 
 		int width = 0;
 		for (int i = 0; i <letters.size(); i++) {
-			width+=letters.get(i).getWidth();
+			width+=letters.get(i).getResultMask().width();
 		}
-		BufferedImage biRes = new BufferedImage(width, LetterCollection.LETTER_SIZE, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D g2dGes = biRes.createGraphics();
-		g2dGes.setColor(Color.WHITE);
-		g2dGes.fillRect(0,0,biRes.getWidth(),biRes.getHeight());
+		BufferedImage bi_finalImage = new BufferedImage(width, this.controller.getRoiModel().getLetterCollection().getLETTER_SIZE(), BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g2d_finalImage = bi_finalImage.createGraphics();
+		g2d_finalImage.setColor(Color.WHITE);
+		g2d_finalImage.fillRect(0, 0, bi_finalImage.getWidth(), bi_finalImage.getHeight());
 		int xOffset = 0;
 		for (int i = 0; i < letters.size(); i++) {
-			BufferedImage letterImgBuf = OpenCVUtils.matToBufferedImage(letters.get(i).getLetterMask());
+			BufferedImage letterImgBuf = OpenCVUtils.matToBufferedImage(letters.get(i).getResultMask());
 			BufferedImage letterImgBufCopy = new BufferedImage(letterImgBuf.getWidth(), letterImgBuf.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 			Graphics2D g2dLetterImgBufCopy = letterImgBufCopy.createGraphics();
 			CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imMapLetter.get(i), i);
 			System.out.println(tempCalcRes);
 			BufferedImage bufImg = this.controller.getRoiModel().getLoadedImages().get(imMapLetter.get(i)).getNormalImage();
 			double maxAspectRatio = Math.max((double) letterImgBuf.getWidth() / (double) bufImg.getWidth(), (double) letterImgBuf.getHeight() / (double) bufImg.getHeight());
+			/*
 			g2dLetterImgBufCopy.drawImage(bufImg,
 					-(int) ((double) tempCalcRes.getdX() * ((double)LetterCollection.LETTER_SIZE/LetterCollection.SAMPLER_SIZE)),
 					-(int) ((double) tempCalcRes.getdY() * ((double)LetterCollection.LETTER_SIZE/LetterCollection.SAMPLER_SIZE)),
 					(int) (bufImg.getWidth() * (maxAspectRatio * tempCalcRes.getScaleFactor())),
 					(int) (bufImg.getHeight() * (maxAspectRatio * tempCalcRes.getScaleFactor())),
+					null);
+			*/
+			double newWidth = bufImg.getWidth() * (maxAspectRatio * tempCalcRes.getScaleFactor());
+			double newHeight = bufImg.getHeight() * (maxAspectRatio * tempCalcRes.getScaleFactor());
+
+			g2dLetterImgBufCopy.drawImage(bufImg,
+					-(int) (tempCalcRes.getdX() * newWidth),
+					-(int) (tempCalcRes.getdY() * newHeight),
+					(int)newWidth,
+					(int)newHeight,
 					null);
 			byte[] alphaPixels = ((DataBufferByte)letterImgBuf.getRaster().getDataBuffer()).getData();
 			byte[] colorPixels = ((DataBufferByte)letterImgBufCopy.getRaster().getDataBuffer()).getData();
@@ -88,11 +99,11 @@ public class CalculateTestListener implements ActionListener {
 			for (int j = 0; j < colorPixels.length; j=j+4) {
 				colorPixels[j] = alphaPixels[j/4];
 			}
-			g2dGes.drawImage(letterImgBufCopy,xOffset,0,null);
+			g2d_finalImage.drawImage(letterImgBufCopy, xOffset, 0, null);
 			xOffset+=letterImgBuf.getWidth();
 		}
 
-		this.controller.getResultImageModel().setEndResultRoiImage(new RegionOfInterestImage(biRes));
+		this.controller.getResultImageModel().setEndResultRoiImage(new RegionOfInterestImage(bi_finalImage));
 		this.controller.getResultImageModel().setActualVisibleRoiImage(this.controller.getResultImageModel().getEndResultVisibleRoiImage());
 		System.out.println(imMapLetter.toString());
 

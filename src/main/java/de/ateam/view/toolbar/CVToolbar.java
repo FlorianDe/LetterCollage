@@ -10,6 +10,7 @@ import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
 import main.java.de.ateam.utils.FileLoader;
 import main.java.de.ateam.utils.FontLoader;
+import main.java.de.ateam.view.cstmcomponent.CASJSliderPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,10 +31,13 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnFaceDetection;
     private JButton btnEyeDetection;
 
+    private CASJSliderPanel pxSampleSizeSlider;
+
     private JTextField tfText;
     private JComboBox cbxFonts;
 
     ICollageController controller;
+
     public CVToolbar(ICollageController controller){
         this.controller = controller;
         this.createToolbar();
@@ -100,6 +104,9 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnEyeDetection.addActionListener(new EyeDetectionListener(controller));
         this.add(this.btnEyeDetection);
 
+        pxSampleSizeSlider = new CASJSliderPanel(controller);
+        this.add(pxSampleSizeSlider);
+
         this.tfText = new JTextField(this.controller.getRoiModel().getInputText());
         this.tfText.getDocument().addDocumentListener(new InputTextChangedListener(controller));
         this.add(this.tfText);
@@ -130,7 +137,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         if(this.controller.getRoiModel().getLetterCollection()==null){
             this.cbxFonts.setBorder(BorderFactory.createLineBorder(Color.RED));
         }else{
-            this.cbxFonts.setSelectedItem(this.controller.getRoiModel().getLetterCollection().getFont().getFontName());
+            this.cbxFonts.setSelectedItem(this.controller.getRoiModel().getLetterCollection().getFontResultImage().getFontName());
             this.cbxFonts.setBorder(BorderFactory.createEmptyBorder());
         }
 

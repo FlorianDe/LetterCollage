@@ -6,17 +6,17 @@ package main.java.de.ateam.controller.roi;
 public class CalculationResult {
     private double scaleFactor;
     private double relScaleFactor;
-    private int dX;
-    private int dY;
+    private double dX;
+    private double dY;
     private double intersectAreaPercentage;
 
     public double getScaleFactor() {
         return scaleFactor;
     }
-    public int getdX() {
+    public double getdX() {
         return dX;
     }
-    public int getdY() {
+    public double getdY() {
         return dY;
     }
     public double getIntersectAreaPercentage() {
@@ -31,7 +31,7 @@ public class CalculationResult {
         zero = new CalculationResult(1.0,1.0,0,0,0.0);
     }
 
-    public CalculationResult(double scaleFactor, double relScaleFactor, int dX, int dY, double intersectAreaPercentage) {
+    public CalculationResult(double scaleFactor, double relScaleFactor, double dX, double dY, double intersectAreaPercentage) {
         this.scaleFactor = scaleFactor;
         this.relScaleFactor = relScaleFactor;
         this.dX = dX;
@@ -43,7 +43,6 @@ public class CalculationResult {
         return zero;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,8 +51,8 @@ public class CalculationResult {
         CalculationResult that = (CalculationResult) o;
 
         if (Double.compare(that.scaleFactor, scaleFactor) != 0) return false;
-        if (dX != that.dX) return false;
-        if (dY != that.dY) return false;
+        if (Double.compare(that.dX, dX) != 0) return false;
+        if (Double.compare(that.dY, dY) != 0) return false;
         return Double.compare(that.intersectAreaPercentage, intersectAreaPercentage) == 0;
 
     }
@@ -64,8 +63,10 @@ public class CalculationResult {
         long temp;
         temp = Double.doubleToLongBits(scaleFactor);
         result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + dX;
-        result = 31 * result + dY;
+        temp = Double.doubleToLongBits(dX);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(dY);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(intersectAreaPercentage);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
