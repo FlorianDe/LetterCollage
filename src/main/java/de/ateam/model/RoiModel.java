@@ -1,5 +1,6 @@
 package main.java.de.ateam.model;
 
+import main.java.de.ateam.exception.NoFontSelectedException;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.model.roi.RegionOfInterestImageCollection;
 import main.java.de.ateam.model.text.LetterCollection;
@@ -33,7 +34,11 @@ public class RoiModel extends CstmObservable{
             String defaultFontName = "Showcard Gothic";
             if(LetterFactory.getCollection(defaultFontName)!=null)
                 this.setLetterCollection(LetterFactory.getCollection(defaultFontName));
+            else
+                this.setLetterCollection(LetterFactory.getFirstFont());
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NoFontSelectedException e) {
             e.printStackTrace();
         }
     }

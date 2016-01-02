@@ -1,6 +1,7 @@
 package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.controller.listener.collage.CalculateCLTestListener;
 import main.java.de.ateam.controller.listener.collage.CalculateTestListener;
 import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
 import main.java.de.ateam.controller.listener.collage.InputTextChangedListener;
@@ -27,6 +28,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnZoomIn;
     private JButton btnZoomOut;
     private JButton btnCalc;
+    private JButton btnCLCalc;
     private JButton btnSetResultImage;
     private JButton btnFaceDetection;
     private JButton btnEyeDetection;
@@ -91,6 +93,10 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.btnCalc = (JButton) createToolbarButton(new JButton(), "img/Calc.gif");
         this.btnCalc.addActionListener(new CalculateTestListener(this.controller));
         this.add(this.btnCalc);
+
+        this.btnCLCalc = (JButton) createToolbarButton(new JButton(), "img/CLCalc.gif");
+        this.btnCLCalc.addActionListener(new CalculateCLTestListener(this.controller));
+        this.add(this.btnCLCalc);
 
         this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImg.gif");
         this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, null));

@@ -14,5 +14,6 @@
     <orderEntry type="library" name="win_x64" level="project" />
     <orderEntry type="library" name="osx_x64" level="project" />
     <orderEntry type="library" name="linux_x64" level="project" />
+    <orderEntry type="library" name="JOCL-0.1.9" level="project" />
   </component>
 </module>

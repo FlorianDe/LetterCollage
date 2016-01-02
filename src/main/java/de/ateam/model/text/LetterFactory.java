@@ -1,6 +1,7 @@
 package main.java.de.ateam.model.text;
 
 import main.java.de.ateam.controller.ICollageController;
+import main.java.de.ateam.exception.NoFontSelectedException;
 import main.java.de.ateam.utils.FontLoader;
 
 import java.awt.*;
@@ -36,5 +37,13 @@ public abstract class LetterFactory {
 
     public static LetterCollection getLastLoadedFont() {
         return lastLoadedFont;
+    }
+
+    public static LetterCollection getFirstFont() throws NoFontSelectedException {
+        LetterCollection lc = getCollection(FontLoader.loadFonts()[0]);
+        if(lc != null)
+            return lc;
+        else
+            throw new NoFontSelectedException("Default font not found");
     }
 }
