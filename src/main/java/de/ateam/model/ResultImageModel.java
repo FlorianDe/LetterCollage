@@ -8,21 +8,23 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Florian on 13.11.2015.
  */
 public class ResultImageModel extends CstmObservable {
     public enum MouseMode{
-        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT, SIMILAR_SELECT;
+        DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT, SIMILAR_SELECT, POLYGONPAINT;
     }
     private MouseMode mouseMode;
-    private double zoomFactor;
     private RegionOfInterestImage endResultVisibleRoiImage;
     private RegionOfInterestImage actualVisibleRoiImage;
     private boolean resolutionRasterVisible;
     private Rectangle viewRect;
-    private Rectangle actualDrawnRoi;
+    private Shape actualDrawnRoi;
+    private ArrayList<Point> polygon;
+    private int polygonSnapRadius = 10;
     private Color actualDrawColor;
     private int margin;
 
@@ -36,24 +38,50 @@ public class ResultImageModel extends CstmObservable {
             e.printStackTrace();
         }
         this.viewRect = new Rectangle();
-        this.zoomFactor = 1;
         this.actualDrawnRoi = null;
         this.actualDrawColor = Color.RED;
         this.margin = 0;
+        this.polygon = new ArrayList<>();
     }
 
+    public void clearPolygon() {
+        this.polygon.clear();
+        this.setActualDrawnRoi(null);
+    }
+    public void addPointToPolygon(Point p){
+        this.polygon.add(p);
+        Polygon drawPoly = new Polygon();
+        for (Point point : polygon) {
+            drawPoly.addPoint((int)point.getX(),(int)point.getY());
+        }
+        this.setActualDrawnRoi(drawPoly);
+    }
+    public ArrayList<Point> getPolygon() {
+        return polygon;
+    }
+
+    public int getPolygonSnapRadius() {
+        return polygonSnapRadius;
+    }
+
+    public void setPolygonSnapRadius(int polygonSnapRadius) {
+        this.polygonSnapRadius = polygonSnapRadius;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
 
     public Rectangle getRealCoordinates(Rectangle rect){
         Rectangle rTemp = new Rectangle();
-        rTemp.setRect((rect.getX() / zoomFactor), (rect.getY() / zoomFactor), (rect.getWidth() / zoomFactor), (rect.getHeight() / zoomFactor));
+        double zF = getZoomFactor();
+        rTemp.setRect((rect.getX()/zF), (rect.getY()/zF), (rect.getWidth()/zF), (rect.getHeight()/zF));
         return rTemp;
     }
     public Point getRealCoordinates(Point p){
-        return new Point((int)(p.getX()/zoomFactor), (int)(p.getY()/zoomFactor));
+        return new Point((int)(p.getX()/getZoomFactor()), (int)(p.getY()/getZoomFactor()));
     }
 
     public double getStrokeThickness(){
-        return 1.0/zoomFactor;
+        return 1.0/getZoomFactor();
     }
 
     public Dimension getRenderSize(){
@@ -64,10 +92,10 @@ public class ResultImageModel extends CstmObservable {
     }
 
     public double getZoomFactor() {
-        return zoomFactor;
+        return this.actualVisibleRoiImage.getZoomFactor();
     }
     public void setZoomFactor(double zoomFactor) {
-        this.zoomFactor = zoomFactor;
+        this.actualVisibleRoiImage.setZoomFactor(zoomFactor);
         this.setChanged();
         this.notifyObservers(null);
     }
@@ -98,11 +126,11 @@ public class ResultImageModel extends CstmObservable {
         this.notifyObservers(null);
     }
 
-    public Rectangle getActualDrawnRoi() {
+    public Shape getActualDrawnRoi() {
         return actualDrawnRoi;
     }
 
-    public void setActualDrawnRoi(Rectangle actualDrawnRoi) {
+    public void setActualDrawnRoi(Shape actualDrawnRoi) {
         this.actualDrawnRoi = actualDrawnRoi;
         this.setChanged();
         this.notifyObservers(null);

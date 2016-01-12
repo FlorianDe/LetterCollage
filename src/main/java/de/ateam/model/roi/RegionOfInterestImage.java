@@ -2,6 +2,7 @@ package main.java.de.ateam.model.roi;
 
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.OpenCVUtils;
+import main.java.de.ateam.utils.ShapeUtils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
@@ -12,6 +13,7 @@ import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +28,8 @@ public class RegionOfInterestImage{
     private Graphics2D g2dRoiImage;
     private ArrayList<RegionOfInterest> rois;
     private boolean roiMode;
+    private double zoomFactor;
+    private Point middlePoint;
 
     public RegionOfInterestImage(BufferedImage normalImage) {
         this.roiMode = true;
@@ -34,23 +38,17 @@ public class RegionOfInterestImage{
         this.g2dRoiImage = this.roiImage.createGraphics();
         this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
         this.rois = new ArrayList<>();
-        findRegions();
+        this.zoomFactor = 1.0;
     }
 
-    public void findRegions() {
-        // hier regions finden augen und so was, gesicht, alles einschließen was erstmal so interessant sein könnte
-        // da müsste man gucken welche params man so abfucken kann
-
-        repaintRoiImage();
-    }
-
-    public void addRegionOfInterest(Rectangle rect, Color color) {
+    public void addRegionOfInterest(Shape shape, Color color) {
         // hier hab ich mir gedacht könnte man noch von extern regions einfügen /klick drag area markieren?
-        rois.add(new RegionOfInterest(rect, color));
+        rois.add(new RegionOfInterest(shape, color));
+        calculateCenterWeight();
         repaintRoiImage();
     }
 
-    public void addRegionOfInterest(Rectangle rect) {
+    public void addRegionOfInterest(Shape rect) {
         this.addRegionOfInterest(rect, RegionOfInterest.DEFAULT_COLOR);
     }
 
@@ -78,6 +76,7 @@ public class RegionOfInterestImage{
         for(RegionOfInterest roi : rois){
             this.rois.remove(roi);
         }
+        calculateCenterWeight();
         repaintRoiImage();
     }
 
@@ -85,16 +84,18 @@ public class RegionOfInterestImage{
         if (rois.contains(roi)){
             rois.remove(roi);
         }
+        calculateCenterWeight();
         repaintRoiImage();
     }
 
     // weitere funktionen könnten hier stehen um bsp selektion zu erweitern
     public Rectangle findRegionBySimilarity(Point point) {
+        calculateCenterWeight();
         repaintRoiImage();
         return null;
     }
 
-    //TODO SOLLTE ER EIGTL NICHT TUN, SELBER ZEICHNEN :/!
+    //TODO SOLLTE ER EIGTL NICHT TUN, SELBER ZEICHNEN, ABER BESSER FÜR PERFORMANCE!
     public void repaintRoiImage() {
         int strokeThickness = 3;
         int fontConstHeight = 10;
@@ -104,7 +105,55 @@ public class RegionOfInterestImage{
             this.g2dRoiImage.setColor(roi.getColor());
             Rectangle2D r = roi.getShape().getBounds2D();
             this.g2dRoiImage.drawString(roi.getWeighting()+"",(int)r.getX()+strokeThickness,(int)r.getY()+strokeThickness+fontConstHeight);
-            this.g2dRoiImage.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+            this.g2dRoiImage.draw(roi.getShape());
+
+            ShapeUtils.setTransparency(g2dRoiImage, 0.25f);
+            this.g2dRoiImage.fill(roi.getShape());
+            ShapeUtils.setTransparency(g2dRoiImage, 1f);
+        }
+        if(middlePoint != null) {
+            this.g2dRoiImage.setColor(Color.GREEN);
+            this.g2dRoiImage.draw(ShapeUtils.getEllipseFromCenter(this.middlePoint.x, this.middlePoint.y, 10,10));
+        }
+    }
+
+    public void calculateCenterWeight() {
+        BufferedImage mask = getCalculationMaskHelper();
+        int xMax = 0;
+        int xMin = -1;
+        int yMax = 0;
+        int yMin = -1;
+        double xAvg = 0;
+        double yAvg = 0;
+        double cnt = 0;
+        for(int y = 0; y < mask.getHeight(); y++) {
+            for(int x = 0; x < mask.getWidth(); x++) {
+                if((mask.getRGB(x,y)) == -1) {
+                    double wAvg = 1;
+                    ArrayList<RegionOfInterest> rois = this.getIntersectingRegionOfInterests(new Point(x,y));
+                    if(rois.size() > 0) {
+                        for(RegionOfInterest roi: rois) {
+                            wAvg += roi.getWeighting();
+                        }
+                        wAvg /= rois.size();
+                    }
+
+                    if(x > xMax) xMax = x;
+                    if(xMin == -1) xMin = x;
+                    if(y > yMax) yMax = y;
+                    if(yMin == -1) yMin = y;
+                    xAvg += x*wAvg;
+                    yAvg += y*wAvg;
+                    cnt+=wAvg;
+                }
+            }
+        }
+        if(cnt != 0) {
+            xAvg /= cnt;
+            yAvg /= cnt;
+            this.middlePoint = new Point((int)xAvg, (int)yAvg);
+        } else {
+            this.middlePoint = null;
         }
     }
 
@@ -152,5 +201,17 @@ public class RegionOfInterestImage{
         if(isRoiMode())
             return getRoiImage();
         return getNormalImage();
+    }
+
+    public double getZoomFactor() {
+        return zoomFactor;
+    }
+
+    public void setZoomFactor(double zoomFactor) {
+        this.zoomFactor = zoomFactor;
+    }
+
+    public Point getMiddlePoint() {
+        return this.middlePoint;
     }
 }

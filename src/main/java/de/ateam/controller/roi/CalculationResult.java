@@ -3,12 +3,13 @@ package main.java.de.ateam.controller.roi;
 /**
  * Created by Florian on 22.11.2015.
  */
-public class CalculationResult {
+public class CalculationResult implements Comparable{
     private double scaleFactor;
-    private double relScaleFactor;
     private double dX;
     private double dY;
     private double intersectAreaPercentage;
+    private double weight;
+    private double weightedPercentage;
 
     public double getScaleFactor() {
         return scaleFactor;
@@ -22,21 +23,20 @@ public class CalculationResult {
     public double getIntersectAreaPercentage() {
         return intersectAreaPercentage;
     }
-    public double getRelScaleFactor() {
-        return relScaleFactor;
-    }
+    public double getWeight() { return weight; }
     public static CalculationResult zero;
 
     static{
-        zero = new CalculationResult(1.0,1.0,0,0,0.0);
+        zero = new CalculationResult(1.0,0,0,0.0,0.0);
     }
 
-    public CalculationResult(double scaleFactor, double relScaleFactor, double dX, double dY, double intersectAreaPercentage) {
+    public CalculationResult(double scaleFactor, double dX, double dY, double intersectAreaPercentage, double weight) {
         this.scaleFactor = scaleFactor;
-        this.relScaleFactor = relScaleFactor;
         this.dX = dX;
         this.dY = dY;
         this.intersectAreaPercentage = intersectAreaPercentage;
+        this.weightedPercentage = intersectAreaPercentage+(0.2*weight);
+        this.weight = weight;
     }
 
     public static CalculationResult getZero(){
@@ -76,10 +76,26 @@ public class CalculationResult {
     public String toString() {
         return "CalculationResult{" +
                 "scaleFactor=" + scaleFactor +
-                ", relScaleFactor=" + relScaleFactor +
                 ", dX=" + dX +
                 ", dY=" + dY +
                 ", intersectAreaPercentage=" + intersectAreaPercentage +
+                ", weight=" + weight +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        CalculationResult c = (CalculationResult)o;
+        if(c.weightedPercentage > ((CalculationResult) o).weightedPercentage) {
+            return -1;
+        } else if(c.weightedPercentage < ((CalculationResult) o).weightedPercentage) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public double getWeightedPercentage() {
+        return weightedPercentage;
     }
 }

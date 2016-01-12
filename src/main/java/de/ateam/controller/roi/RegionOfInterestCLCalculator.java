@@ -183,8 +183,9 @@ public class RegionOfInterestCLCalculator {
     //return the overlapped roi area in percentage/100
     public CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dY, int dX){
         double percentage = 0;
-
-        return new CalculationResult(scaleFactor,(maxAspectRatio*scaleFactor*1.0), dX, dY, percentage);
+        
+        //TODO FUCKED UP
+        return null;//new CalculationResult(scaleFactor, dX, dY, percentage);
     }
 
     public CalculationResult getBestResultsForImageLeter(int image, int letter){

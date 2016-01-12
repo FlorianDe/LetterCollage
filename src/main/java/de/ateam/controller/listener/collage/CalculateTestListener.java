@@ -6,7 +6,6 @@ import main.java.de.ateam.controller.roi.RegionOfInterestCalculator;
 import main.java.de.ateam.exception.NoFontSelectedException;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.model.text.Letter;
-import main.java.de.ateam.model.text.LetterCollection;
 import main.java.de.ateam.utils.OpenCVUtils;
 
 import java.awt.*;
@@ -38,26 +37,39 @@ public class CalculateTestListener implements ActionListener {
 			throw new NoFontSelectedException();
 		}
 		RegionOfInterestCalculator roic = new RegionOfInterestCalculator(this.controller.getRoiModel().getLoadedImages(), letters, controller);
-		roic.calculateIntersectionMatrix();
-
+		roic.calculateIntersectionMatrixParallel();
+		RegionOfInterestCalculator.curCount.set(0);
 		HashMap<Integer, Integer> imMapLetter = new HashMap<>();
-		for (int letterCounter = 0; letterCounter < roic.getMat_letters().length; letterCounter++){
-			CalculationResult calcRes = CalculationResult.getZero();
-			Integer tempNumber = 0;
-			for (int imgCounter = 0; imgCounter < roic.getMat_roiImages().length; imgCounter++){
-				if(!imMapLetter.containsValue(imgCounter) && imgCounter<roic.getMat_letters().length) {
-					CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imgCounter, letterCounter);
-					if (calcRes.getIntersectAreaPercentage() <= tempCalcRes.getIntersectAreaPercentage()) {
+
+		double maxSum = 0;
+		for(int i = 0; i < roic.getLetters().size(); i++) {
+			double sum = 0;
+			HashMap<Integer, Integer> mapLetter = new HashMap<>();
+			for (int letterCounter = i; letterCounter < roic.getLetters().size()+i; letterCounter++){
+				CalculationResult calcRes = CalculationResult.getZero();
+				Integer tempNumber = 0;
+				for (int imgCounter = 0; imgCounter < roic.getRoiImages().size(); imgCounter++){
+					if(!mapLetter.containsValue(imgCounter) && imgCounter<roic.getLetters().size()) {
+						CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imgCounter, letterCounter % roic.getLetters().size());
+						if (calcRes.getWeightedPercentage() <= tempCalcRes.getWeightedPercentage()) {
+							sum += tempCalcRes.getWeightedPercentage();
 							calcRes = tempCalcRes;
 							tempNumber = imgCounter;
-							if(calcRes.getIntersectAreaPercentage() >= 1.0){
-								break;
-							}
+						}
 					}
 				}
+				mapLetter.put(letterCounter % roic.getLetters().size(),tempNumber);
 			}
-			imMapLetter.put(letterCounter,tempNumber);
+			if(sum > maxSum) {
+				System.out.println("Ohh ich bin schnell: "+ i +" "+sum +" < " + maxSum);
+				maxSum = sum;
+				imMapLetter = mapLetter;
+			}
 		}
+
+
+
+
 
 		int width = 0;
 		for (int i = 0; i <letters.size(); i++) {

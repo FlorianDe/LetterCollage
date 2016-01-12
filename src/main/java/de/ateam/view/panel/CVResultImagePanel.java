@@ -6,14 +6,15 @@ import main.java.de.ateam.controller.listener.resultImage.MouseWheelZoomListener
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.model.roi.RegionOfInterest;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.model.text.LetterCollection;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
 import main.java.de.ateam.utils.FileLoader;
+import main.java.de.ateam.utils.ShapeUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
@@ -26,8 +27,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     private static Cursor cstm_crosshair = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     private static Cursor cstm_eraser = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     private static Cursor cstm_magicwand = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-    private static final AlphaComposite TRANSPARENCY_25 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);
-    private static final AlphaComposite TRANSPARENCY_100 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
+
 
     static{
         cstm_crosshair = tryLoadCursor("img/icons/cursor/32_cstm_crosshair.png", new Point(16,16));
@@ -113,7 +113,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
 
         //DRAW RASTER!
         if(this.controller.getResultImageModel().isResolutionRasterVisible()){
-            g2d.setComposite(TRANSPARENCY_25);
+            ShapeUtils.setTransparency(g2d, 0.25f);
             g2d.setColor(Color.GRAY);
             ResultImageModel rim = this.controller.getResultImageModel();
 
@@ -173,17 +173,27 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
                 //g2d.drawRect((int)(r.getX()*rim.getZoomFactor()), (int)( r.getY()*rim.getZoomFactor()), (int)( r.getWidth()*rim.getZoomFactor()), (int)( r.getHeight()*rim.getZoomFactor()));
                 //g2d.drawRect((int)(r.getX()*rim.getZoomFactor()), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
             }
-            g2d.setComposite(TRANSPARENCY_100);
+            ShapeUtils.setTransparency(g2d, 1f);
             g2d.setStroke(new BasicStroke(1));
         }
 
 
 
-
-        Rectangle r = this.controller.getResultImageModel().getActualDrawnRoi();
-        if(r!=null) {
+        //Draw actual drawn roi!
+        Shape s = this.controller.getResultImageModel().getActualDrawnRoi();
+        if(s!=null) {
             g2d.setColor(this.controller.getResultImageModel().getActualDrawColor());
-            g2d.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+            g2d.draw(s);
+            ResultImageModel rim = this.controller.getResultImageModel();
+            if(rim.getPolygon() != null && rim.getPolygon().size()>0){
+                Ellipse2D e2d = ShapeUtils.getEllipseFromCenter(rim.getPolygon().get(0).getX(), rim.getPolygon().get(0).getY(), rim.getPolygonSnapRadius(), rim.getPolygonSnapRadius());
+                g2d.draw(e2d);
+                ShapeUtils.setTransparency(g2d, 0.15f);
+                g2d.setColor(Color.YELLOW);
+                g2d.fill(s);
+                ShapeUtils.setTransparency(g2d, 1f);
+            }
+            //g2d.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
         }
 
         g2d.dispose();

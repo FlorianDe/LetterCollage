@@ -6,6 +6,7 @@ import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.utils.FileLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.objdetect.CascadeClassifier;
@@ -37,8 +38,8 @@ public class RegionOfInterestDetector {
     public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor){
         if (!frontalfaceDetector.empty()) {
             MatOfRect detections = new MatOfRect();
-            Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
 
+            Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
             cascadeClassifier.detectMultiScale(image, detections);
             System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
 

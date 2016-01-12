@@ -14,7 +14,7 @@ public class LetterCollection extends CstmObservable{
     public static int SAMPLER_MIN = 5;
     public static int SAMPLER_MAX = 80;
     public int LETTER_SIZE = 1000; //TODO ANPASSBAR ENTW MAX IMGLOADER HEIGHT ODER FIX!
-    public int SAMPLER_SIZE = 20;
+    public int SAMPLER_SIZE = 16;
     private HashMap<Character, Letter> letterMap;
     private FontMetrics metricsResultImage;
     private Graphics2D g2d;

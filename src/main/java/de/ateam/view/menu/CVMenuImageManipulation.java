@@ -18,6 +18,7 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
     JMenu subMenuMouseMode;
     JMenuItem menuItemMouseModeDrag;
     JMenuItem menuItemMouseModePaint;
+    JMenuItem menuItemMouseModePolygonPaint;
     JMenuItem menuItemMouseModeSimilarSelect;
     JMenuItem menuItemMouseModeErase;
     JMenuItem menuItemMouseModeDefault;
@@ -49,6 +50,9 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
         this.menuItemMouseModePaint = this.jme.createJMenuItem(new JMenuItem("Paint"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModePaint.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.PAINT));
 
+        this.menuItemMouseModePolygonPaint = this.jme.createJMenuItem(new JMenuItem("Polygon"), 'P', "STRING_DESCRIPTION", this.subMenuMouseMode);
+        this.menuItemMouseModePolygonPaint.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.POLYGONPAINT));
+
         this.menuItemMouseModeSimilarSelect = this.jme.createJMenuItem(new JMenuItem("Select Similar"), 'E', "STRING_DESCRIPTION", this.subMenuMouseMode);
         this.menuItemMouseModeSimilarSelect.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.SIMILAR_SELECT));
 
@@ -78,6 +82,7 @@ public class CVMenuImageManipulation extends JMenu implements CstmObserver{
     public void update(CstmObservable o, Object arg) {
         this.menuItemMouseModeDrag.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.DRAG));
         this.menuItemMouseModePaint.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.PAINT));
+        this.menuItemMouseModePolygonPaint.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.POLYGONPAINT));
         this.menuItemMouseModeErase.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ERASE));
         this.menuItemMouseModeDefault.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.DEFAULT));
         this.menuItemMouseModeZoomIn.setEnabled(!this.controller.getResultImageModel().getMouseMode().equals(ResultImageModel.MouseMode.ZOOMIN));
