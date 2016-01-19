@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Florian on 13.11.2015.
@@ -27,7 +28,8 @@ public class ResultImageModel extends CstmObservable {
     private int polygonSnapRadius = 10;
     private Color actualDrawColor;
     private int margin;
-
+    private int maxWorker;
+    private volatile AtomicInteger workerDone;
 
     public ResultImageModel(){
         mouseMode = MouseMode.SETWEIGHT;
@@ -42,6 +44,7 @@ public class ResultImageModel extends CstmObservable {
         this.actualDrawColor = Color.RED;
         this.margin = 0;
         this.polygon = new ArrayList<>();
+        this.workerDone = new AtomicInteger(0);
     }
 
     public void clearPolygon() {
@@ -175,6 +178,34 @@ public class ResultImageModel extends CstmObservable {
 
     public void setMargin(int margin) {
         this.margin = margin;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public AtomicInteger getWorkerDone() {
+        return workerDone;
+    }
+
+    public void resetWorkerDone() {
+        this.workerDone.set(0);
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+    public int incrementtWorkerDone() {
+        int workerDone = this.workerDone.incrementAndGet();
+        this.setChanged();
+        this.notifyObservers(null);
+        return workerDone;
+    }
+
+    public int getMaxWorker() {
+        return maxWorker;
+    }
+
+    public void setMaxWorker(int maxWorker) {
+        this.maxWorker = maxWorker;
+        this.setChanged();
+        this.notifyObservers(null);
     }
 
     public void setResolutionRasterVisible(boolean resolutionRasterVisible) {

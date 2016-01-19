@@ -1,5 +1,6 @@
 package main.java.de.ateam.controller.roi;
 
+import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.model.text.Letter;
 import org.opencv.core.Mat;
@@ -12,12 +13,20 @@ import java.util.concurrent.Callable;
  * Created by Florian on 12.01.2016.
  */
 public class CalculationCallable implements Callable<CalculationResultList> {
+    public static final double scale_start = 1.0;
+    public static final double scale_end = 3.0;
+    public static final double scale_stepSize = 0.05;
+
+
     private Mat mat_roiImage;
     private Mat mat_letter;
     Point roiCenter;
     private CalculationResultList calculationResultList;
-    public CalculationCallable(int imgIndex, int letterIndex, RegionOfInterestImage roiImage, Letter letter){
-        calculationResultList = new CalculationResultList(imgIndex, letterIndex);
+    ICollageController controller;
+
+    public CalculationCallable(ICollageController controller, int imgIndex, int letterIndex, RegionOfInterestImage roiImage, Letter letter){
+        this.controller = controller;
+        this.calculationResultList = new CalculationResultList(imgIndex, letterIndex);
         this.mat_roiImage = roiImage.getCalculationMask();
         this.mat_letter = letter.getCalculationMask();
         this.roiCenter = roiImage.getMiddlePoint();
@@ -27,7 +36,7 @@ public class CalculationCallable implements Callable<CalculationResultList> {
     public CalculationResultList call() throws Exception {
         final double maxAspectRatio = Math.max((double)mat_letter.width() / (double)mat_roiImage.width(), (double)mat_letter.height() / (double)mat_roiImage.height());
 
-        for (double step_scaleFactor = 1.0; step_scaleFactor <= 4.0; step_scaleFactor=step_scaleFactor+0.25) {
+        for (double step_scaleFactor = scale_start; step_scaleFactor <= scale_end; step_scaleFactor=step_scaleFactor+scale_stepSize) {
             //System.out.print(step_scaleFactor + ", ");
             int stepHeightMax = (int)(mat_roiImage.height()*maxAspectRatio*step_scaleFactor)-mat_letter.height();
             int stepWidthMax = (int)(mat_roiImage.width()*maxAspectRatio*step_scaleFactor)-mat_letter.width();
@@ -39,8 +48,9 @@ public class CalculationCallable implements Callable<CalculationResultList> {
                     }
                 }
             }
+            controller.getResultImageModel().incrementtWorkerDone();
+            //System.out.println("Percentage: " + (100*controller.getResultImageModel().incrementtWorkerDone())/(double)controller.getResultImageModel().getMaxWorker());
         }
-        System.out.println("Percentage: "+ RegionOfInterestCalculator.getPercentageDone(RegionOfInterestCalculator.curCount.incrementAndGet()));
         return calculationResultList;
     }
 }

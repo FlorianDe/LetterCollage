@@ -38,6 +38,9 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     private JTextField tfText;
     private JComboBox cbxFonts;
 
+    JProgressBar progressBar;
+
+
     ICollageController controller;
 
     public CVToolbar(ICollageController controller){
@@ -96,7 +99,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
         this.btnCLCalc = (JButton) createToolbarButton(new JButton(), "img/CLCalc.gif");
         this.btnCLCalc.addActionListener(new CalculateCLTestListener(this.controller));
-        this.add(this.btnCLCalc);
+        //this.add(this.btnCLCalc);
 
         this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImg.gif");
         this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, null));
@@ -120,6 +123,11 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.cbxFonts = new JComboBox(FontLoader.loadFonts());
         this.cbxFonts.addItemListener(new FontSelectionChangedListener(controller));
         this.add(cbxFonts);
+
+        this.progressBar = new JProgressBar(0, 0);
+        this.progressBar.setValue(0);
+        this.progressBar.setStringPainted(true);
+        this.add(progressBar);
     }
 
     public AbstractButton createToolbarButton(AbstractButton btn, String filePath){
@@ -145,8 +153,9 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         }else{
             this.cbxFonts.setSelectedItem(this.controller.getRoiModel().getLetterCollection().getFontResultImage().getFontName());
             this.cbxFonts.setBorder(BorderFactory.createEmptyBorder());
+            this.progressBar.setMaximum(controller.getResultImageModel().getMaxWorker());
+            this.progressBar.setValue(controller.getResultImageModel().getWorkerDone().get());
         }
-
         this.revalidate();
         this.repaint();
     }

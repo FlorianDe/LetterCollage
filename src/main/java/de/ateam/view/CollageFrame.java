@@ -117,7 +117,7 @@ public class CollageFrame extends JFrame {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(800,600);
+        return new Dimension(1100,700);
     }
     @Override
     public Dimension getMinimumSize() {

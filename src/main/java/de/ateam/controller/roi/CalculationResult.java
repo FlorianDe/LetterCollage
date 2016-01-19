@@ -80,6 +80,7 @@ public class CalculationResult implements Comparable{
                 ", dY=" + dY +
                 ", intersectAreaPercentage=" + intersectAreaPercentage +
                 ", weight=" + weight +
+                ", weightedPercentage=" + weightedPercentage +
                 '}';
     }
 

@@ -22,6 +22,8 @@ public class RegionOfInterestDetector {
     public static final float SIMILAR_THRESHOLD = 0.85f;
     private static final String haarcascades_frontalfaceString = "opencv/haarcascades/haarcascade_frontalface_default.xml";
     private static final String haarcascades_eyeStringString = "opencv/haarcascades/haarcascade_eye.xml";
+    private static final double eye_weighting = 3.0;
+    private static final double face_weighting = 2.0;
 
     private CascadeClassifier frontalfaceDetector;
     private CascadeClassifier eyeDetector;
@@ -36,6 +38,10 @@ public class RegionOfInterestDetector {
     }
 
     public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor){
+        cascadeRegognitionHelper(roiImage, cascadeClassifier, regionOfInterestColor, 1.0);
+    }
+
+    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double weighting){
         if (!frontalfaceDetector.empty()) {
             MatOfRect detections = new MatOfRect();
 
@@ -45,7 +51,7 @@ public class RegionOfInterestDetector {
 
             // Draw a bounding box around each detection.
             for (Rect rect : detections.toArray()) {
-                roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor);
+                roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor, weighting);
             }
             this.controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
         } else {
@@ -53,10 +59,10 @@ public class RegionOfInterestDetector {
         }
     }
     public void faceRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.FACEDETECTION_COLOR);
+        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.FACEDETECTION_COLOR, face_weighting);
     }
     public void eyeRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.EYEDETECTION_COLOR);
+        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.EYEDETECTION_COLOR, eye_weighting);
     }
 
 

@@ -41,15 +41,17 @@ public class RegionOfInterestImage{
         this.zoomFactor = 1.0;
     }
 
-    public void addRegionOfInterest(Shape shape, Color color) {
+    public void addRegionOfInterest(Shape shape, Color color, double weighting) {
         // hier hab ich mir gedacht könnte man noch von extern regions einfügen /klick drag area markieren?
-        rois.add(new RegionOfInterest(shape, color));
+        rois.add(new RegionOfInterest(shape, color, weighting));
         calculateCenterWeight();
         repaintRoiImage();
     }
-
-    public void addRegionOfInterest(Shape rect) {
-        this.addRegionOfInterest(rect, RegionOfInterest.DEFAULT_COLOR);
+    public void addRegionOfInterest(Shape shape, Color color) {
+        addRegionOfInterest(shape, color, 1.0);
+    }
+    public void addRegionOfInterest(Shape shape) {
+        this.addRegionOfInterest(shape, RegionOfInterest.DEFAULT_COLOR);
     }
 
     public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Point point) {

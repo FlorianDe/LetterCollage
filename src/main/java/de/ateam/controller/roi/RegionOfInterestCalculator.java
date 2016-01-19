@@ -21,8 +21,6 @@ import java.util.logging.Logger;
  * Created by Florian on 20.11.2015.
  */
 public class RegionOfInterestCalculator {
-    public static int maxCount = 1;
-    public static AtomicInteger curCount = new AtomicInteger();
     ArrayList<RegionOfInterestImage> roiImages;
     ArrayList<Letter> letters;
 
@@ -39,18 +37,6 @@ public class RegionOfInterestCalculator {
         this.letters = letters;
         this.controller = controller;
 
-        /*
-        //Retrieve all Mat objects!
-        mat_roiImages = new Mat[roiImages.size()];
-        for (int i = 0; i < roiImages.size(); i++) {
-            mat_roiImages[i] = roiImages.get(i).getCalculationMask();
-        }
-
-        mat_letters = new Mat[letters.size()];
-        for (int i =
-        */
-
-        maxCount = roiImages.size()*letters.size();
         calculations = new ArrayList[roiImages.size()][letters.size()];
     }
 
@@ -63,7 +49,7 @@ public class RegionOfInterestCalculator {
         List<Future<CalculationResultList>> futures = new ArrayList<>();
         for (int roii_index = 0; roii_index < roiImages.size(); roii_index++) {
             for (int letter_index = 0; letter_index < letters.size(); letter_index++) {
-                Callable<CalculationResultList> callable = new CalculationCallable(roii_index,letter_index, roiImages.get(roii_index), letters.get(letter_index));
+                Callable<CalculationResultList> callable = new CalculationCallable(this.controller, roii_index,letter_index, roiImages.get(roii_index), letters.get(letter_index));
                 Future<CalculationResultList> future = executor.submit(callable);
                 futures.add(future);
             }
@@ -71,6 +57,7 @@ public class RegionOfInterestCalculator {
         for(Future<CalculationResultList> future : futures){
             try {
                 CalculationResultList crl = future.get();
+                crl.add(CalculationResult.getZero());
                 calculations[crl.getImgIndex()][crl.getLetterIndex()] = crl;
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -119,6 +106,9 @@ public class RegionOfInterestCalculator {
     //return the overlapped roi area in percentage/100
     public static CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY, Point roiCenter){
         //long start = System.currentTimeMillis();
+        if(roiCenter==null){
+            return CalculationResult.getZero();
+        }
         //double maxAspectRatio = Math.max((double)mat_letter.width() / (double)mat_roiImage.width(), (double)mat_letter.height() / (double)mat_roiImage.height());
         Rect subMatRect = new Rect( dX, dY, mat_letter.width(), mat_letter.height());
         Point actCenter = new Point((int)(dX+(mat_letter.width()/maxAspectRatio/scaleFactor/2)), (int)(dY+(mat_letter.height()/maxAspectRatio/scaleFactor / 2)));
@@ -171,25 +161,11 @@ public class RegionOfInterestCalculator {
         return this.calculations;
     }
 
-    /*
-    public Mat[] getMat_letters() {
-        return mat_letters;
-    }
-
-    public Mat[] getMat_roiImages() {
-        return mat_roiImages;
-    }
-    */
-
     public ArrayList<Letter> getLetters() {
         return letters;
     }
 
     public ArrayList<RegionOfInterestImage> getRoiImages() {
         return roiImages;
-    }
-
-    public static double getPercentageDone(final int curCount){
-        return (100.0/maxCount)*curCount;
     }
 }
