@@ -6,17 +6,18 @@ import java.awt.*;
  * Created by Florian on 17.11.2015.
  */
 public class RegionOfInterest {
-    public static final Color DEFAULT_COLOR = Color.RED;
-    public static final Color FACEDETECTION_COLOR = Color.GREEN;
-    public static final Color EYEDETECTION_COLOR = Color.BLUE;
-    public static final Color SIMILARSELECTION_COLOR = Color.MAGENTA;
+    public static final Color COLOR_DEFAULT = Color.RED;
+    public static final Color COLOR_FACEDETECTION = Color.GREEN;
+    public static final Color COLOR_EYEDETECTION = Color.BLUE;
+    public static final Color COLOR_FULLBODY = Color.CYAN;
+    public static final Color COLOR_SIMILARSELECTION = Color.MAGENTA;
 
     private Shape shape;
     private Color color;
     private double weighting;
 
     public RegionOfInterest(Shape shape){
-        this(shape, DEFAULT_COLOR);
+        this(shape, COLOR_DEFAULT);
     }
     public RegionOfInterest(Shape shape, Color color){
         this(shape, color, 1.0);

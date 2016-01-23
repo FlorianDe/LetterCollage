@@ -1,22 +1,13 @@
 package main.java.de.ateam.model.roi;
 
-import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.OpenCVUtils;
 import main.java.de.ateam.utils.ShapeUtils;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 
 import java.awt.*;
-import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by vspadi on 16.11.15.
@@ -51,7 +42,7 @@ public class RegionOfInterestImage{
         addRegionOfInterest(shape, color, 1.0);
     }
     public void addRegionOfInterest(Shape shape) {
-        this.addRegionOfInterest(shape, RegionOfInterest.DEFAULT_COLOR);
+        this.addRegionOfInterest(shape, RegionOfInterest.COLOR_DEFAULT);
     }
 
     public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Point point) {

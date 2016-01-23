@@ -6,7 +6,6 @@ import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.utils.FileLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.objdetect.CascadeClassifier;
@@ -20,21 +19,27 @@ import java.awt.image.DataBufferByte;
 public class RegionOfInterestDetector {
     public static final int SIMILAR_SAMPLER_RADIUS = 10;
     public static final float SIMILAR_THRESHOLD = 0.85f;
+    private static final double WEIGHTING_EYE = 3.0;
+    private static final double WEIGHTING_FACE = 2.0;
+    private static final double WEIGHTING_FULLBODY = 1.5;
     private static final String haarcascades_frontalfaceString = "opencv/haarcascades/haarcascade_frontalface_default.xml";
     private static final String haarcascades_eyeStringString = "opencv/haarcascades/haarcascade_eye.xml";
-    private static final double eye_weighting = 3.0;
-    private static final double face_weighting = 2.0;
+    private static final String haarcascades_fullbodyStringString = "opencv/haarcascades/haarcascade_fullbody.xml";
 
-    private CascadeClassifier frontalfaceDetector;
-    private CascadeClassifier eyeDetector;
+    private static final CascadeClassifier frontalfaceDetector;
+    private static final CascadeClassifier eyeDetector;
+    private static final CascadeClassifier fullbodyDetector;
 
     ICollageController controller;
 
+    static{
+        frontalfaceDetector = FileLoader.loadCascadeFile(haarcascades_frontalfaceString);
+        eyeDetector = FileLoader.loadCascadeFile(haarcascades_eyeStringString);
+        fullbodyDetector = FileLoader.loadCascadeFile(haarcascades_fullbodyStringString);
+    }
+
     public RegionOfInterestDetector(ICollageController controller){
         this.controller = controller;
-
-        this.frontalfaceDetector = FileLoader.loadCascadeFile(haarcascades_frontalfaceString);
-        this.eyeDetector = FileLoader.loadCascadeFile(haarcascades_eyeStringString);
     }
 
     public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor){
@@ -43,29 +48,39 @@ public class RegionOfInterestDetector {
 
     public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double weighting){
         if (!frontalfaceDetector.empty()) {
-            MatOfRect detections = new MatOfRect();
+            (new Thread() {
+                public void run() {
+                    MatOfRect detections = new MatOfRect();
 
-            Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
-            cascadeClassifier.detectMultiScale(image, detections);
-            System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
+                    Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
+                    cascadeClassifier.detectMultiScale(image, detections);
+                    System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
 
-            // Draw a bounding box around each detection.
-            for (Rect rect : detections.toArray()) {
-                roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor, weighting);
-            }
-            this.controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
+                    // Draw a bounding box around each detection.
+                    for (Rect rect : detections.toArray()) {
+                        roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor, weighting);
+                    }
+                    controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
+                }
+            }).start();
         } else {
             System.out.println("Detector [" + cascadeClassifier.toString() + "] is empty...cannot detect faces!");
         }
     }
+    public void fullbodyRecognition(RegionOfInterestImage roiImage){
+        cascadeRegognitionHelper(roiImage, fullbodyDetector,RegionOfInterest.COLOR_FULLBODY, WEIGHTING_FULLBODY);
+    }
     public void faceRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.FACEDETECTION_COLOR, face_weighting);
+        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.COLOR_FACEDETECTION, WEIGHTING_FACE);
     }
     public void eyeRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.EYEDETECTION_COLOR, eye_weighting);
+        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.COLOR_EYEDETECTION, WEIGHTING_EYE);
     }
 
-
+    public Mat saliencyMapDetector(RegionOfInterestImage roiImage){
+        SaliencyMapDetector smd = new SaliencyMapDetector();
+        return smd.calculate(OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage()),0.42);
+    }
 
     public void similarDetection(RegionOfInterestImage roiImage, Point p) {
         long startTime = System.currentTimeMillis();
@@ -157,7 +172,7 @@ public class RegionOfInterestDetector {
                 }
             }
             System.out.printf("yMax %d  yMin %d\n", yMax, yMin);
-            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin),RegionOfInterest.SIMILARSELECTION_COLOR);
+            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin),RegionOfInterest.COLOR_SIMILARSELECTION);
 
 
             roiImage.repaintRoiImage();

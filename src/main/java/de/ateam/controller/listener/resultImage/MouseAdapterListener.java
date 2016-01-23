@@ -40,6 +40,7 @@ public class MouseAdapterListener extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         this.pReleased = new Point(e.getPoint());
+        boolean roiImageChanged = false;
 
         if(isPaintMode(e)){
             if(!pReleased.equals(pPressed)) {
@@ -48,6 +49,7 @@ public class MouseAdapterListener extends MouseAdapter {
                     Rectangle r = new Rectangle(pPressed);
                     r.add(pReleased);
                     this.controller.getResultImageModel().getActualVisibleRoiImage().addRegionOfInterest(this.controller.getResultImageModel().getRealCoordinates(r));
+                    roiImageChanged=true;
                 }
             }
             this.controller.getResultImageModel().setActualDrawnRoi(null);
@@ -63,7 +65,7 @@ public class MouseAdapterListener extends MouseAdapter {
                 ArrayList<RegionOfInterest> rois = this.controller.getResultImageModel().getActualVisibleRoiImage().getIntersectingRegionOfInterests(this.controller.getResultImageModel().getRealCoordinates(r));
                 this.controller.getResultImageModel().getActualVisibleRoiImage().deleteRegionOfInterests(rois);
             }
-
+            roiImageChanged=true;
             this.controller.getResultImageModel().setActualDrawnRoi(null);
         }
         else if(isSetWeightMode(e)){
@@ -101,6 +103,7 @@ public class MouseAdapterListener extends MouseAdapter {
                     }
                     rim.getActualVisibleRoiImage().addRegionOfInterest(drawPoly);
                     rim.clearPolygon();
+                    roiImageChanged=true;
                 }
             }
             if(addPoint) {
@@ -112,6 +115,9 @@ public class MouseAdapterListener extends MouseAdapter {
 
         if(!isPolygonPaintMode(e)){
             this.controller.getResultImageModel().clearPolygon();
+        }
+        if(roiImageChanged){
+            controller.getRoiModel().getRoiCollection().roiImageUpdated(controller.getResultImageModel().getActualVisibleRoiImage());
         }
         this.controller.getResultImageModel().setMouseMode(this.lastMouseMode);
         //System.out.printf("[mouseReleased] X:%s  Y:%s\n", e.getX(), e.getY());

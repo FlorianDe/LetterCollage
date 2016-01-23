@@ -14,8 +14,8 @@ import java.util.concurrent.Callable;
  */
 public class CalculationCallable implements Callable<CalculationResultList> {
     public static final double scale_start = 1.0;
-    public static final double scale_end = 3.0;
-    public static final double scale_stepSize = 0.05;
+    public static final double scale_end = 2.0;
+    public static final double scale_stepSize = 0.1;
 
 
     private Mat mat_roiImage;

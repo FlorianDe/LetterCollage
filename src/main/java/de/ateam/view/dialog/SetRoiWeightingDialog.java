@@ -133,7 +133,5 @@ public class SetRoiWeightingDialog extends JDialog {
 		    	ssjd.setOnCancelListener();
 		    }
 		});
-		
-		
 	}
 }
