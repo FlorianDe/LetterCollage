@@ -2,6 +2,7 @@ package main.java.de.ateam.view.menu;
 
 import main.java.de.ateam.controller.ICollageController;
 import main.java.de.ateam.controller.listener.resultImage.MouseModeSetListener;
+import main.java.de.ateam.controller.listener.resultImage.OpenSettingsListener;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
@@ -29,18 +30,8 @@ public class CVMenuSettings extends JMenu  implements CstmObserver {
 
 
         this.menuItemSettings = this.jme.createJMenuItem(new JMenuItem("Settings"), 'I', "STRING_DESCRIPTION", this);
-        this.menuItemSettings.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMIN));
+        this.menuItemSettings.addActionListener(new OpenSettingsListener(controller));
 
-        //JSliderMenuItem jsmi = new JSliderMenuItem("Scale end", controller, this);
-        JLabel heading = new JLabel(name);
-
-        JSlider slider = new JSlider();
-        slider.setMajorTickSpacing(20);
-        slider.setMinorTickSpacing(10);
-
-        this.addSeparator();
-        this.add(heading);
-        this.add(slider);
 
         this.addSeparator();
 

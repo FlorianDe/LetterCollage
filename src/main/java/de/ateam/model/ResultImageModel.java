@@ -22,6 +22,7 @@ public class ResultImageModel extends CstmObservable {
     private RegionOfInterestImage endResultVisibleRoiImage;
     private RegionOfInterestImage actualVisibleRoiImage;
     private boolean resolutionRasterVisible;
+    private boolean saliencyMapOverlay;
     private Rectangle viewRect;
     private Shape actualDrawnRoi;
     private ArrayList<Point> polygon;
@@ -210,6 +211,16 @@ public class ResultImageModel extends CstmObservable {
 
     public void setResolutionRasterVisible(boolean resolutionRasterVisible) {
         this.resolutionRasterVisible = resolutionRasterVisible;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public boolean isSaliencyMapOverlay() {
+        return saliencyMapOverlay;
+    }
+
+    public void setSaliencyMapOverlay(boolean saliencyMapOverlay) {
+        this.saliencyMapOverlay = saliencyMapOverlay;
         this.setChanged();
         this.notifyObservers(null);
     }

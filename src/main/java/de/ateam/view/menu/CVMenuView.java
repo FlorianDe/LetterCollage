@@ -1,10 +1,11 @@
 package main.java.de.ateam.view.menu;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.MouseModeSetListener;
+import main.java.de.ateam.controller.listener.resultImage.*;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
+import main.java.de.ateam.view.cstmcomponent.StayOpenCheckBoxMenuItemUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,8 @@ public class CVMenuView extends JMenu  implements CstmObserver {
     JMenuExtension jme;
     JMenuItem menuItemMouseModeZoomIn;
     JMenuItem menuItemMouseModeZoomOut;
+    JCheckBoxMenuItem menuItemRasterOnOff;
+    JCheckBoxMenuItem menuItemSaliencyOverlayOnOff;
 
     ICollageController controller;
 
@@ -28,11 +31,25 @@ public class CVMenuView extends JMenu  implements CstmObserver {
         this.jme.setInformationJM(this, "STRING_DESCRIPTION");
 
 
-        this.menuItemMouseModeZoomIn = this.jme.createJMenuItem(new JMenuItem("ZoomIn"), 'I', "STRING_DESCRIPTION", this);
-        this.menuItemMouseModeZoomIn.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMIN));
+        this.menuItemRasterOnOff = new JCheckBoxMenuItem("Raster On/Off");
+        this.menuItemRasterOnOff.addItemListener(new GridOnOffListener(controller));
+        menuItemRasterOnOff.setUI(new StayOpenCheckBoxMenuItemUI());
+        this.add(menuItemRasterOnOff);
 
-        this.menuItemMouseModeZoomOut = this.jme.createJMenuItem(new JMenuItem("ZoomOut"), 'O', "STRING_DESCRIPTION", this);
-        this.menuItemMouseModeZoomOut.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMOUT));
+        this.menuItemSaliencyOverlayOnOff = new JCheckBoxMenuItem("Saliency Overlay On/Off");
+        this.menuItemSaliencyOverlayOnOff.addItemListener(new SaliencyOverlayOnOffListener(controller));
+        menuItemSaliencyOverlayOnOff.setUI(new StayOpenCheckBoxMenuItemUI());
+        this.add(menuItemSaliencyOverlayOnOff);
+
+        this.addSeparator();
+
+        this.menuItemMouseModeZoomIn = this.jme.createJMenuItem(new JMenuItem("Zoom in"), 'O', "STRING_DESCRIPTION", this);
+        this.menuItemMouseModeZoomIn.addActionListener(new ZoomInListener(controller));
+
+        this.menuItemMouseModeZoomOut = this.jme.createJMenuItem(new JMenuItem("Zoom out"), 'O', "STRING_DESCRIPTION", this);
+        this.menuItemMouseModeZoomOut.addActionListener(new ZoomOutListener(controller));
+
+
     }
 
     @Override

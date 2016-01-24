@@ -23,7 +23,7 @@ public class LetterCollection extends CstmObservable{
 
     static {
         //TODO Sollte am Besten ersetzt werden, durch die Buchstaben, die benötigt werden!
-        characters = "#123aeiouAEIOU".toCharArray();
+        characters = "aeiouAEIOU".toCharArray();
     }
 
     protected LetterCollection(Font font) {

@@ -111,6 +111,16 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
                 (int) this.controller.getResultImageModel().getRenderSize().getHeight(),
                 null);
 
+        if(this.controller.getResultImageModel().isSaliencyMapOverlay()){
+            ShapeUtils.setTransparency(g2d, 0.5f);
+            g2d.drawImage(this.controller.getResultImageModel().getActualVisibleRoiImage().getSaliencyMap(),
+                    0, 0,
+                    (int) this.controller.getResultImageModel().getRenderSize().getWidth(),
+                    (int) this.controller.getResultImageModel().getRenderSize().getHeight(),
+                    null);
+            ShapeUtils.setTransparency(g2d, 1f);
+        }
+
         //DRAW RASTER!
         if(this.controller.getResultImageModel().isResolutionRasterVisible()){
             ShapeUtils.setTransparency(g2d, 0.25f);

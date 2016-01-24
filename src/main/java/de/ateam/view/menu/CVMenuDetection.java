@@ -1,10 +1,7 @@
 package main.java.de.ateam.view.menu;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.EyeDetectionListener;
-import main.java.de.ateam.controller.listener.resultImage.FaceDetectionListener;
-import main.java.de.ateam.controller.listener.resultImage.FullbodyDetectionListener;
-import main.java.de.ateam.controller.listener.resultImage.MouseModeSetListener;
+import main.java.de.ateam.controller.listener.resultImage.*;
 import main.java.de.ateam.model.ResultImageModel;
 import main.java.de.ateam.utils.CstmObservable;
 import main.java.de.ateam.utils.CstmObserver;
@@ -43,7 +40,7 @@ public class CVMenuDetection extends JMenu  implements CstmObserver {
         this.menuItemFullbodyDetection.addActionListener(new FullbodyDetectionListener(controller));
 
         this.menuItemSaliencyDetection = this.jme.createJMenuItem(new JMenuItem("Saliency Map Detection"), 'I', "STRING_DESCRIPTION", this);
-       // this.menuItemSaliencyDetection.addActionListener(new MouseModeSetListener(controller, ResultImageModel.MouseMode.ZOOMIN));
+        this.menuItemSaliencyDetection.addActionListener(new SaliencyMapDetectionListener(controller));
 
     }
 

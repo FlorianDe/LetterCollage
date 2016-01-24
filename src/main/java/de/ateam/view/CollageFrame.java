@@ -7,6 +7,7 @@ import main.java.de.ateam.view.menu.CVMenubar;
 import main.java.de.ateam.view.panel.CVImageLoaderContainerPanel;
 import main.java.de.ateam.view.panel.CVResultImagePanel;
 import main.java.de.ateam.view.toolbar.CVToolbar;
+import javax.swing.UIManager.*;
 
 import javax.swing.*;
 import java.awt.*;

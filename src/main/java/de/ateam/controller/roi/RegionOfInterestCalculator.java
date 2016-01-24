@@ -104,12 +104,13 @@ public class RegionOfInterestCalculator {
 
 
     //return the overlapped roi area in percentage/100
-    public static CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY, Point roiCenter){
+    public static CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_saliencyMap, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY, Point roiCenter){
         //long start = System.currentTimeMillis();
+
         if(roiCenter==null){
             return CalculationResult.getZero();
         }
-        //double maxAspectRatio = Math.max((double)mat_letter.width() / (double)mat_roiImage.width(), (double)mat_letter.height() / (double)mat_roiImage.height());
+
         Rect subMatRect = new Rect( dX, dY, mat_letter.width(), mat_letter.height());
         Point actCenter = new Point((int)(dX+(mat_letter.width()/maxAspectRatio/scaleFactor/2)), (int)(dY+(mat_letter.height()/maxAspectRatio/scaleFactor / 2)));
         int dH = (int)((roiCenter.getY()>mat_roiImage.height()/2)?roiCenter.getY():(mat_roiImage.height()-roiCenter.getY()));
@@ -117,22 +118,31 @@ public class RegionOfInterestCalculator {
         int maxDistance = (int)Math.sqrt(Math.pow(dW,2)+Math.pow(dH,2));
         int actDistance = (int)Math.sqrt(Math.pow(Math.abs(actCenter.getX()-roiCenter.getX()),2)+Math.pow(Math.abs(actCenter.getY()-roiCenter.getY()),2));
 
-        //System.out.println("[subMatRect] Y:" + subMatRect.y + "  X:" + subMatRect.x + "  H:" + subMatRect.height + "  H:" + subMatRect.height);
         Size newSize = new Size(mat_roiImage.width()*maxAspectRatio*scaleFactor, mat_roiImage.height()*maxAspectRatio * scaleFactor);
-        //System.out.println("[newSize] W:" + newSize.width + "  H:" + newSize.height);
         Mat scaledCroppedRoiImageMat = new Mat();
         Imgproc.resize(mat_roiImage, scaledCroppedRoiImageMat, newSize);
-        int countBefore = Core.countNonZero(scaledCroppedRoiImageMat);
+
+        Mat scaledCroppedSaliencyMap = new Mat();
+        Imgproc.resize(mat_saliencyMap, scaledCroppedSaliencyMap, newSize);
+
+
+        int countBefore = Core.countNonZero(scaledCroppedRoiImageMat)+Core.countNonZero(scaledCroppedSaliencyMap);
         if(countBefore==0){
             return CalculationResult.getZero();
         }
 
 
-        //System.out.println("[scaledCroppedRoiImageMat] W:" + scaledCroppedRoiImageMat.width() + "  H:" + scaledCroppedRoiImageMat.height());
         scaledCroppedRoiImageMat = new Mat(scaledCroppedRoiImageMat, subMatRect);
-        Mat xoredMat = Mat.zeros(mat_roiImage.rows(), mat_roiImage.cols(), mat_roiImage.type());
-        Core.bitwise_and(scaledCroppedRoiImageMat, mat_letter, xoredMat);
-        int countAfter = Core.countNonZero(xoredMat);
+        Mat xoredRoiImageMat = Mat.zeros(mat_roiImage.rows(), mat_roiImage.cols(), mat_roiImage.type());
+        Core.bitwise_and(scaledCroppedRoiImageMat, mat_letter, xoredRoiImageMat);
+
+
+        scaledCroppedSaliencyMap = new Mat(scaledCroppedSaliencyMap, subMatRect);
+        Mat xoredSaliencyMapMat = Mat.zeros(mat_saliencyMap.rows(), mat_saliencyMap.cols(), mat_saliencyMap.type());
+        Core.bitwise_and(scaledCroppedSaliencyMap, mat_letter, xoredSaliencyMapMat);
+
+
+        int countAfter = Core.countNonZero(xoredRoiImageMat)+Core.countNonZero(xoredSaliencyMapMat);
         double percentage = 0.0;
         if(countAfter!=0 && countBefore!=0) {
             percentage = (double) countAfter / (double) countBefore;

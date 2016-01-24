@@ -5,7 +5,11 @@ import main.java.de.ateam.model.CollageModel;
 import main.java.de.ateam.utils.FontLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
 import main.java.de.ateam.view.CollageFrame;
+import main.java.de.ateam.view.dialog.SetRoiWeightingDialog;
+import main.java.de.ateam.view.dialog.SettingsDialog;
 import org.opencv.core.Core;
+
+import java.awt.*;
 
 public class EntryPoint {
     public static void main(String[] args) {

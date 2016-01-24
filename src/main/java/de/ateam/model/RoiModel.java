@@ -17,6 +17,13 @@ import java.util.ArrayList;
  * Created by viktorspadi on 15.11.15.
  */
 public class RoiModel extends CstmObservable{
+    public static final double SCALE_STEP_SIZE_MIN = 0.05;
+    public static final double SCALE_STEP_SIZE_MAX = 1.0;
+    public double scaleStepSize = 0.1;
+
+    public static final double SCALE_START = 1.0;
+    public static final double SCALE_MAX = 4.0;
+    public double scaleEnd = 2.0;
 
     private String inputText;
     private LetterCollection letterCollection;
@@ -25,7 +32,7 @@ public class RoiModel extends CstmObservable{
     public RoiModel() {
         this.roiImageCollection = new RegionOfInterestImageCollection();
         //TODO JUST FOR DEVELOPING!
-        this.inputText = "A-Team B";
+        this.inputText = "VFN";
         try {
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/1.jpg")));
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/2.jpg")));
@@ -80,5 +87,25 @@ public class RoiModel extends CstmObservable{
 
     public void setInputText(String inputText) {
         this.inputText = inputText;
+    }
+
+    public double getScaleStepSize() {
+        return scaleStepSize;
+    }
+
+    public void setScaleStepSize(double scaleStepSize) {
+        this.scaleStepSize = scaleStepSize;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public double getScaleEnd() {
+        return scaleEnd;
+    }
+
+    public void setScaleEnd(double scaleEnd) {
+        this.scaleEnd = scaleEnd;
+        this.setChanged();
+        this.notifyObservers(null);
     }
 }

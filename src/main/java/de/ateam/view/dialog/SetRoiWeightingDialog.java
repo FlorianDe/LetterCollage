@@ -94,12 +94,7 @@ public class SetRoiWeightingDialog extends JDialog {
 	}
 
 	private void setOnCancelListener() {
-		this.btnCancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeAction();
-			}
-		});
+		this.btnCancel.addActionListener(e -> closeAction());
 	}
 
 	public void closeAction() {
@@ -125,13 +120,9 @@ public class SetRoiWeightingDialog extends JDialog {
 	public static SetRoiWeightingDialog ssjd;
 	// For testing only!
 	public static void main(String[] a) {
-
-		EventQueue.invokeLater(new Runnable() {
-		    @Override
-		    public void run() {
-		    	ssjd = new SetRoiWeightingDialog(null,null,1);
-		    	ssjd.setOnCancelListener();
-		    }
-		});
+		EventQueue.invokeLater(() -> {
+            ssjd = new SetRoiWeightingDialog(null,null,1);
+            ssjd.setOnCancelListener();
+        });
 	}
 }

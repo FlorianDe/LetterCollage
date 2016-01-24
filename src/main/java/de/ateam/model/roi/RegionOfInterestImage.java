@@ -1,5 +1,6 @@
 package main.java.de.ateam.model.roi;
 
+import main.java.de.ateam.controller.roi.RegionOfInterestDetector;
 import main.java.de.ateam.utils.OpenCVUtils;
 import main.java.de.ateam.utils.ShapeUtils;
 import org.opencv.core.Mat;
@@ -16,6 +17,7 @@ public class RegionOfInterestImage{
 
     private BufferedImage normalImage;
     private BufferedImage roiImage;
+    private BufferedImage saliencyMap;
     private Graphics2D g2dRoiImage;
     private ArrayList<RegionOfInterest> rois;
     private boolean roiMode;
@@ -25,6 +27,7 @@ public class RegionOfInterestImage{
     public RegionOfInterestImage(BufferedImage normalImage) {
         this.roiMode = true;
         this.normalImage = normalImage;
+        this.saliencyMap = new BufferedImage(normalImage.getWidth(), normalImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
         this.roiImage = new BufferedImage(normalImage.getWidth(), normalImage.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
         this.g2dRoiImage = this.roiImage.createGraphics();
         this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
@@ -112,6 +115,7 @@ public class RegionOfInterestImage{
 
     public void calculateCenterWeight() {
         BufferedImage mask = getCalculationMaskHelper();
+
         int xMax = 0;
         int xMin = -1;
         int yMax = 0;
@@ -138,6 +142,15 @@ public class RegionOfInterestImage{
                     xAvg += x*wAvg;
                     yAvg += y*wAvg;
                     cnt+=wAvg;
+                }
+                if((this.getSaliencyMap().getRGB(x,y)) == -1) {
+                    if(x > xMax) xMax = x;
+                    if(xMin == -1) xMin = x;
+                    if(y > yMax) yMax = y;
+                    if(yMin == -1) yMin = y;
+                    xAvg += x* RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
+                    yAvg += y* RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
+                    cnt+=RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
                 }
             }
         }
@@ -206,5 +219,15 @@ public class RegionOfInterestImage{
 
     public Point getMiddlePoint() {
         return this.middlePoint;
+    }
+
+    public BufferedImage getSaliencyMap() {
+        return saliencyMap;
+    }
+
+    public void setSaliencyMap(BufferedImage saliencyMap) {
+        this.saliencyMap = saliencyMap;
+        calculateCenterWeight();
+        repaintRoiImage();
     }
 }

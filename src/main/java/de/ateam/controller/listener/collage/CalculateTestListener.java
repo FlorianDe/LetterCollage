@@ -1,7 +1,6 @@
 package main.java.de.ateam.controller.listener.collage;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.roi.CalculationCallable;
 import main.java.de.ateam.controller.roi.CalculationResult;
 import main.java.de.ateam.controller.roi.RegionOfInterestCalculator;
 import main.java.de.ateam.exception.NoFontSelectedException;
@@ -47,7 +46,7 @@ public class CalculateTestListener implements ActionListener {
 				throw new NoFontSelectedException();
 			}
 			controller.getResultImageModel().getWorkerDone().set(0);
-			controller.getResultImageModel().setMaxWorker(this.controller.getRoiModel().getLoadedImages().size()*letters.size()*(int)((CalculationCallable.scale_end-CalculationCallable.scale_start)/CalculationCallable.scale_stepSize));
+			controller.getResultImageModel().setMaxWorker(this.controller.getRoiModel().getLoadedImages().size()*letters.size()*(int)((controller.getRoiModel().getScaleEnd() - controller.getRoiModel().SCALE_START)/controller.getRoiModel().getScaleStepSize()));
 			RegionOfInterestCalculator roic = new RegionOfInterestCalculator(this.controller.getRoiModel().getLoadedImages(), letters, controller);
 			roic.calculateIntersectionMatrixParallel();
 

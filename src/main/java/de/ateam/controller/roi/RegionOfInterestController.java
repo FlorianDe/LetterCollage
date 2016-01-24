@@ -6,7 +6,6 @@ import main.java.de.ateam.controller.ICollageController;
  * Created by Florian on 17.11.2015.
  */
 public class RegionOfInterestController {
-
     ICollageController controller;
     RegionOfInterestDetector roiDetector;
 
@@ -22,6 +21,8 @@ public class RegionOfInterestController {
         this.controller = controller;
         this.roiDetector = new RegionOfInterestDetector(controller);
     }
+
+
 
 
 }

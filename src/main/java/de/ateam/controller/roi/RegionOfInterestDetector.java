@@ -19,6 +19,7 @@ import java.awt.image.DataBufferByte;
 public class RegionOfInterestDetector {
     public static final int SIMILAR_SAMPLER_RADIUS = 10;
     public static final float SIMILAR_THRESHOLD = 0.85f;
+    public static final double WEIGHTING_SALIENCY_PIXEL = 3.0;
     private static final double WEIGHTING_EYE = 3.0;
     private static final double WEIGHTING_FACE = 2.0;
     private static final double WEIGHTING_FULLBODY = 1.5;

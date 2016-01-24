@@ -99,8 +99,8 @@ public class SaliencyMapDetector {
         Core.addWeighted(xGradAbs, 0.5, yGradAbs, 0.5, 1, image, CvType.CV_32F);
 
 
-        //
-        Mat Iobr = morphReconstruct(Ie, image);
+        //TODO WHY ERROR?!
+        Mat Iobr = image;//morphReconstruct(Ie, image);
 
         //Calculates the mean value M of array elements, independently for each channel
         Scalar meanScalar = Core.mean(Iobr);
@@ -152,11 +152,13 @@ public class SaliencyMapDetector {
 
         //Imgproc.blur(labelimgHelper,labelimgHelper, new Size(3,3));
         //Imgproc.erode(labelimgHelper, labelimgHelper, Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE,new Size(3,3),new Point(1,1)));
-        Mat res = new Mat();
-        Imgproc.dilate(labelimgHelper, res, getCenteredStructuringEllipseElement(9));
+        //Mat res = new Mat();
+        Imgproc.dilate(labelimgHelper, saliencyMap, getCenteredStructuringEllipseElement(9));
         //Imgproc.erode(labelimgHelper, labelimgHelper, getCenteredStructuringEllipseElement(15));
 
-        return res;
+        System.out.println("SaliencyMapDetector saliencyMap channels:"+saliencyMap.channels());
+
+        return saliencyMap;
     }
 
     public Mat getCenteredStructuringEllipseElement(int radius){
