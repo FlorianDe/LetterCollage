@@ -13,9 +13,18 @@ import java.util.HashMap;
 public abstract class LetterFactory {
     private static HashMap<String, LetterCollection> fontCollection;
     private static LetterCollection lastLoadedFont;
+    private static ICollageController controller;
 
     static{
         init();
+    }
+
+    public static ICollageController getController() {
+        return controller;
+    }
+
+    public static void setController(ICollageController controller) {
+        LetterFactory.controller = controller;
     }
 
     public static void init(){
@@ -29,7 +38,7 @@ public abstract class LetterFactory {
         }
         Font font = FontLoader.getFont(fontName);
         if(font!=null) {
-            lastLoadedFont = new LetterCollection(font);
+            lastLoadedFont = new LetterCollection(font, controller);
             LetterFactory.fontCollection.put(fontName, lastLoadedFont);
         }
         return lastLoadedFont;

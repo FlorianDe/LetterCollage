@@ -33,5 +33,7 @@ public class OpenSettingsListener implements ActionListener {
 		controller.getRoiModel().getLetterCollection().setSamplerSize((int)sd.getSliderLetterSampleSize().getValue());
 		controller.getRoiModel().setScaleEnd(sd.getSliderScaleEnd().getValue());
 		controller.getRoiModel().setScaleStepSize(sd.getSliderScaleSteps().getValue());
+
+		controller.getRoiController().drawResult();
 	}
 }

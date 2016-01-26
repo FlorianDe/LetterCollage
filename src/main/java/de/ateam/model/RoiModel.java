@@ -32,11 +32,12 @@ public class RoiModel extends CstmObservable{
     public RoiModel() {
         this.roiImageCollection = new RegionOfInterestImageCollection();
         //TODO JUST FOR DEVELOPING!
-        this.inputText = "VFN";
+        this.inputText = "TEXTHIER";
         try {
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/1.jpg")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/2.jpg")));
-            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/pictures/3.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/test1.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/test2.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/test3.jpg")));
+            this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/test21.jpg")));
 
             String defaultFontName = "Showcard Gothic";
             if(LetterFactory.getCollection(defaultFontName)!=null)

@@ -48,6 +48,14 @@ public class JSliderLabelPanel extends JPanel{
 		this.valueLabel.setText((value*scale)+unit);
 	}
 
+	public JSlider getValueSlider() {
+		return valueSlider;
+	}
+
+	public JLabel getValueLabel() {
+		return valueLabel;
+	}
+
 	public double getValue(){
 		return valueSlider.getValue()*this.scale;
 	}

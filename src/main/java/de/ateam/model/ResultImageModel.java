@@ -23,14 +23,21 @@ public class ResultImageModel extends CstmObservable {
     private RegionOfInterestImage actualVisibleRoiImage;
     private boolean resolutionRasterVisible;
     private boolean saliencyMapOverlay;
+    private boolean saliencyMapDetection;
+    private boolean eyeDetection;
+    private boolean faceDetection;
+    private boolean fullbodyDetection;
     private Rectangle viewRect;
     private Shape actualDrawnRoi;
     private ArrayList<Point> polygon;
-    private int polygonSnapRadius = 10;
+    private int polygonSnapRadius;
     private Color actualDrawColor;
     private int margin;
     private int maxWorker;
     private volatile AtomicInteger workerDone;
+    private Color backgroundColor;
+    private int fontOutlineThickness;
+    private Color fontOutlineColor;
 
     public ResultImageModel(){
         mouseMode = MouseMode.SETWEIGHT;
@@ -46,6 +53,14 @@ public class ResultImageModel extends CstmObservable {
         this.margin = 0;
         this.polygon = new ArrayList<>();
         this.workerDone = new AtomicInteger(0);
+        this.backgroundColor = Color.WHITE;
+        this.saliencyMapDetection = true;
+        this.eyeDetection = true;
+        this.faceDetection = true;
+        this.fullbodyDetection = true;
+        this.fontOutlineThickness = 10;
+        this.polygonSnapRadius = 10;
+        this.fontOutlineColor=Color.BLACK;
     }
 
     public void clearPolygon() {
@@ -203,6 +218,16 @@ public class ResultImageModel extends CstmObservable {
         return maxWorker;
     }
 
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
     public void setMaxWorker(int maxWorker) {
         this.maxWorker = maxWorker;
         this.setChanged();
@@ -215,12 +240,72 @@ public class ResultImageModel extends CstmObservable {
         this.notifyObservers(null);
     }
 
+    public boolean isSaliencyMapDetection() {
+        return saliencyMapDetection;
+    }
+
+    public void setSaliencyMapDetection(boolean saliencyMapDetection) {
+        this.saliencyMapDetection = saliencyMapDetection;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public boolean isEyeDetection() {
+        return eyeDetection;
+    }
+
+    public void setEyeDetection(boolean eyeDetection) {
+        this.eyeDetection = eyeDetection;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public boolean isFaceDetection() {
+        return faceDetection;
+    }
+
+    public void setFaceDetection(boolean faceDetection) {
+        this.faceDetection = faceDetection;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public boolean isFullbodyDetection() {
+        return fullbodyDetection;
+    }
+
+    public void setFullbodyDetection(boolean fullbodyDetection) {
+        this.fullbodyDetection = fullbodyDetection;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
     public boolean isSaliencyMapOverlay() {
         return saliencyMapOverlay;
     }
 
     public void setSaliencyMapOverlay(boolean saliencyMapOverlay) {
         this.saliencyMapOverlay = saliencyMapOverlay;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public int getFontOutlineThickness() {
+        return fontOutlineThickness;
+    }
+
+    public void setFontOutlineThickness(int fontOutlineThickness) {
+        this.fontOutlineThickness = fontOutlineThickness;
+        this.setChanged();
+        this.notifyObservers(null);
+    }
+
+    public Color getFontOutlineColor() {
+        return fontOutlineColor;
+    }
+
+    public void setFontOutlineColor(Color fontOutlineColor) {
+        this.fontOutlineColor = fontOutlineColor;
         this.setChanged();
         this.notifyObservers(null);
     }

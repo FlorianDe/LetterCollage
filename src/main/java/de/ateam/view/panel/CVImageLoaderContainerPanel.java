@@ -62,7 +62,7 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
 
 
     //K�nnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!
-    public void refreshList(){
+    public synchronized void refreshList(){
         this.roiImageContainer.removeAll();
         /*
         for(BufferedImage buf : this.controller.getImageLoaderModel().getLoadedImages()){

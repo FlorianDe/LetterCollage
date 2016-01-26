@@ -2,6 +2,8 @@ package main.java;
 
 import main.java.de.ateam.controller.CollageController;
 import main.java.de.ateam.model.CollageModel;
+import main.java.de.ateam.model.text.LetterCollection;
+import main.java.de.ateam.model.text.LetterFactory;
 import main.java.de.ateam.utils.FontLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
 import main.java.de.ateam.view.CollageFrame;
@@ -24,6 +26,7 @@ public class EntryPoint {
     public void startGUI(){
         this.collageModel = new CollageModel();
         this.collageController = new CollageController(this.collageModel);
+        LetterFactory.setController(collageController);
         this.collageFrame = new CollageFrame(this.collageController);
         this.collageController.setView(this.collageFrame);
     }

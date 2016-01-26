@@ -230,4 +230,10 @@ public class RegionOfInterestImage{
         calculateCenterWeight();
         repaintRoiImage();
     }
+
+    public void resetAllROIs(){
+        this.middlePoint = null;
+        rois.clear();
+        this.saliencyMap = new BufferedImage(normalImage.getWidth(), normalImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+    }
 }

@@ -124,7 +124,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         //DRAW RASTER!
         if(this.controller.getResultImageModel().isResolutionRasterVisible()){
             ShapeUtils.setTransparency(g2d, 0.25f);
-            g2d.setColor(Color.GRAY);
+
             ResultImageModel rim = this.controller.getResultImageModel();
 
             int maxHeight = (int) rim.getRenderSize().getHeight();

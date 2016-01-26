@@ -12,19 +12,19 @@ import java.awt.image.BufferedImage;
  * Created by viktorspadi on 15.11.15.
  */
 public class Letter{
-    private Mat resultMask;
+
     private Mat calculationMask;
-    //private int width;
-    //private int height;
+    private BufferedImage resultMask;
+    private BufferedImage outlineResultMask;
+
     private char symbol;
 
-    protected Letter (char symbol, BufferedImage bi_resultMask,  BufferedImage bi_calculationMask) {
-        //this.width = map.getWidth();
-        //this.height = map.getHeight();
+    protected Letter (char symbol, BufferedImage bi_resultMask, BufferedImage bi_calculationMask, BufferedImage bi_outlineResultMask) {
         this.symbol = symbol;
-        this.resultMask = OpenCVUtils.bufferedImageToMat(bi_resultMask);
+        this.resultMask = bi_resultMask;
         this.calculationMask = OpenCVUtils.bufferedImageToMat(bi_calculationMask);
-        Imgproc.cvtColor(this.resultMask, this.resultMask, Imgproc.COLOR_BGR2GRAY);
+        this.outlineResultMask = bi_outlineResultMask;
+        //Imgproc.cvtColor(this.resultMask, this.resultMask, Imgproc.COLOR_BGR2GRAY);
         Imgproc.cvtColor(this.calculationMask, this.calculationMask, Imgproc.COLOR_BGR2GRAY);
         //init(map);
     }
@@ -58,17 +58,14 @@ public class Letter{
 
     public Mat getCalculationMask() { return calculationMask; }
 
-    public Mat getResultMask() {
+    public BufferedImage getResultMask() {
         return resultMask;
     }
 
-    /*
-    public int getWidth() {
-        return width;
+    public BufferedImage getOutlineResultMask() {
+        return outlineResultMask;
     }
-
-    public int getHeight() {
-        return height;
+    public void setOutlineResultMask(BufferedImage outlineResultMask) {
+        this.outlineResultMask = outlineResultMask;
     }
-    */
 }

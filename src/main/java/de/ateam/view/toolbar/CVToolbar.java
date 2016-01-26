@@ -1,10 +1,7 @@
 package main.java.de.ateam.view.toolbar;
 
 import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.collage.CalculateCLTestListener;
-import main.java.de.ateam.controller.listener.collage.CalculateTestListener;
-import main.java.de.ateam.controller.listener.collage.FontSelectionChangedListener;
-import main.java.de.ateam.controller.listener.collage.InputTextChangedListener;
+import main.java.de.ateam.controller.listener.collage.*;
 import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
 import main.java.de.ateam.controller.listener.resultImage.*;
 import main.java.de.ateam.utils.CstmObservable;
@@ -24,16 +21,14 @@ import java.awt.*;
 public class CVToolbar extends JToolBar implements CstmObserver {
     private JButton btnNew;
     private JButton btnOpen;
-    private JButton btnGrid;
+
     private JButton btnZoomIn;
     private JButton btnZoomOut;
-    private JButton btnCalc;
-    private JButton btnCLCalc;
+    private JButton btnManualCalc;
+    private JButton btnAutomaticCalc;
+
     private JButton btnSetResultImage;
     private JButton btnFaceDetection;
-    private JButton btnEyeDetection;
-
-    private JSliderLabelPanel pxSampleSizeSlider;
 
     private JTextField tfText;
     private JComboBox cbxFonts;
@@ -71,41 +66,36 @@ public class CVToolbar extends JToolBar implements CstmObserver {
     }
 
     public void createToolbar(){
-        this.btnNew = (JButton) createToolbarButton(new JButton(), "img/New.gif");
+        this.btnNew = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/new_project_32.png");
         this.add(this.btnNew);
 
-        this.btnOpen = (JButton) createToolbarButton(new JButton(), "img/Open.gif");
+        this.btnOpen = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/new_32.png");
         this.add(this.btnOpen);
 
         this.addSeparator();
 
-        this.btnZoomIn = (JButton) createToolbarButton(new JButton(), "img/ZIn.gif");
+        this.btnZoomIn = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/zoom_in_32.png");
         this.btnZoomIn.addActionListener(new ZoomInListener(this.controller));
         this.add(this.btnZoomIn);
 
-        this.btnZoomOut = (JButton) createToolbarButton(new JButton(), "img/ZOut.gif");
+        this.btnZoomOut = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/zoom_out_32.png");
         this.btnZoomOut.addActionListener(new ZoomOutListener(this.controller));
         this.add(this.btnZoomOut);
 
-        this.btnCalc = (JButton) createToolbarButton(new JButton(), "img/Calc.gif");
-        this.btnCalc.addActionListener(new CalculateTestListener(this.controller));
-        this.add(this.btnCalc);
+        this.btnManualCalc = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/calc_manual_32.png");
+        this.btnManualCalc.addActionListener(new CalculateManualListener(this.controller));
+        this.add(this.btnManualCalc);
 
-        this.btnCLCalc = (JButton) createToolbarButton(new JButton(), "img/CLCalc.gif");
-        this.btnCLCalc.addActionListener(new CalculateCLTestListener(this.controller));
-        //this.add(this.btnCLCalc);
 
-        this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/ResultImg.gif");
+        this.btnAutomaticCalc = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/calc_auto_32.png");
+        this.btnAutomaticCalc.addActionListener(new CalculateAutomaticListener(this.controller));
+        this.add(this.btnAutomaticCalc);
+
+
+        this.btnSetResultImage = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/result_img_32.png");
         this.btnSetResultImage.addActionListener(new ShowRoiImageListener(controller, null));
         this.add(this.btnSetResultImage);
 
-        this.btnFaceDetection = (JButton) createToolbarButton(new JButton(), "img/FaceDet.gif");
-        this.btnFaceDetection.addActionListener(new FaceDetectionListener(controller));
-        this.add(this.btnFaceDetection);
-
-        this.btnEyeDetection = (JButton) createToolbarButton(new JButton(), "img/EyeDet.gif");
-        this.btnEyeDetection.addActionListener(new EyeDetectionListener(controller));
-        this.add(this.btnEyeDetection);
 
         //pxSampleSizeSlider = new JSliderLabelPanel(controller);
         //this.add(pxSampleSizeSlider);

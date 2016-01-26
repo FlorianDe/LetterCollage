@@ -25,11 +25,11 @@ public class CalculationCallable implements Callable<CalculationResultList> {
         this.controller = controller;
         this.calculationResultList = new CalculationResultList(imgIndex, letterIndex);
         this.mat_roiImage = roiImage.getCalculationMask();
-        System.out.println("mat_roiImage Channels:"+this.mat_roiImage.channels());
+        //System.out.println("mat_roiImage Channels:"+this.mat_roiImage.channels());
         this.mat_saliencyMap = OpenCVUtils.bufferedImageToMat(roiImage.getSaliencyMap());
-        System.out.println("mat_saliencyMap Channels:"+this.mat_saliencyMap.channels());
+        //System.out.println("mat_saliencyMap Channels:"+this.mat_saliencyMap.channels());
         this.mat_letter = letter.getCalculationMask();
-        System.out.println("mat_letter Channels:"+this.mat_letter.channels());
+        //System.out.println("mat_letter Channels:"+this.mat_letter.channels());
         this.roiCenter = roiImage.getMiddlePoint();
     }
 

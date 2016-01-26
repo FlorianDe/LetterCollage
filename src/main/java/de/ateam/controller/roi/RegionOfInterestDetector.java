@@ -5,12 +5,11 @@ import main.java.de.ateam.model.roi.RegionOfInterest;
 import main.java.de.ateam.model.roi.RegionOfInterestImage;
 import main.java.de.ateam.utils.FileLoader;
 import main.java.de.ateam.utils.OpenCVUtils;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
+import org.opencv.core.*;
 import org.opencv.objdetect.CascadeClassifier;
 
 import java.awt.*;
+import java.awt.Point;
 import java.awt.image.DataBufferByte;
 
 /**
@@ -43,39 +42,54 @@ public class RegionOfInterestDetector {
         this.controller = controller;
     }
 
-    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor){
-        cascadeRegognitionHelper(roiImage, cascadeClassifier, regionOfInterestColor, 1.0);
+    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold){
+        cascadeRegognitionHelper(roiImage, cascadeClassifier, regionOfInterestColor, threshold, 1.0);
     }
 
-    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double weighting){
+    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold, double weighting){
         if (!frontalfaceDetector.empty()) {
-            (new Thread() {
-                public void run() {
-                    MatOfRect detections = new MatOfRect();
+           // (new Thread() {
+            //    public void run() {
+
 
                     Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
-                    cascadeClassifier.detectMultiScale(image, detections);
+                    MatOfRect detections = new MatOfRect();
+                    MatOfInt reject_levels = new MatOfInt();
+                    MatOfDouble level_weights = new MatOfDouble();
+
+                    cascadeClassifier.detectMultiScale3(image, detections, reject_levels, level_weights, 1.2, 3, 1, new Size(30,30), new Size(image.width(),image.height()), true);
                     System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
 
                     // Draw a bounding box around each detection.
+                    Rect[] detectionArray = detections.toArray();
+                    double[] level_weightsArray = level_weights.toArray();
+                    for (int i = 0; i < detectionArray.length; i++) {
+                        System.out.println("Percentage: "+level_weightsArray[i]);
+                        if(level_weightsArray[i]>threshold)
+                            roiImage.addRegionOfInterest(new Rectangle(detectionArray[i].x, detectionArray[i].y, detectionArray[i].width, detectionArray[i].height), regionOfInterestColor, weighting);
+                    }
+
+                    /*
                     for (Rect rect : detections.toArray()) {
+
                         roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor, weighting);
                     }
+                    */
                     controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
-                }
-            }).start();
+                //}
+            //}).start();
         } else {
             System.out.println("Detector [" + cascadeClassifier.toString() + "] is empty...cannot detect faces!");
         }
     }
     public void fullbodyRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage, fullbodyDetector,RegionOfInterest.COLOR_FULLBODY, WEIGHTING_FULLBODY);
+        cascadeRegognitionHelper(roiImage, fullbodyDetector,RegionOfInterest.COLOR_FULLBODY, 1.0, WEIGHTING_FULLBODY);
     }
     public void faceRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.COLOR_FACEDETECTION, WEIGHTING_FACE);
+        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.COLOR_FACEDETECTION, 3.8, WEIGHTING_FACE);
     }
     public void eyeRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.COLOR_EYEDETECTION, WEIGHTING_EYE);
+        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.COLOR_EYEDETECTION, 1.7, WEIGHTING_EYE);
     }
 
     public Mat saliencyMapDetector(RegionOfInterestImage roiImage){
