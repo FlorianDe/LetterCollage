@@ -1,5 +1,6 @@
 package main.java.de.ateam.utils;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.IOException;
@@ -183,6 +184,17 @@ public class OpenCVUtils {
         ref[1] = pixels[3*j+1] & 0xFF;
         ref[2] = pixels[3*j] & 0xFF;
         return rgbTohsv(ref);
+    }
+
+    public static BufferedImage copyImage(BufferedImage source,int imgType ){
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), imgType);
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
+    }
+    public static BufferedImage copyImage(BufferedImage source){
+        return copyImage(source, source.getType());
     }
 	
 	/*
