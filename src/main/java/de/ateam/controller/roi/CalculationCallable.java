@@ -1,9 +1,9 @@
-package main.java.de.ateam.controller.roi;
+package de.ateam.controller.roi;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.model.text.Letter;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.model.text.Letter;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Mat;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
-package main.java.de.ateam.controller.listener.loadedImages;
+package de.ateam.controller.listener.loadedImages;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.roi.RegionOfInterestImage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

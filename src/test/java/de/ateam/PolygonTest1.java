@@ -1,4 +1,4 @@
-package test.java.de.ateam;
+package de.ateam;
 
 import javax.swing.*;
 import java.awt.*;

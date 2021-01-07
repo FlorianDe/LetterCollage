@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.cstmcomponent.MThumbSlider;
+package de.ateam.view.cstmcomponent.MThumbSlider;
 
 import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;

@@ -1,9 +1,9 @@
-package main.java.de.ateam.model.extra;
+package de.ateam.model.extra;
 
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.FileLoader;
-import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.view.cstmcomponent.HistogramPanel;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.FileLoader;
+import de.ateam.utils.OpenCVUtils;
+import de.ateam.view.cstmcomponent.HistogramPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

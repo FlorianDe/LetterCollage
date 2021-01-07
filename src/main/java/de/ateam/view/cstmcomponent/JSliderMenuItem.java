@@ -1,6 +1,6 @@
-package main.java.de.ateam.view.cstmcomponent;
+package de.ateam.view.cstmcomponent;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

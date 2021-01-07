@@ -1,9 +1,9 @@
-package main.java.de.ateam.view.panel;
+package de.ateam.view.panel;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
 
 import javax.swing.*;
 import java.awt.*;

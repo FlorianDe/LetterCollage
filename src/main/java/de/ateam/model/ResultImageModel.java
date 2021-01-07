@@ -1,8 +1,8 @@
-package main.java.de.ateam.model;
+package de.ateam.model;
 
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.FileLoader;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.FileLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

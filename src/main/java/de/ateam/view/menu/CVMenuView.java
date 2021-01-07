@@ -1,11 +1,11 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.*;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.view.cstmcomponent.StayOpenCheckBoxMenuItemUI;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.*;
+import de.ateam.model.ResultImageModel;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.view.cstmcomponent.StayOpenCheckBoxMenuItemUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

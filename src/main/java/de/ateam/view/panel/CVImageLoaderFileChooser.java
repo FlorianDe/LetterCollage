@@ -1,8 +1,8 @@
-package main.java.de.ateam.view.panel;
+package de.ateam.view.panel;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.loadedImages.DeleteAllLoadedImagesListener;
-import main.java.de.ateam.controller.listener.loadedImages.OpenFileChooserListener;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.loadedImages.DeleteAllLoadedImagesListener;
+import de.ateam.controller.listener.loadedImages.OpenFileChooserListener;
 
 import javax.swing.*;
 import java.awt.*;

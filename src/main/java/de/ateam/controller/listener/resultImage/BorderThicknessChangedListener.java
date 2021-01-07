@@ -1,7 +1,7 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.text.Letter;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.text.Letter;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,8 +1,8 @@
-package main.java.de.ateam.model.roi;
+package de.ateam.model.roi;
 
-import main.java.de.ateam.controller.roi.RegionOfInterestDetector;
-import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.utils.ShapeUtils;
+import de.ateam.controller.roi.RegionOfInterestDetector;
+import de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.ShapeUtils;
 import org.opencv.core.Mat;
 
 import java.awt.*;

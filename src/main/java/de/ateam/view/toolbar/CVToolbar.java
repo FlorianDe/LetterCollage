@@ -1,14 +1,14 @@
-package main.java.de.ateam.view.toolbar;
+package de.ateam.view.toolbar;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.collage.*;
-import main.java.de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
-import main.java.de.ateam.controller.listener.resultImage.*;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.utils.FileLoader;
-import main.java.de.ateam.utils.FontLoader;
-import main.java.de.ateam.view.cstmcomponent.JSliderLabelPanel;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.collage.*;
+import de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
+import de.ateam.controller.listener.resultImage.*;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.utils.FileLoader;
+import de.ateam.utils.FontLoader;
+import de.ateam.view.cstmcomponent.JSliderLabelPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

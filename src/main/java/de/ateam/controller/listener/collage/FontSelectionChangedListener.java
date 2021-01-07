@@ -1,8 +1,8 @@
-package main.java.de.ateam.controller.listener.collage;
+package de.ateam.controller.listener.collage;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.text.LetterCollection;
-import main.java.de.ateam.model.text.LetterFactory;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.text.LetterCollection;
+import de.ateam.model.text.LetterFactory;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

@@ -1,6 +1,6 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import javax.swing.*;
 

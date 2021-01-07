@@ -1,4 +1,4 @@
-package main.java.de.ateam.controller.roi;
+package de.ateam.controller.roi;
 
 /**
  * Created by Florian on 22.11.2015.

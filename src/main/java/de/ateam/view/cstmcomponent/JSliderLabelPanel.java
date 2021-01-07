@@ -1,6 +1,6 @@
-package main.java.de.ateam.view.cstmcomponent;
+package de.ateam.view.cstmcomponent;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import java.awt.FlowLayout;
 import java.util.Dictionary;

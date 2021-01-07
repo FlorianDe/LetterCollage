@@ -1,4 +1,4 @@
-package main.java.de.ateam.model;
+package de.ateam.model;
 
 /**
  * Created by Florian on 16.11.2015.

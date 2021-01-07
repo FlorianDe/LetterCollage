@@ -1,7 +1,7 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.controller.ICollageController;
+import de.ateam.utils.OpenCVUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

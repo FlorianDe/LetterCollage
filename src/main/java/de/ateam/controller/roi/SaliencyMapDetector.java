@@ -1,7 +1,7 @@
-package main.java.de.ateam.controller.roi;
+package de.ateam.controller.roi;
 
-import main.java.de.ateam.utils.FileLoader;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.FileLoader;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;

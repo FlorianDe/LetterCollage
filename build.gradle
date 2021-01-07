@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'de.ateam'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'org.openpnp', name: 'opencv', version: '3.4.2-0'
+
+    compile group: 'org.jocl', name: 'jocl', version: '0.1.9'
+}

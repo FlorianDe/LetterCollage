@@ -1,6 +1,6 @@
-package main.java.de.ateam.view.panel;
+package de.ateam.view.panel;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

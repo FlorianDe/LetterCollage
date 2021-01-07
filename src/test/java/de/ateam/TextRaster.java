@@ -1,6 +1,6 @@
-package test.java.de.ateam;
+package de.ateam;
 
-import main.java.de.ateam.utils.FontLoader;
+import de.ateam.utils.FontLoader;
 
 import javax.swing.*;
 import java.awt.*;

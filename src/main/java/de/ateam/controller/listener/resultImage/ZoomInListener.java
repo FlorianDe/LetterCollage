@@ -1,8 +1,8 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 public class ZoomInListener implements ActionListener {
 	protected ICollageController controller;

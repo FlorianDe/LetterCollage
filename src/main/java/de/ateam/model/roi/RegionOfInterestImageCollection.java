@@ -1,6 +1,6 @@
-package main.java.de.ateam.model.roi;
+package de.ateam.model.roi;
 
-import main.java.de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObservable;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

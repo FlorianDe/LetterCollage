@@ -1,6 +1,6 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseWheelEvent;

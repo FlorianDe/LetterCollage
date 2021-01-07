@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.dialog;
+package de.ateam.view.dialog;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;

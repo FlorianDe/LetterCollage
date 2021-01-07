@@ -1,11 +1,11 @@
-package main.java.de.ateam.view.dialog;
+package de.ateam.view.dialog;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.*;
-import main.java.de.ateam.model.text.LetterCollection;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.view.cstmcomponent.JSliderLabelPanel;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.*;
+import de.ateam.model.text.LetterCollection;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.view.cstmcomponent.JSliderLabelPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

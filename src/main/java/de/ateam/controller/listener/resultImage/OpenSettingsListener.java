@@ -1,8 +1,8 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.roi.RegionOfInterestCalculator;
-import main.java.de.ateam.view.dialog.SettingsDialog;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.roi.RegionOfInterestCalculator;
+import de.ateam.view.dialog.SettingsDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

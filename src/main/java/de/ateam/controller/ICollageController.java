@@ -1,9 +1,9 @@
-package main.java.de.ateam.controller;
+package de.ateam.controller;
 
-import main.java.de.ateam.controller.roi.RegionOfInterestController;
-import main.java.de.ateam.model.RoiModel;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.view.CollageFrame;
+import de.ateam.controller.roi.RegionOfInterestController;
+import de.ateam.model.RoiModel;
+import de.ateam.model.ResultImageModel;
+import de.ateam.view.CollageFrame;
 
 /**
  * Created by Florian on 13.11.2015.

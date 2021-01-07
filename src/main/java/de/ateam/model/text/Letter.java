@@ -1,6 +1,6 @@
-package main.java.de.ateam.model.text;
+package de.ateam.model.text;
 
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;

@@ -1,8 +1,8 @@
-package main.java.de.ateam.model.text;
+package de.ateam.model.text;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.exception.NoFontSelectedException;
-import main.java.de.ateam.utils.FontLoader;
+import de.ateam.controller.ICollageController;
+import de.ateam.exception.NoFontSelectedException;
+import de.ateam.utils.FontLoader;
 
 import java.awt.*;
 import java.util.HashMap;

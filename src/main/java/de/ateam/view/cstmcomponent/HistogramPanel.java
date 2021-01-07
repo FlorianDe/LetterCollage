@@ -1,10 +1,10 @@
-package main.java.de.ateam.view.cstmcomponent;
+package de.ateam.view.cstmcomponent;
 
-import main.java.de.ateam.model.extra.HistogramModel;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.utils.OpenCVUtils;
-import main.java.de.ateam.utils.ShapeUtils;
+import de.ateam.model.extra.HistogramModel;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.ShapeUtils;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package main.java.de.ateam.controller.listener.collage;
+package de.ateam.controller.listener.collage;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

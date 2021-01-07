@@ -1,4 +1,4 @@
-package main.java.de.ateam.model.roi;
+package de.ateam.model.roi;
 
 import java.awt.*;
 

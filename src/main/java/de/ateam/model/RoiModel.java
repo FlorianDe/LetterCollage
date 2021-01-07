@@ -1,12 +1,12 @@
-package main.java.de.ateam.model;
+package de.ateam.model;
 
-import main.java.de.ateam.exception.NoFontSelectedException;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.model.roi.RegionOfInterestImageCollection;
-import main.java.de.ateam.model.text.LetterCollection;
-import main.java.de.ateam.model.text.LetterFactory;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.FileLoader;
+import de.ateam.exception.NoFontSelectedException;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.model.roi.RegionOfInterestImageCollection;
+import de.ateam.model.text.LetterCollection;
+import de.ateam.model.text.LetterFactory;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.FileLoader;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;

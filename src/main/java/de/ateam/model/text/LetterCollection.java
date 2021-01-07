@@ -1,8 +1,8 @@
-package main.java.de.ateam.model.text;
+package de.ateam.model.text;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.controller.ICollageController;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.OpenCVUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

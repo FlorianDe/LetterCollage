@@ -1,4 +1,4 @@
-package main.java.de.ateam.utils;
+package de.ateam.utils;
 
 import java.util.ArrayList;
 

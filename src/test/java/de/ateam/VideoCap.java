@@ -1,13 +1,13 @@
-package test.java.de.ateam;
+package de.ateam;
 
-import main.java.de.ateam.utils.OSUtils;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.OSUtils;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.Videoio;
-import test.java.de.ateam.view.MainFrame;
+import de.ateam.view.MainFrame;
 
 import javax.swing.*;
 

@@ -1,13 +1,13 @@
-package test.java.de.ateam;
+package de.ateam;
 
-import main.java.de.ateam.utils.OSUtils;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.utils.OSUtils;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
-import test.java.de.ateam.view.MainFrame;
+import de.ateam.view.MainFrame;
 
 
 public class ContentAwareTest {

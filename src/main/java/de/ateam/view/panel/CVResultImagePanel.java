@@ -1,15 +1,15 @@
-package main.java.de.ateam.view.panel;
+package de.ateam.view.panel;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.MouseAdapterListener;
-import main.java.de.ateam.controller.listener.resultImage.MouseWheelZoomListener;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.model.roi.RegionOfInterest;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.utils.FileLoader;
-import main.java.de.ateam.utils.ShapeUtils;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.MouseAdapterListener;
+import de.ateam.controller.listener.resultImage.MouseWheelZoomListener;
+import de.ateam.model.ResultImageModel;
+import de.ateam.model.roi.RegionOfInterest;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.utils.FileLoader;
+import de.ateam.utils.ShapeUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,10 +1,10 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.model.roi.RegionOfInterest;
-import main.java.de.ateam.utils.ShapeUtils;
-import main.java.de.ateam.view.dialog.SetRoiWeightingDialog;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.ResultImageModel;
+import de.ateam.model.roi.RegionOfInterest;
+import de.ateam.utils.ShapeUtils;
+import de.ateam.view.dialog.SetRoiWeightingDialog;
 
 import javax.swing.*;
 import java.awt.*;

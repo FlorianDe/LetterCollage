@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.cstmcomponent;
+package de.ateam.view.cstmcomponent;
 
 /**
  * Created by Florian on 24.01.2016.

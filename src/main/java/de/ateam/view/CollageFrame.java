@@ -1,12 +1,12 @@
-package main.java.de.ateam.view;
+package de.ateam.view;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.ResultImageKeyEventListener;
-import main.java.de.ateam.controller.listener.resultImage.ScrollbarValueChangedListener;
-import main.java.de.ateam.view.menu.CVMenubar;
-import main.java.de.ateam.view.panel.CVImageLoaderContainerPanel;
-import main.java.de.ateam.view.panel.CVResultImagePanel;
-import main.java.de.ateam.view.toolbar.CVToolbar;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.ResultImageKeyEventListener;
+import de.ateam.controller.listener.resultImage.ScrollbarValueChangedListener;
+import de.ateam.view.menu.CVMenubar;
+import de.ateam.view.panel.CVImageLoaderContainerPanel;
+import de.ateam.view.panel.CVResultImagePanel;
+import de.ateam.view.toolbar.CVToolbar;
 import javax.swing.UIManager.*;
 
 import javax.swing.*;

@@ -1,8 +1,8 @@
-package main.java.de.ateam.controller.listener.loadedImages;
+package de.ateam.controller.listener.loadedImages;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.view.panel.CVFileChooser;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.view.panel.CVFileChooser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
