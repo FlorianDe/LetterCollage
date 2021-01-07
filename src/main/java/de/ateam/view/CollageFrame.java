@@ -7,7 +7,6 @@ import de.ateam.view.menu.CVMenubar;
 import de.ateam.view.panel.CVImageLoaderContainerPanel;
 import de.ateam.view.panel.CVResultImagePanel;
 import de.ateam.view.toolbar.CVToolbar;
-import javax.swing.UIManager.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ public class CollageFrame extends JFrame {
 
     ICollageController controller;
 
-    public CollageFrame(ICollageController controller){
+    public CollageFrame(ICollageController controller) {
         this.controller = controller;
         this.setTitle("OpenCV - Buchstaben Collage [A-Team B]");
         this.setMinimumSize(new Dimension());
@@ -118,10 +117,11 @@ public class CollageFrame extends JFrame {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1100,700);
+        return new Dimension(1100, 700);
     }
+
     @Override
     public Dimension getMinimumSize() {
-        return new Dimension(500,300);
+        return new Dimension(500, 300);
     }
 }

@@ -6,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ZoomOutListener implements ActionListener {
-	protected ICollageController controller;
+    protected ICollageController controller;
 
-	public ZoomOutListener(ICollageController controller) {
-		this.controller = controller;
-	}
+    public ZoomOutListener(ICollageController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor()*0.9);
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor() * 0.9);
+    }
 }

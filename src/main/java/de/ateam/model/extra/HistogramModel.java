@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by Florian on 04.02.2016.
  */
-public class  HistogramModel extends CstmObservable {
+public class HistogramModel extends CstmObservable {
 
     private int[] xValues;
     private int[] intensities;
@@ -22,37 +22,37 @@ public class  HistogramModel extends CstmObservable {
     private int rightSlider;
     private int maxIntensity;
 
-    public HistogramModel(BufferedImage img){
+    public HistogramModel(BufferedImage img) {
         BufferedImage buf;
-        if(img.getType()!= BufferedImage.TYPE_BYTE_GRAY){
+        if (img.getType() != BufferedImage.TYPE_BYTE_GRAY) {
             buf = OpenCVUtils.copyImage(img, BufferedImage.TYPE_BYTE_GRAY);
-        } else{
+        } else {
             buf = OpenCVUtils.copyImage(img);
         }
         this.intensities = calculateHistogram(buf);
         this.xValues = new int[this.intensities.length];
         for (int i = 0; i < xValues.length; i++) {
             this.xValues[i] = i;
-            if(this.maxIntensity<this.intensities[i]){
+            if (this.maxIntensity < this.intensities[i]) {
                 this.maxIntensity = this.intensities[i];
             }
         }
 
         //TODO REMOVE /2 and 10
         this.leftSlider = 10;
-        this.rightSlider = (this.intensities.length-1)/2;
+        this.rightSlider = (this.intensities.length - 1) / 2;
     }
 
-    public int[] calculateHistogram(BufferedImage img){
-        int depth = (int)Math.pow(2,img.getColorModel().getPixelSize());
+    public int[] calculateHistogram(BufferedImage img) {
+        int depth = (int) Math.pow(2, img.getColorModel().getPixelSize());
         int[] t_intensitiesimg = new int[depth];
-        byte[] pixels = ((DataBufferByte)img.getRaster().getDataBuffer()).getData();
+        byte[] pixels = ((DataBufferByte) img.getRaster().getDataBuffer()).getData();
 
         int color = 0;
         for (int i = 0; i < pixels.length; i++) {
-            color = pixels[i]<0? (pixels[i]+depth) :pixels[i];
+            color = pixels[i] < 0 ? (pixels[i] + depth) : pixels[i];
             t_intensitiesimg[color]++;
-            pixels[i] = (byte)color;
+            pixels[i] = (byte) color;
         }
 
         return t_intensitiesimg;
@@ -68,7 +68,7 @@ public class  HistogramModel extends CstmObservable {
     }
 
     public void setLeftSlider(int leftSlider) {
-        if(this.rightSlider>leftSlider){
+        if (this.rightSlider > leftSlider) {
             this.leftSlider = leftSlider;
         }
         this.setChanged();
@@ -80,7 +80,7 @@ public class  HistogramModel extends CstmObservable {
     }
 
     public void setRightSlider(int rightSlider) {
-        if(this.leftSlider<rightSlider){
+        if (this.leftSlider < rightSlider) {
             this.rightSlider = rightSlider;
         }
         this.setChanged();
@@ -95,7 +95,7 @@ public class  HistogramModel extends CstmObservable {
         return maxIntensity;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             BufferedImage img = ImageIO.read(FileLoader.loadFile("img/people/test3.jpg"));
             HistogramModel hm = new HistogramModel(img);

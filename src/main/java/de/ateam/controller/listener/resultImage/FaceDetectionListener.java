@@ -6,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FaceDetectionListener implements ActionListener {
-	protected ICollageController controller;
+    protected ICollageController controller;
 
-	public FaceDetectionListener(ICollageController controller) {
-		this.controller = controller;
-	}
+    public FaceDetectionListener(ICollageController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.controller.getRoiController().getRoiDetector().faceRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.controller.getRoiController().getRoiDetector().faceRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
+    }
 }

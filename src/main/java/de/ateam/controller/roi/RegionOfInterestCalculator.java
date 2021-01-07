@@ -13,7 +13,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,20 +40,20 @@ public class RegionOfInterestCalculator {
     }
 
     //TODO VERFAHREN EINBAUN FÜR BF!!! WAHRSCH EINFACH HOCHSKALIEREN UND IMMER UM PAAR PIXEL VERSCHIEBEN :)!
-    public void calculateIntersectionMatrixParallel(){
+    public void calculateIntersectionMatrixParallel() {
         long start = System.currentTimeMillis();
         int possibilities = 0;
 
-        ExecutorService executor = Executors.newFixedThreadPool(Math.min(Runtime.getRuntime().availableProcessors() + 1, roiImages.size()*letters.size()));
+        ExecutorService executor = Executors.newFixedThreadPool(Math.min(Runtime.getRuntime().availableProcessors() + 1, roiImages.size() * letters.size()));
         List<Future<CalculationResultList>> futures = new ArrayList<>();
         for (int roii_index = 0; roii_index < roiImages.size(); roii_index++) {
             for (int letter_index = 0; letter_index < letters.size(); letter_index++) {
-                Callable<CalculationResultList> callable = new CalculationCallable(this.controller, roii_index,letter_index, roiImages.get(roii_index), letters.get(letter_index));
+                Callable<CalculationResultList> callable = new CalculationCallable(this.controller, roii_index, letter_index, roiImages.get(roii_index), letters.get(letter_index));
                 Future<CalculationResultList> future = executor.submit(callable);
                 futures.add(future);
             }
         }
-        for(Future<CalculationResultList> future : futures){
+        for (Future<CalculationResultList> future : futures) {
             try {
                 CalculationResultList crl = future.get();
                 crl.add(CalculationResult.getZero());
@@ -73,7 +72,7 @@ public class RegionOfInterestCalculator {
         } catch (InterruptedException ex) {
             Logger.getLogger(new Throwable().getStackTrace()[0].getClassName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("[calculateIntersectionMatrix] Time:" + (System.currentTimeMillis() - start) + " ms   Possibilites:"+ possibilities);
+        System.out.println("[calculateIntersectionMatrix] Time:" + (System.currentTimeMillis() - start) + " ms   Possibilites:" + possibilities);
     }
 
     /*
@@ -104,21 +103,21 @@ public class RegionOfInterestCalculator {
 
 
     //return the overlapped roi area in percentage/100
-    public static CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_saliencyMap, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY, Point roiCenter){
+    public static CalculationResult calculateIntersection(Mat mat_roiImage, Mat mat_saliencyMap, Mat mat_letter, double maxAspectRatio, double scaleFactor, int dX, int dY, Point roiCenter) {
         //long start = System.currentTimeMillis();
 
-        if(roiCenter==null){
+        if (roiCenter == null) {
             return CalculationResult.getZero();
         }
 
-        Rect subMatRect = new Rect( dX, dY, mat_letter.width(), mat_letter.height());
-        Point actCenter = new Point((int)(dX+(mat_letter.width()/maxAspectRatio/scaleFactor/2)), (int)(dY+(mat_letter.height()/maxAspectRatio/scaleFactor / 2)));
-        int dH = (int)((roiCenter.getY()>mat_roiImage.height()/2)?roiCenter.getY():(mat_roiImage.height()-roiCenter.getY()));
-        int dW = (int)((roiCenter.getX()>mat_roiImage.width()/2)?roiCenter.getX():(mat_roiImage.width()-roiCenter.getX()));
-        int maxDistance = (int)Math.sqrt(Math.pow(dW,2)+Math.pow(dH,2));
-        int actDistance = (int)Math.sqrt(Math.pow(Math.abs(actCenter.getX()-roiCenter.getX()),2)+Math.pow(Math.abs(actCenter.getY()-roiCenter.getY()),2));
+        Rect subMatRect = new Rect(dX, dY, mat_letter.width(), mat_letter.height());
+        Point actCenter = new Point((int) (dX + (mat_letter.width() / maxAspectRatio / scaleFactor / 2)), (int) (dY + (mat_letter.height() / maxAspectRatio / scaleFactor / 2)));
+        int dH = (int) ((roiCenter.getY() > mat_roiImage.height() / 2) ? roiCenter.getY() : (mat_roiImage.height() - roiCenter.getY()));
+        int dW = (int) ((roiCenter.getX() > mat_roiImage.width() / 2) ? roiCenter.getX() : (mat_roiImage.width() - roiCenter.getX()));
+        int maxDistance = (int) Math.sqrt(Math.pow(dW, 2) + Math.pow(dH, 2));
+        int actDistance = (int) Math.sqrt(Math.pow(Math.abs(actCenter.getX() - roiCenter.getX()), 2) + Math.pow(Math.abs(actCenter.getY() - roiCenter.getY()), 2));
 
-        Size newSize = new Size(mat_roiImage.width()*maxAspectRatio*scaleFactor, mat_roiImage.height()*maxAspectRatio * scaleFactor);
+        Size newSize = new Size(mat_roiImage.width() * maxAspectRatio * scaleFactor, mat_roiImage.height() * maxAspectRatio * scaleFactor);
         Mat scaledCroppedRoiImageMat = new Mat();
         Imgproc.resize(mat_roiImage, scaledCroppedRoiImageMat, newSize);
 
@@ -126,8 +125,8 @@ public class RegionOfInterestCalculator {
         Imgproc.resize(mat_saliencyMap, scaledCroppedSaliencyMap, newSize);
 
 
-        int countBefore = Core.countNonZero(scaledCroppedRoiImageMat)+Core.countNonZero(scaledCroppedSaliencyMap);
-        if(countBefore==0){
+        int countBefore = Core.countNonZero(scaledCroppedRoiImageMat) + Core.countNonZero(scaledCroppedSaliencyMap);
+        if (countBefore == 0) {
             return CalculationResult.getZero();
         }
 
@@ -142,9 +141,9 @@ public class RegionOfInterestCalculator {
         Core.bitwise_and(scaledCroppedSaliencyMap, mat_letter, xoredSaliencyMapMat);
 
 
-        int countAfter = Core.countNonZero(xoredRoiImageMat)+Core.countNonZero(xoredSaliencyMapMat);
+        int countAfter = Core.countNonZero(xoredRoiImageMat) + Core.countNonZero(xoredSaliencyMapMat);
         double percentage = 0.0;
-        if(countAfter!=0 && countBefore!=0) {
+        if (countAfter != 0 && countBefore != 0) {
             percentage = (double) countAfter / (double) countBefore;
         }
 
@@ -154,13 +153,13 @@ public class RegionOfInterestCalculator {
         //System.out.printf("Count [Before:%s, After:%s] Percentage intersected:%s\n", countBefore, countAfter, (100.0 / countBefore) * countAfter);
         //this.controller.getResultImageModel().setActualVisibleRoiImage(new RegionOfInterestImage(OpenCVUtils.matToBufferedImage(xoredMat)));
         //return new CalculationResult(scaleFactor,(maxAspectRatio*scaleFactor*((double)this.controller.getRoiModel().getLetterCollection().getLETTER_SIZE()/(double)this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE())), dX/newSize.width, dY/newSize.height, percentage);
-        return new CalculationResult(scaleFactor, dX/newSize.width, dY/newSize.height, percentage, 1.0-(double)actDistance/maxDistance);
+        return new CalculationResult(scaleFactor, dX / newSize.width, dY / newSize.height, percentage, 1.0 - (double) actDistance / maxDistance);
     }
 
-    public CalculationResult getBestResultsForImageLeter(int image, int letter){
+    public CalculationResult getBestResultsForImageLeter(int image, int letter) {
         CalculationResult crRet = CalculationResult.getZero();
-        for (CalculationResult cr : calculations[image][letter]){
-            if(crRet.getWeightedPercentage() < cr.getWeightedPercentage()){
+        for (CalculationResult cr : calculations[image][letter]) {
+            if (crRet.getWeightedPercentage() < cr.getWeightedPercentage()) {
                 crRet = cr;
             }
         }

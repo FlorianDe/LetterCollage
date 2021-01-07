@@ -37,44 +37,43 @@ public class RegionOfInterestController {
         this.roiDetector = roiDetector;
     }
 
-    public RegionOfInterestController(ICollageController controller){
+    public RegionOfInterestController(ICollageController controller) {
         this.controller = controller;
         this.roiDetector = new RegionOfInterestDetector(controller);
     }
 
-    public void initProgressbar(){
+    public void initProgressbar() {
         controller.getResultImageModel().getWorkerDone().set(0);
-        controller.getResultImageModel().setMaxWorker(this.controller.getRoiModel().getLoadedImages().size()*this.controller.getRoiModel().getInputText().toCharArray().length*(int)((controller.getRoiModel().getScaleEnd() - controller.getRoiModel().SCALE_START)/controller.getRoiModel().getScaleStepSize()));
+        controller.getResultImageModel().setMaxWorker(this.controller.getRoiModel().getLoadedImages().size() * this.controller.getRoiModel().getInputText().toCharArray().length * (int) ((controller.getRoiModel().getScaleEnd() - controller.getRoiModel().SCALE_START) / controller.getRoiModel().getScaleStepSize()));
     }
 
-    public void calculateROIsAutomatic(){
-        for(RegionOfInterestImage roiImage : this.controller.getRoiModel().getRoiCollection().getRoiImages()){
+    public void calculateROIsAutomatic() {
+        for (RegionOfInterestImage roiImage : this.controller.getRoiModel().getRoiCollection().getRoiImages()) {
             roiImage.resetAllROIs();
 
-            if(controller.getResultImageModel().isSaliencyMapDetection()) {
+            if (controller.getResultImageModel().isSaliencyMapDetection()) {
                 roiImage.setSaliencyMap(OpenCVUtils.matToBufferedImage(roiDetector.saliencyMapDetector(roiImage)));
             }
-            if(controller.getResultImageModel().isEyeDetection()) {
+            if (controller.getResultImageModel().isEyeDetection()) {
                 roiDetector.eyeRecognition(roiImage);
             }
-            if(controller.getResultImageModel().isFaceDetection()) {
+            if (controller.getResultImageModel().isFaceDetection()) {
                 roiDetector.faceRecognition(roiImage);
             }
-            if(controller.getResultImageModel().isFullbodyDetection()) {
+            if (controller.getResultImageModel().isFullbodyDetection()) {
                 roiDetector.fullbodyRecognition(roiImage);
             }
         }
     }
 
-    public void calculateSolutionForCollage(){
-        try{
+    public void calculateSolutionForCollage() {
+        try {
             letters = new ArrayList<>();
             try {
                 for (Character c : this.controller.getRoiModel().getInputText().toCharArray()) {
                     letters.add(this.controller.getRoiModel().getLetterCollection().getLetter(c));
                 }
-            }
-            catch(NullPointerException npExce){
+            } catch (NullPointerException npExce) {
                 throw new NoFontSelectedException();
             }
             for (Map.Entry<Character, Letter> entry : controller.getRoiModel().getLetterCollection().getLetterMap().entrySet()) {
@@ -90,14 +89,14 @@ public class RegionOfInterestController {
             imMapLetter = new HashMap<>();
 
             double maxSum = 0;
-            for(int i = 0; i < roic.getLetters().size(); i++) {
+            for (int i = 0; i < roic.getLetters().size(); i++) {
                 double sum = 0;
                 HashMap<Integer, Integer> mapLetter = new HashMap<>();
-                for (int letterCounter = i; letterCounter < roic.getLetters().size()+i; letterCounter++){
+                for (int letterCounter = i; letterCounter < roic.getLetters().size() + i; letterCounter++) {
                     CalculationResult calcRes = CalculationResult.getZero();
                     Integer tempNumber = 0;
-                    for (int imgCounter = 0; imgCounter < roic.getRoiImages().size(); imgCounter++){
-                        if(!mapLetter.containsValue(imgCounter) && imgCounter<roic.getLetters().size()) {
+                    for (int imgCounter = 0; imgCounter < roic.getRoiImages().size(); imgCounter++) {
+                        if (!mapLetter.containsValue(imgCounter) && imgCounter < roic.getLetters().size()) {
                             CalculationResult tempCalcRes = roic.getBestResultsForImageLeter(imgCounter, letterCounter % roic.getLetters().size());
                             if (calcRes.getWeightedPercentage() <= tempCalcRes.getWeightedPercentage()) {
                                 sum += tempCalcRes.getWeightedPercentage();
@@ -106,9 +105,9 @@ public class RegionOfInterestController {
                             }
                         }
                     }
-                    mapLetter.put(letterCounter % roic.getLetters().size(),tempNumber);
+                    mapLetter.put(letterCounter % roic.getLetters().size(), tempNumber);
                 }
-                if(sum > maxSum) {
+                if (sum > maxSum) {
                     maxSum = sum;
                     imMapLetter = mapLetter;
                 }
@@ -116,17 +115,16 @@ public class RegionOfInterestController {
 
             drawResult();
 
-        }
-        catch(NoFontSelectedException nfsExce){
+        } catch (NoFontSelectedException nfsExce) {
             this.controller.getRoiModel().notifyViewFromController();
         }
     }
 
 
-    public void drawResult(){
+    public void drawResult() {
         int width = 0;
-        for (int i = 0; i <letters.size(); i++) {
-            width+=letters.get(i).getResultMask().getWidth();
+        for (int i = 0; i < letters.size(); i++) {
+            width += letters.get(i).getResultMask().getWidth();
         }
         BufferedImage bi_finalImage = new BufferedImage(width, this.controller.getRoiModel().getLetterCollection().getLETTER_SIZE(), BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g2d_finalImage = bi_finalImage.createGraphics();
@@ -157,18 +155,18 @@ public class RegionOfInterestController {
             g2dLetterImgBufCopy.drawImage(bufImg,
                     -(int) (tempCalcRes.getdX() * newWidth),
                     -(int) (tempCalcRes.getdY() * newHeight),
-                    (int)newWidth,
-                    (int)newHeight,
+                    (int) newWidth,
+                    (int) newHeight,
                     null);
-            byte[] alphaPixels = ((DataBufferByte)letterImgBuf.getRaster().getDataBuffer()).getData();
-            byte[] colorPixels = ((DataBufferByte)letterImgBufCopy.getRaster().getDataBuffer()).getData();
+            byte[] alphaPixels = ((DataBufferByte) letterImgBuf.getRaster().getDataBuffer()).getData();
+            byte[] colorPixels = ((DataBufferByte) letterImgBufCopy.getRaster().getDataBuffer()).getData();
 
-            for (int j = 0; j < colorPixels.length; j=j+4) {
-                colorPixels[j] = alphaPixels[j/4];
+            for (int j = 0; j < colorPixels.length; j = j + 4) {
+                colorPixels[j] = alphaPixels[j / 4];
             }
             g2d_finalImage.drawImage(letterImgBufCopy, xOffset, 0, null);
             g2d_finalImage.drawImage(letters.get(i).getOutlineResultMask(), xOffset, 0, null);
-            xOffset+=letterImgBuf.getWidth();
+            xOffset += letterImgBuf.getWidth();
         }
 
         RegionOfInterestImage roiImageNew = new RegionOfInterestImage(bi_finalImage);

@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVImageLoaderFileChooser extends JPanel{
+public class CVImageLoaderFileChooser extends JPanel {
     //int WIDTH = 200;
     int HEIGHT = 40;
 
@@ -18,7 +18,8 @@ public class CVImageLoaderFileChooser extends JPanel{
     JButton btnDeleteAll;
 
     ICollageController controller;
-    public CVImageLoaderFileChooser(ICollageController controller){
+
+    public CVImageLoaderFileChooser(ICollageController controller) {
         this.controller = controller;
         this.createFileChooser();
     }
@@ -58,12 +59,12 @@ public class CVImageLoaderFileChooser extends JPanel{
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension((int)super.getPreferredSize().getWidth(),HEIGHT);
+        return new Dimension((int) super.getPreferredSize().getWidth(), HEIGHT);
     }
 
     @Override
     public Dimension getMaximumSize() {
-        return new Dimension((int)super.getPreferredSize().getWidth(),HEIGHT);
+        return new Dimension((int) super.getPreferredSize().getWidth(), HEIGHT);
     }
 
     private static void setMinimumSize(final Component c) {

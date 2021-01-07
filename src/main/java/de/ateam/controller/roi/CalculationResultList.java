@@ -5,11 +5,11 @@ import java.util.ArrayList;
 /**
  * Created by Florian on 12.01.2016.
  */
-public class CalculationResultList extends ArrayList<CalculationResult>{
+public class CalculationResultList extends ArrayList<CalculationResult> {
     private int imgIndex;
     private int letterIndex;
 
-    public CalculationResultList(int imgIndex, int letterIndex){
+    public CalculationResultList(int imgIndex, int letterIndex) {
         this.imgIndex = imgIndex;
         this.letterIndex = letterIndex;
     }

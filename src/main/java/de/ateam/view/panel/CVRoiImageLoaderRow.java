@@ -18,7 +18,7 @@ public class CVRoiImageLoaderRow extends JPanel {
     ICollageController controller;
     RegionOfInterestImage roiImage;
 
-    public CVRoiImageLoaderRow(ICollageController controller, RegionOfInterestImage roiImage){
+    public CVRoiImageLoaderRow(ICollageController controller, RegionOfInterestImage roiImage) {
         this.controller = controller;
         this.roiImage = roiImage;
 
@@ -27,8 +27,8 @@ public class CVRoiImageLoaderRow extends JPanel {
     }
 
 
-    public void createRow(RegionOfInterestImage roiImage){
-        Image newimg = roiImage.getVisualImage().getScaledInstance(BTN_WIDTH, BTN_HEIGHT, java.awt.Image.SCALE_SMOOTH) ;
+    public void createRow(RegionOfInterestImage roiImage) {
+        Image newimg = roiImage.getVisualImage().getScaledInstance(BTN_WIDTH, BTN_HEIGHT, java.awt.Image.SCALE_SMOOTH);
         JButton btnImage = new JButton(new ImageIcon(newimg));
         btnImage.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
         btnImage.setOpaque(false);
@@ -39,7 +39,6 @@ public class CVRoiImageLoaderRow extends JPanel {
 
         this.add(btnImage);
 
-        
 
         JButton btnDelete = new JButton("X");
         btnDelete.setSize(new Dimension(BTN_WIDTH, BTN_HEIGHT));
@@ -53,12 +52,12 @@ public class CVRoiImageLoaderRow extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension((int)super.getPreferredSize().getWidth(),BTN_HEIGHT);
+        return new Dimension((int) super.getPreferredSize().getWidth(), BTN_HEIGHT);
     }
 
     @Override
     public Dimension getMaximumSize() {
-        return new Dimension((int)super.getPreferredSize().getWidth(),BTN_HEIGHT);
+        return new Dimension((int) super.getPreferredSize().getWidth(), BTN_HEIGHT);
     }
 
 

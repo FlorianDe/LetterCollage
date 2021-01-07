@@ -13,18 +13,19 @@ import java.net.URL;
 public class FileLoader {
 
     public static final FileLoader instance;
+
     static {
         instance = new FileLoader();
     }
 
     //TODO Florian bau mal hier noch den FileLoader ein
+
     /**
      * Compute the absolute file path to the jar file.
      * The framework is based on http://stackoverflow.com/a/12733172/1614775
      * But that gets it right for only one of the four cases.
      *
      * @param aclass A class residing in the required jar.
-     *
      * @return A File object for the directory in which the jar file resides.
      * During testing with NetBeans, the result is ./build/classes/,
      * which is the directory containing what will be in the jar.
@@ -53,7 +54,7 @@ public class FileLoader {
         if (extURL.endsWith(".jar"))   // from getCodeSource
             extURL = extURL.substring(0, extURL.lastIndexOf("/"));
         else {  // from getResource
-            String suffix = "/"+(aclass.getName()).replace(".", "/")+".class";
+            String suffix = "/" + (aclass.getName()).replace(".", "/") + ".class";
             extURL = extURL.replace(suffix, "");
             if (extURL.startsWith("jar:") && extURL.endsWith(".jar!"))
                 extURL = extURL.substring(4, extURL.lastIndexOf("/"));
@@ -69,24 +70,24 @@ public class FileLoader {
         // convert url to File
         try {
             return new File(url.toURI());
-        } catch(URISyntaxException ex) {
+        } catch (URISyntaxException ex) {
             return new File(url.getPath());
         }
     }
 
     //TODO CHECK WHETHER JAR OR NOT!
-    public static URL loadFile(String filePath){
+    public static URL loadFile(String filePath) {
         return instance.getClass().getClassLoader().getResource(filePath);
     }
 
-    public static CascadeClassifier loadCascadeFile(String filePath){
+    public static CascadeClassifier loadCascadeFile(String filePath) {
         URL url = loadFile(filePath);
-        if(url != null) {
+        if (url != null) {
             String cascadesFilePath = OSUtils.preparePathForOS(url.getPath());
             CascadeClassifier detector = new CascadeClassifier(cascadesFilePath);
             return detector;
         } else {
-            System.out.println("Cannot find: "+filePath.toString());
+            System.out.println("Cannot find: " + filePath.toString());
         }
         return null;
     }

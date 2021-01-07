@@ -6,14 +6,14 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class DetectionFullbodyOnOffListener implements ItemListener {
-	protected ICollageController controller;
+    protected ICollageController controller;
 
-	public DetectionFullbodyOnOffListener(ICollageController controller) {
-		this.controller = controller;
-	}
+    public DetectionFullbodyOnOffListener(ICollageController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		this.controller.getResultImageModel().setFullbodyDetection(e.getStateChange()== ItemEvent.SELECTED);
-	}
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        this.controller.getResultImageModel().setFullbodyDetection(e.getStateChange() == ItemEvent.SELECTED);
+    }
 }

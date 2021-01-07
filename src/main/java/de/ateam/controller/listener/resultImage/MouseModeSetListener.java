@@ -7,16 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MouseModeSetListener implements ActionListener {
-	protected ICollageController controller;
-	private ResultImageModel.MouseMode mouseMode;
+    protected ICollageController controller;
+    private ResultImageModel.MouseMode mouseMode;
 
-	public MouseModeSetListener(ICollageController controller, ResultImageModel.MouseMode mouseMode) {
-		this.controller = controller;
-		this.mouseMode = mouseMode;
-	}
+    public MouseModeSetListener(ICollageController controller, ResultImageModel.MouseMode mouseMode) {
+        this.controller = controller;
+        this.mouseMode = mouseMode;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.controller.getResultImageModel().setMouseMode(mouseMode);
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.controller.getResultImageModel().setMouseMode(mouseMode);
+    }
 }

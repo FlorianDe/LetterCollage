@@ -6,14 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EyeDetectionListener implements ActionListener {
-	protected ICollageController controller;
+    protected ICollageController controller;
 
-	public EyeDetectionListener(ICollageController controller) {
-		this.controller = controller;
-	}
+    public EyeDetectionListener(ICollageController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.controller.getRoiController().getRoiDetector().eyeRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.controller.getRoiController().getRoiDetector().eyeRecognition(this.controller.getResultImageModel().getActualVisibleRoiImage());
+    }
 }

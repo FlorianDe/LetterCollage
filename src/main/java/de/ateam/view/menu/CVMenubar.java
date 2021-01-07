@@ -16,7 +16,7 @@ public class CVMenubar extends JMenuBar {
 
     ICollageController controller;
 
-    public CVMenubar(ICollageController controller){
+    public CVMenubar(ICollageController controller) {
         this.controller = controller;
         initializeUI_Menu();
     }

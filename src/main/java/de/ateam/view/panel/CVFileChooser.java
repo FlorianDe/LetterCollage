@@ -14,7 +14,8 @@ import java.awt.*;
 public class CVFileChooser extends JFileChooser {
 
     ICollageController controller;
-    public CVFileChooser(ICollageController controller){
+
+    public CVFileChooser(ICollageController controller) {
         super("Choose a file/s");
         this.controller = controller;
         this.disableNewFolderButton(this);

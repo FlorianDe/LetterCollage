@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by viktorspadi on 15.11.15.
  */
-public class RoiModel extends CstmObservable{
+public class RoiModel extends CstmObservable {
     public static final double SCALE_STEP_SIZE_MIN = 0.05;
     public static final double SCALE_STEP_SIZE_MAX = 1.0;
     public double scaleStepSize = 0.1;
@@ -40,7 +40,7 @@ public class RoiModel extends CstmObservable{
             this.roiImageCollection.addImage(ImageIO.read(FileLoader.loadFile("img/people/test21.jpg")));
 
             String defaultFontName = "Showcard Gothic";
-            if(LetterFactory.getCollection(defaultFontName)!=null)
+            if (LetterFactory.getCollection(defaultFontName) != null)
                 this.setLetterCollection(LetterFactory.getCollection(defaultFontName));
             else
                 this.setLetterCollection(LetterFactory.getFirstFont());
@@ -52,9 +52,9 @@ public class RoiModel extends CstmObservable{
     }
 
     public void loadFont(String fontName) {
-        if(fontName != null) {
+        if (fontName != null) {
             LetterCollection lc = LetterFactory.getCollection(fontName);
-            if(lc != null) {
+            if (lc != null) {
                 this.setLetterCollection(lc);
             }
         }
@@ -75,7 +75,7 @@ public class RoiModel extends CstmObservable{
     public void setLetterCollection(LetterCollection letterCollection) {
         this.letterCollection = letterCollection;
         // evtl direkt berechnen, sonst irgendwo button einbauen der called
-        if(this.roiImageCollection.isArrangeable()) {
+        if (this.roiImageCollection.isArrangeable()) {
             this.roiImageCollection.arrangeImages();
         }
         this.setChanged();

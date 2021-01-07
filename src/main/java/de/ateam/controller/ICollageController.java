@@ -1,8 +1,8 @@
 package de.ateam.controller;
 
 import de.ateam.controller.roi.RegionOfInterestController;
-import de.ateam.model.RoiModel;
 import de.ateam.model.ResultImageModel;
+import de.ateam.model.RoiModel;
 import de.ateam.view.CollageFrame;
 
 /**
@@ -10,7 +10,10 @@ import de.ateam.view.CollageFrame;
  */
 public interface ICollageController {
     ResultImageModel getResultImageModel();
+
     RoiModel getRoiModel();
+
     CollageFrame getCollageView();
+
     RegionOfInterestController getRoiController();
 }

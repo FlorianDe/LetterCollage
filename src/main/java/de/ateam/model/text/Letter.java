@@ -1,9 +1,7 @@
 package de.ateam.model.text;
 
 import de.ateam.utils.OpenCVUtils;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.BufferedImage;
@@ -11,7 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by viktorspadi on 15.11.15.
  */
-public class Letter{
+public class Letter {
 
     private Mat calculationMask;
     private BufferedImage resultMask;
@@ -19,7 +17,7 @@ public class Letter{
 
     private char symbol;
 
-    protected Letter (char symbol, BufferedImage bi_resultMask, BufferedImage bi_calculationMask, BufferedImage bi_outlineResultMask) {
+    protected Letter(char symbol, BufferedImage bi_resultMask, BufferedImage bi_calculationMask, BufferedImage bi_outlineResultMask) {
         this.symbol = symbol;
         this.resultMask = bi_resultMask;
         this.calculationMask = OpenCVUtils.bufferedImageToMat(bi_calculationMask);
@@ -56,7 +54,9 @@ public class Letter{
         return symbol;
     }
 
-    public Mat getCalculationMask() { return calculationMask; }
+    public Mat getCalculationMask() {
+        return calculationMask;
+    }
 
     public BufferedImage getResultMask() {
         return resultMask;
@@ -65,6 +65,7 @@ public class Letter{
     public BufferedImage getOutlineResultMask() {
         return outlineResultMask;
     }
+
     public void setOutlineResultMask(BufferedImage outlineResultMask) {
         this.outlineResultMask = outlineResultMask;
     }

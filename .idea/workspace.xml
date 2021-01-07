@@ -5,283 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df52b031-8384-4e74-91a5-81f9220e10b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/LetterCollage_B_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/JOCL_0_1_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/linux_x64.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/opencv_300.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/osx_x64.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/win_x64.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/result.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LetterCollage_B.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencl/JOCL-0.1.9.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_calib3d.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_calib3d.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_calib3d.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_calib3d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_core.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_core.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_core.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_core_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_features2d.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_features2d.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_features2d.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_features2d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_flann.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_flann.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_flann.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_flann_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_hal.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_hal_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_highgui.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_highgui.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_highgui.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_highgui_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgcodecs.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgcodecs.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgcodecs.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgcodecs_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgproc.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgproc.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgproc.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_imgproc_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_java300.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ml.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ml.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ml.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ml_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_objdetect.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_objdetect.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_objdetect.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_objdetect_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_calib3d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_core_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_features2d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_imgcodecs_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_imgproc_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_objdetect_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_photo_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_stitching_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_superres_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_video_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_perf_videoio_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_photo.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_photo.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_photo.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_photo_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_shape.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_shape.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_shape.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_shape_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_stitching.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_stitching.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_stitching.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_stitching_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_superres.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_superres.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_superres.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_superres_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_calib3d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_core_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_features2d_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_flann_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_highgui_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_imgcodecs_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_imgproc_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_ml_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_objdetect_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_photo_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_shape_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_stitching_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_superres_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_video_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_test_videoio_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ts.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_ts_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_video.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_video.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_video.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_video_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videoio.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videoio.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videoio.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videoio_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videostab.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videostab.so.3.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videostab.so.3.0.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/libopencv_videostab_pch_dephelp.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/linux/x64/python3/cv2.cpython-34m.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/opencv-300.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_calib3d.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_calib3d.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_calib3d.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_core.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_core.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_core.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_features2d.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_features2d.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_features2d.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_flann.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_flann.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_flann.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_hal.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_highgui.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_highgui.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_highgui.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgcodecs.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgcodecs.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgcodecs.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgproc.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgproc.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_imgproc.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_java300.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_ml.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_ml.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_ml.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_objdetect.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_objdetect.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_objdetect.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_photo.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_photo.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_photo.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_shape.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_shape.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_shape.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_stitching.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_stitching.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_stitching.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_superres.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_superres.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_superres.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_ts.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_video.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_video.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_video.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videoio.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videoio.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videoio.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videostab.3.0.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videostab.3.0.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/osx/x64/libopencv_videostab.dylib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/win/x64/opencv_java300.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opencv3/win/x86/opencv_java300.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/Bildschirmfoto von »2015-10-30 22-46-11«.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/Bildschirmfoto von »2015-10-30 22-46-11«.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/Bildschirmfoto von »2015-10-30 22-46-14«.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/Bildschirmfoto von »2015-10-30 22-46-14«.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/Chunkfive.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/Chunkfive.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/GoodDog.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/GoodDog.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/LeagueGothic-CondensedItalic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/LeagueGothic-CondensedItalic.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/LeagueGothic-CondensedRegular.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/LeagueGothic-CondensedRegular.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/LeagueGothic-Italic.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/LeagueGothic-Italic.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/LeagueGothic-Regular.otf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/LeagueGothic-Regular.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/Pacifico.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fonts/Pacifico.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fonts/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/calc_auto_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/calc_auto_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/calc_manual_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/calc_manual_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/new_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/new_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/new_project_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/new_project_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/result_img_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/result_img_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/zoom_in_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/zoom_in_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/buttons/zoom_out_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/buttons/zoom_out_32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/32_cstm_crosshair.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/32_cstm_crosshair.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/32_cstm_crosshair_gray.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/32_cstm_crosshair_gray.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/32_cstm_eraser.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/32_cstm_eraser.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/32_cstm_magicwand.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/32_cstm_magicwand.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/cstm_crosshair.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/cstm_crosshair.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icons/cursor/cstm_eraser.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/icons/cursor/cstm_eraser.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/Swan_large.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/Swan_large.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/people.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/people.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/people2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/people2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/slide1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/slide1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test10.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test10.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test11.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test11.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test12.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test12.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test13.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test13.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test14.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test14.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test15.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test15.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test16.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test16.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test17.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test17.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test18.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test18.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test19.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test19.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test20.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test20.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test21.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test21.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test22.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test22.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test23.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test23.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test6.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test7.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test7.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test8.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test8.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/people/test9.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/people/test9.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/pictures/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/pictures/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/pictures/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/pictures/2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/pictures/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/pictures/3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/pictures/4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/pictures/4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/pictures/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/resultImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/resultImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/2.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/2.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/3.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/3.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/Thumbs.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/horsefenceCutted.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceCutted.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/horsefenceInvertedMask.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceInvertedMask.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/horsefenceMask.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceMask.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/test/horsefenceOrig.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceOrig.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/kernel/intersection_kernel.cl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kernel/intersection_kernel.cl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_eye.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_eye.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_eye_tree_eyeglasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_eye_tree_eyeglasses.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalcatface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalcatface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalcatface_extended.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalcatface_extended.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalface_alt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalface_alt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalface_alt2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalface_alt2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalface_alt_tree.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalface_alt_tree.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_frontalface_default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_frontalface_default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_fullbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_fullbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_lefteye_2splits.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_lefteye_2splits.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_licence_plate_rus_16stages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_licence_plate_rus_16stages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_lowerbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_lowerbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_profileface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_profileface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_righteye_2splits.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_righteye_2splits.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_russian_plate_number.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_russian_plate_number.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_smile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_smile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades/haarcascade_upperbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades/haarcascade_upperbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_eye.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_eye.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_eye_tree_eyeglasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_eye_tree_eyeglasses.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_frontalface_alt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_frontalface_alt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_frontalface_alt2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_frontalface_alt2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_frontalface_alt_tree.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_frontalface_alt_tree.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_frontalface_default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_frontalface_default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_fullbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_fullbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_lefteye_2splits.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_lefteye_2splits.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_lowerbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_lowerbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_profileface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_profileface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_righteye_2splits.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_righteye_2splits.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_smile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_smile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/haarcascades_cuda/haarcascade_upperbody.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/haarcascades_cuda/haarcascade_upperbody.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/hogcascades/hogcascade_pedestrians.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/hogcascades/hogcascade_pedestrians.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/lbpcascades/lbpcascade_frontalcatface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/lbpcascades/lbpcascade_frontalcatface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/lbpcascades/lbpcascade_frontalface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/lbpcascades/lbpcascade_frontalface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/lbpcascades/lbpcascade_profileface.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/lbpcascades/lbpcascade_profileface.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/opencv/lbpcascades/lbpcascade_silverware.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/opencv/lbpcascades/lbpcascade_silverware.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/EntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/EntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/EntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/EntryPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/CollageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/CollageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/ICollageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/ICollageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/collage/CalculateAutomaticListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/collage/CalculateAutomaticListener.java" afterDir="false" />
@@ -312,7 +39,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ResultImageKeyEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ResultImageKeyEventListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/SaliencyMapDetectionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/SaliencyMapDetectionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/SaliencyOverlayOnOffListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/SaliencyOverlayOnOffListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ScrollbarValueChangedListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ScrollbarValueChangedListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ZoomInListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ZoomInListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ZoomOutListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/listener/resultImage/ZoomOutListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/CalculationCallable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/CalculationCallable.java" afterDir="false" />
@@ -323,7 +49,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/RegionOfInterestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/RegionOfInterestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/RegionOfInterestDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/RegionOfInterestDetector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/SaliencyMapDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/controller/roi/SaliencyMapDetector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/exception/NoFontSelectedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/exception/NoFontSelectedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/model/CollageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/model/CollageModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/model/ResultImageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/model/ResultImageModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/model/RoiModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/model/RoiModel.java" afterDir="false" />
@@ -346,11 +71,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/HistogramPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/HistogramPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/JSliderLabelPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/JSliderLabelPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/JSliderMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/JSliderMenuItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/AssistantUIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/AssistantUIManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/BasicMThumbSliderUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/BasicMThumbSliderUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSlider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSlider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderAdditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderAdditional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderAdditionalUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderAdditionalUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/MThumbSlider/MThumbSliderTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/StayOpenCheckBoxMenuItemUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/cstmcomponent/StayOpenCheckBoxMenuItemUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/dialog/SetRoiWeightingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/dialog/SetRoiWeightingDialog.java" afterDir="false" />
@@ -368,6 +89,16 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/panel/CVResultImagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/panel/CVResultImagePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/panel/CVRoiImageLoaderRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/panel/CVRoiImageLoaderRow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/ateam/view/toolbar/CVToolbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/ateam/view/toolbar/CVToolbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/Bildschirmfoto von »2015-10-30 22-46-11«.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/Bildschirmfoto von »2015-10-30 22-46-14«.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/resultImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceCutted.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/img/test/horsefenceCutted.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceInvertedMask.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/img/test/horsefenceInvertedMask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceMask.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/img/test/horsefenceMask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/img/test/horsefenceOrig.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/img/test/horsefenceOrig.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/de/ateam/Benchmarks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/de/ateam/Benchmarks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/de/ateam/ContentAwareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/de/ateam/ContentAwareTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/de/ateam/PolygonTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/de/ateam/PolygonTest1.java" afterDir="false" />
@@ -445,13 +176,40 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources/img/test" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.EntryPoint">
+  <component name="RunManager" selected="Application.VideoCap">
+    <configuration name="ContentAwareTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.ateam.ContentAwareTest" />
+      <module name="LetterCollage.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.ateam.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EntryPoint" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="EntryPoint" />
+      <option name="MAIN_CLASS_NAME" value="de.ateam.EntryPoint" />
       <module name="LetterCollage.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VideoCap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="de.ateam.VideoCap" />
+      <module name="LetterCollage.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.ateam.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -507,9 +265,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.VideoCap" />
+        <item itemvalue="Application.ContentAwareTest" />
         <item itemvalue="Gradle.LetterCollage [jar]" />
-        <item itemvalue="Gradle.LetterCollage [build]" />
         <item itemvalue="Application.EntryPoint" />
+        <item itemvalue="Gradle.LetterCollage [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -521,7 +281,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610045333083</updated>
-      <workItem from="1610045335250" duration="1904000" />
+      <workItem from="1610045335250" duration="6227000" />
     </task>
     <servers />
   </component>
@@ -529,25 +289,49 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2006" height="348" key="GridCell.Tab.0.bottom" timestamp="1610047077905">
+    <state x="761" y="460" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1610051499045">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1610047077905" />
-    <state width="2006" height="348" key="GridCell.Tab.0.center" timestamp="1610047077905">
+    <state x="761" y="460" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2048.1257@0.23.2048.1257" timestamp="1610051499045" />
+    <state x="177" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610048997618">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.center/0.23.2048.1257@0.23.2048.1257" timestamp="1610047077905" />
-    <state width="2006" height="348" key="GridCell.Tab.0.left" timestamp="1610047077904">
+    <state x="177" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.2048.1257@0.23.2048.1257" timestamp="1610048997618" />
+    <state width="2006" height="348" key="GridCell.Tab.0.bottom" timestamp="1610051659600">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.left/0.23.2048.1257@0.23.2048.1257" timestamp="1610047077904" />
-    <state width="2006" height="348" key="GridCell.Tab.0.right" timestamp="1610047077905">
+    <state width="2006" height="348" key="GridCell.Tab.0.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1610051659600" />
+    <state width="2006" height="348" key="GridCell.Tab.0.center" timestamp="1610051659599">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state width="2006" height="348" key="GridCell.Tab.0.right/0.23.2048.1257@0.23.2048.1257" timestamp="1610047077905" />
-    <state x="725" y="406" width="598" height="548" key="find.popup" timestamp="1610046572024">
+    <state width="2006" height="348" key="GridCell.Tab.0.center/0.23.2048.1257@0.23.2048.1257" timestamp="1610051659599" />
+    <state width="2006" height="348" key="GridCell.Tab.0.left" timestamp="1610051659598">
       <screen x="0" y="23" width="2048" height="1257" />
     </state>
-    <state x="725" y="406" width="598" height="548" key="find.popup/0.23.2048.1257@0.23.2048.1257" timestamp="1610046572024" />
+    <state width="2006" height="348" key="GridCell.Tab.0.left/0.23.2048.1257@0.23.2048.1257" timestamp="1610051659598" />
+    <state width="2006" height="348" key="GridCell.Tab.0.right" timestamp="1610051659599">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="348" key="GridCell.Tab.0.right/0.23.2048.1257@0.23.2048.1257" timestamp="1610051659599" />
+    <state width="2006" height="428" key="GridCell.Tab.1.bottom" timestamp="1610048741025">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="428" key="GridCell.Tab.1.bottom/0.23.2048.1257@0.23.2048.1257" timestamp="1610048741025" />
+    <state width="2006" height="428" key="GridCell.Tab.1.center" timestamp="1610048741025">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="428" key="GridCell.Tab.1.center/0.23.2048.1257@0.23.2048.1257" timestamp="1610048741025" />
+    <state width="2006" height="428" key="GridCell.Tab.1.left" timestamp="1610048741025">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="428" key="GridCell.Tab.1.left/0.23.2048.1257@0.23.2048.1257" timestamp="1610048741025" />
+    <state width="2006" height="428" key="GridCell.Tab.1.right" timestamp="1610048741025">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state width="2006" height="428" key="GridCell.Tab.1.right/0.23.2048.1257@0.23.2048.1257" timestamp="1610048741025" />
+    <state x="725" y="406" width="611" height="548" key="find.popup" timestamp="1610051460339">
+      <screen x="0" y="23" width="2048" height="1257" />
+    </state>
+    <state x="725" y="406" width="611" height="548" key="find.popup/0.23.2048.1257@0.23.2048.1257" timestamp="1610051460339" />
   </component>
 </project>

@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVMenuMouseMode extends JMenu implements CstmObserver{
+public class CVMenuMouseMode extends JMenu implements CstmObserver {
 
     JMenuExtension jme;
     JMenuItem menuItemMouseModeDrag;
@@ -26,7 +26,7 @@ public class CVMenuMouseMode extends JMenu implements CstmObserver{
     ICollageController controller;
 
 
-    public CVMenuMouseMode(String name, ICollageController controller){
+    public CVMenuMouseMode(String name, ICollageController controller) {
         super(name);
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);

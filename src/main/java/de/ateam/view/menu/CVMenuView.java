@@ -1,7 +1,10 @@
 package de.ateam.view.menu;
 
 import de.ateam.controller.ICollageController;
-import de.ateam.controller.listener.resultImage.*;
+import de.ateam.controller.listener.resultImage.GridOnOffListener;
+import de.ateam.controller.listener.resultImage.SaliencyOverlayOnOffListener;
+import de.ateam.controller.listener.resultImage.ZoomInListener;
+import de.ateam.controller.listener.resultImage.ZoomOutListener;
 import de.ateam.model.ResultImageModel;
 import de.ateam.utils.CstmObservable;
 import de.ateam.utils.CstmObserver;
@@ -13,7 +16,7 @@ import java.awt.event.ActionEvent;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVMenuView extends JMenu  implements CstmObserver {
+public class CVMenuView extends JMenu implements CstmObserver {
 
     JMenuExtension jme;
     JMenuItem menuItemMouseModeZoomIn;
@@ -23,7 +26,7 @@ public class CVMenuView extends JMenu  implements CstmObserver {
 
     ICollageController controller;
 
-    public CVMenuView(String name, ICollageController controller){
+    public CVMenuView(String name, ICollageController controller) {
         super(name);
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);

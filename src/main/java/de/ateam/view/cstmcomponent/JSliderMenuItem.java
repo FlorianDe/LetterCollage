@@ -3,12 +3,6 @@ package de.ateam.view.cstmcomponent;
 import de.ateam.controller.ICollageController;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /**
  * Created by Florian on 23.01.2016.

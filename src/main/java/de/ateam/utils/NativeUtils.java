@@ -1,11 +1,6 @@
 package de.ateam.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * A simple library class which helps with loading dynamic libraries stored in the
@@ -14,7 +9,6 @@ import java.io.OutputStream;
  *
  * @see //adamheinrich.com/blog/2012/how-to-load-native-jni-library-from-jar
  * @see ://github.com/adamheinrich/native-utils
- *
  */
 public class NativeUtils {
 
@@ -26,12 +20,12 @@ public class NativeUtils {
 
     /**
      * Loads library from current JAR archive
-     *
+     * <p>
      * The file from JAR is copied into system temporary directory and then loaded. The temporary file is deleted after exiting.
      * Method uses String as filename because the pathname is "abstract", not system-dependent.
      *
      * @param path The filename inside JAR as absolute path (beginning with '/'), e.g. /package/File.ext
-     * @throws IOException If temporary file creation or read/write operation fails
+     * @throws IOException              If temporary file creation or read/write operation fails
      * @throws IllegalArgumentException If source file (param path) does not exist
      * @throws IllegalArgumentException If the path is not absolute or if the filename is shorter than three characters (restriction of {@see File#createTempFile(java.lang.String, java.lang.String)}).
      */
@@ -51,7 +45,7 @@ public class NativeUtils {
         if (filename != null) {
             parts = filename.split("\\.", 2);
             prefix = parts[0];
-            suffix = (parts.length > 1) ? "."+parts[parts.length - 1] : null; // Thanks, davs! :-)
+            suffix = (parts.length > 1) ? "." + parts[parts.length - 1] : null; // Thanks, davs! :-)
         }
 
         // Check if the filename is okay

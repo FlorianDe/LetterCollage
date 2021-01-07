@@ -12,7 +12,17 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    compile group: 'org.openpnp', name: 'opencv', version: '3.4.2-0'
+    compile group: 'org.openpnp', name: 'opencv', version: '4.3.0-3'
 
     compile group: 'org.jocl', name: 'jocl', version: '0.1.9'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "de.ateam.EntryPoint"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

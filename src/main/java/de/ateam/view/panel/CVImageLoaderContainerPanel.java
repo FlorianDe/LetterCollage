@@ -7,18 +7,17 @@ import de.ateam.utils.CstmObserver;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
+public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver {
 
     ICollageController controller;
     public CVImageLoaderFileChooser imageLoaderFileChooser;
     public JPanel roiImageContainer;
 
-    public CVImageLoaderContainerPanel(ICollageController controller){
+    public CVImageLoaderContainerPanel(ICollageController controller) {
         this.controller = controller;
         //this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setLayout(new BorderLayout());
@@ -37,11 +36,10 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
         this.controller.getRoiModel().getRoiCollection().addObserver(this);
 
 
-
         update(null, null);
     }
 
-    public void setStyle(Graphics g){
+    public void setStyle(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         Color color1 = getBackground();
         Color color2 = color1.darker().darker();
@@ -60,9 +58,8 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
     }
 
 
-
     //K�nnte man evtl ersetzen durch "JList binding" habe ich aber knoch nicht gemacht und sind ja keine 5000Bilder :D!
-    public synchronized void refreshList(){
+    public synchronized void refreshList() {
         this.roiImageContainer.removeAll();
         /*
         for(BufferedImage buf : this.controller.getImageLoaderModel().getLoadedImages()){
@@ -71,8 +68,8 @@ public class CVImageLoaderContainerPanel extends JPanel implements CstmObserver{
             }
         }
         */
-        for(RegionOfInterestImage roiImg : this.controller.getRoiModel().getLoadedImages()){
-            if(roiImg!=null ) {
+        for (RegionOfInterestImage roiImg : this.controller.getRoiModel().getLoadedImages()) {
+            if (roiImg != null) {
                 this.roiImageContainer.add(new CVRoiImageLoaderRow(this.controller, roiImg));
             }
         }

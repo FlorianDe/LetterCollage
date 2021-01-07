@@ -16,13 +16,15 @@ public class RegionOfInterest {
     private Color color;
     private double weighting;
 
-    public RegionOfInterest(Shape shape){
+    public RegionOfInterest(Shape shape) {
         this(shape, COLOR_DEFAULT);
     }
-    public RegionOfInterest(Shape shape, Color color){
+
+    public RegionOfInterest(Shape shape, Color color) {
         this(shape, color, 1.0);
     }
-    public RegionOfInterest(Shape shape, Color color, double weighting){
+
+    public RegionOfInterest(Shape shape, Color color, double weighting) {
         this.shape = shape;
         this.color = color;
         this.weighting = weighting;

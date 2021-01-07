@@ -15,7 +15,7 @@ public abstract class LetterFactory {
     private static LetterCollection lastLoadedFont;
     private static ICollageController controller;
 
-    static{
+    static {
         init();
     }
 
@@ -27,17 +27,17 @@ public abstract class LetterFactory {
         LetterFactory.controller = controller;
     }
 
-    public static void init(){
+    public static void init() {
         fontCollection = new HashMap<>();
     }
 
     public static LetterCollection getCollection(String fontName) {
-        if(fontCollection.containsKey(fontName)){
+        if (fontCollection.containsKey(fontName)) {
             lastLoadedFont = fontCollection.get(fontName);
             return lastLoadedFont;
         }
         Font font = FontLoader.getFont(fontName);
-        if(font!=null) {
+        if (font != null) {
             lastLoadedFont = new LetterCollection(font, controller);
             LetterFactory.fontCollection.put(fontName, lastLoadedFont);
         }
@@ -50,7 +50,7 @@ public abstract class LetterFactory {
 
     public static LetterCollection getFirstFont() throws NoFontSelectedException {
         LetterCollection lc = getCollection(FontLoader.loadFonts()[0]);
-        if(lc != null)
+        if (lc != null)
             return lc;
         else
             throw new NoFontSelectedException("Default font not found");

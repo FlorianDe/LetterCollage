@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by vspadi on 16.11.15.
  */
-public class RegionOfInterestImage{
+public class RegionOfInterestImage {
 
     private BufferedImage normalImage;
     private BufferedImage roiImage;
@@ -41,17 +41,19 @@ public class RegionOfInterestImage{
         calculateCenterWeight();
         repaintRoiImage();
     }
+
     public void addRegionOfInterest(Shape shape, Color color) {
         addRegionOfInterest(shape, color, 1.0);
     }
+
     public void addRegionOfInterest(Shape shape) {
         this.addRegionOfInterest(shape, RegionOfInterest.COLOR_DEFAULT);
     }
 
     public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Point point) {
         ArrayList<RegionOfInterest> selectedRois = new ArrayList<>();
-        for(RegionOfInterest roi : rois){
-            if(roi.getShape().contains(point)) {
+        for (RegionOfInterest roi : rois) {
+            if (roi.getShape().contains(point)) {
                 selectedRois.add(roi);
             }
         }
@@ -60,16 +62,16 @@ public class RegionOfInterestImage{
 
     public ArrayList<RegionOfInterest> getIntersectingRegionOfInterests(Rectangle rect) {
         ArrayList<RegionOfInterest> selectedRois = new ArrayList<>();
-        for(RegionOfInterest r : rois){
-            if(r.getShape().intersects(rect)) {
+        for (RegionOfInterest r : rois) {
+            if (r.getShape().intersects(rect)) {
                 selectedRois.add(r);
             }
         }
         return selectedRois;
     }
 
-    public synchronized void deleteRegionOfInterests(ArrayList<RegionOfInterest> rois){
-        for(RegionOfInterest roi : rois){
+    public synchronized void deleteRegionOfInterests(ArrayList<RegionOfInterest> rois) {
+        for (RegionOfInterest roi : rois) {
             this.rois.remove(roi);
         }
         calculateCenterWeight();
@@ -77,7 +79,7 @@ public class RegionOfInterestImage{
     }
 
     public synchronized void deleteRegionOfInterest(RegionOfInterest roi) {
-        if (rois.contains(roi)){
+        if (rois.contains(roi)) {
             rois.remove(roi);
         }
         calculateCenterWeight();
@@ -97,19 +99,19 @@ public class RegionOfInterestImage{
         int fontConstHeight = 10;
         this.g2dRoiImage.drawImage(this.normalImage, 0, 0, null);
         this.g2dRoiImage.setStroke(new BasicStroke(strokeThickness));
-        for(RegionOfInterest roi : rois){
+        for (RegionOfInterest roi : rois) {
             this.g2dRoiImage.setColor(roi.getColor());
             Rectangle2D r = roi.getShape().getBounds2D();
-            this.g2dRoiImage.drawString(roi.getWeighting()+"",(int)r.getX()+strokeThickness,(int)r.getY()+strokeThickness+fontConstHeight);
+            this.g2dRoiImage.drawString(roi.getWeighting() + "", (int) r.getX() + strokeThickness, (int) r.getY() + strokeThickness + fontConstHeight);
             this.g2dRoiImage.draw(roi.getShape());
 
             ShapeUtils.setTransparency(g2dRoiImage, 0.25f);
             this.g2dRoiImage.fill(roi.getShape());
             ShapeUtils.setTransparency(g2dRoiImage, 1f);
         }
-        if(middlePoint != null) {
+        if (middlePoint != null) {
             this.g2dRoiImage.setColor(Color.GREEN);
-            this.g2dRoiImage.draw(ShapeUtils.getEllipseFromCenter(this.middlePoint.x, this.middlePoint.y, 10,10));
+            this.g2dRoiImage.draw(ShapeUtils.getEllipseFromCenter(this.middlePoint.x, this.middlePoint.y, 10, 10));
         }
     }
 
@@ -123,51 +125,51 @@ public class RegionOfInterestImage{
         double xAvg = 0;
         double yAvg = 0;
         double cnt = 0;
-        for(int y = 0; y < mask.getHeight(); y++) {
-            for(int x = 0; x < mask.getWidth(); x++) {
-                if((mask.getRGB(x,y)) == -1) {
+        for (int y = 0; y < mask.getHeight(); y++) {
+            for (int x = 0; x < mask.getWidth(); x++) {
+                if ((mask.getRGB(x, y)) == -1) {
                     double wAvg = 1;
-                    ArrayList<RegionOfInterest> rois = this.getIntersectingRegionOfInterests(new Point(x,y));
-                    if(rois.size() > 0) {
-                        for(RegionOfInterest roi: rois) {
+                    ArrayList<RegionOfInterest> rois = this.getIntersectingRegionOfInterests(new Point(x, y));
+                    if (rois.size() > 0) {
+                        for (RegionOfInterest roi : rois) {
                             wAvg += roi.getWeighting();
                         }
                         wAvg /= rois.size();
                     }
 
-                    if(x > xMax) xMax = x;
-                    if(xMin == -1) xMin = x;
-                    if(y > yMax) yMax = y;
-                    if(yMin == -1) yMin = y;
-                    xAvg += x*wAvg;
-                    yAvg += y*wAvg;
-                    cnt+=wAvg;
+                    if (x > xMax) xMax = x;
+                    if (xMin == -1) xMin = x;
+                    if (y > yMax) yMax = y;
+                    if (yMin == -1) yMin = y;
+                    xAvg += x * wAvg;
+                    yAvg += y * wAvg;
+                    cnt += wAvg;
                 }
-                if((this.getSaliencyMap().getRGB(x,y)) == -1) {
-                    if(x > xMax) xMax = x;
-                    if(xMin == -1) xMin = x;
-                    if(y > yMax) yMax = y;
-                    if(yMin == -1) yMin = y;
-                    xAvg += x* RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
-                    yAvg += y* RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
-                    cnt+=RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
+                if ((this.getSaliencyMap().getRGB(x, y)) == -1) {
+                    if (x > xMax) xMax = x;
+                    if (xMin == -1) xMin = x;
+                    if (y > yMax) yMax = y;
+                    if (yMin == -1) yMin = y;
+                    xAvg += x * RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
+                    yAvg += y * RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
+                    cnt += RegionOfInterestDetector.WEIGHTING_SALIENCY_PIXEL;
                 }
             }
         }
-        if(cnt != 0) {
+        if (cnt != 0) {
             xAvg /= cnt;
             yAvg /= cnt;
-            this.middlePoint = new Point((int)xAvg, (int)yAvg);
+            this.middlePoint = new Point((int) xAvg, (int) yAvg);
         } else {
             this.middlePoint = null;
         }
     }
 
     public BufferedImage getCalculationMaskHelper() {
-        BufferedImage roiMask = new BufferedImage(roiImage.getWidth(),roiImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        BufferedImage roiMask = new BufferedImage(roiImage.getWidth(), roiImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
         Graphics2D g2d = roiMask.createGraphics();
         g2d.setColor(Color.WHITE);
-        for(RegionOfInterest roi : rois){
+        for (RegionOfInterest roi : rois) {
             g2d.fill(roi.getShape());
         }
         g2d.dispose();
@@ -203,8 +205,8 @@ public class RegionOfInterestImage{
         this.roiMode = roiMode;
     }
 
-    public BufferedImage getVisualImage(){
-        if(isRoiMode())
+    public BufferedImage getVisualImage() {
+        if (isRoiMode())
             return getRoiImage();
         return getNormalImage();
     }
@@ -231,7 +233,7 @@ public class RegionOfInterestImage{
         repaintRoiImage();
     }
 
-    public void resetAllROIs(){
+    public void resetAllROIs() {
         this.middlePoint = null;
         rois.clear();
         this.saliencyMap = new BufferedImage(normalImage.getWidth(), normalImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);

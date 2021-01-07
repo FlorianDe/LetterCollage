@@ -12,7 +12,7 @@ public class CVMenuFile extends JMenu {
     JMenuItem menuItemLoad;
     JMenuItem menuItemSave;
 
-    public CVMenuFile(String name){
+    public CVMenuFile(String name) {
         super(name);
         this.jme = new JMenuExtension(ActionEvent.CTRL_MASK);
         this.jme.setInformationJM(this, "STRING_DESCRIPTION");

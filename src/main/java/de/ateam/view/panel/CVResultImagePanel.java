@@ -29,14 +29,14 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     private static Cursor cstm_magicwand = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
 
 
-    static{
-        cstm_crosshair = tryLoadCursor("img/icons/cursor/32_cstm_crosshair.png", new Point(16,16));
-        cstm_eraser = tryLoadCursor("img/icons/cursor/32_cstm_eraser.png", new Point(0,31));
-        cstm_magicwand = tryLoadCursor("img/icons/cursor/32_cstm_magicwand.png", new Point(2,2));
+    static {
+        cstm_crosshair = tryLoadCursor("img/icons/cursor/32_cstm_crosshair.png", new Point(16, 16));
+        cstm_eraser = tryLoadCursor("img/icons/cursor/32_cstm_eraser.png", new Point(0, 31));
+        cstm_magicwand = tryLoadCursor("img/icons/cursor/32_cstm_magicwand.png", new Point(2, 2));
 
     }
 
-    private static Cursor tryLoadCursor(String path, Point hotspot){
+    private static Cursor tryLoadCursor(String path, Point hotspot) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = null;
         try {
@@ -53,7 +53,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
 
     ICollageController controller;
 
-    public CVResultImagePanel(ICollageController controller){
+    public CVResultImagePanel(ICollageController controller) {
         renderingHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         renderingHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         renderingHints.put(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -86,7 +86,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         g2d.setRenderingHints(renderingHints);
 
         //REPAINT MOUSE
-        switch (this.controller.getResultImageModel().getMouseMode()){
+        switch (this.controller.getResultImageModel().getMouseMode()) {
             case DRAG:
                 this.setCursor(handCursor);
                 break;
@@ -111,7 +111,7 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
                 (int) this.controller.getResultImageModel().getRenderSize().getHeight(),
                 null);
 
-        if(this.controller.getResultImageModel().isSaliencyMapOverlay()){
+        if (this.controller.getResultImageModel().isSaliencyMapOverlay()) {
             ShapeUtils.setTransparency(g2d, 0.5f);
             g2d.drawImage(this.controller.getResultImageModel().getActualVisibleRoiImage().getSaliencyMap(),
                     0, 0,
@@ -122,60 +122,60 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         }
 
         //DRAW RASTER!
-        if(this.controller.getResultImageModel().isResolutionRasterVisible()){
+        if (this.controller.getResultImageModel().isResolutionRasterVisible()) {
             ShapeUtils.setTransparency(g2d, 0.25f);
 
             ResultImageModel rim = this.controller.getResultImageModel();
 
             int maxHeight = (int) rim.getRenderSize().getHeight();
             int maxWidth = (int) rim.getRenderSize().getWidth();
-            if(this.getScrollPane()!=null){
+            if (this.getScrollPane() != null) {
                 Dimension parentSize = this.getScrollPane().getViewport().getSize();
-                if(maxHeight>(int)parentSize.getHeight()){
-                    maxHeight = (int)parentSize.getHeight();
+                if (maxHeight > (int) parentSize.getHeight()) {
+                    maxHeight = (int) parentSize.getHeight();
                 }
-                if(maxWidth>(int)parentSize.getWidth()) {
-                    maxWidth = (int)parentSize.getWidth();
+                if (maxWidth > (int) parentSize.getWidth()) {
+                    maxWidth = (int) parentSize.getWidth();
                 }
             }
 
-            int heightStepSize = (int)(rim.getRenderSize().getHeight()/this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
-            int widthStepSize =  (int)(rim.getRenderSize().getWidth()/this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
+            int heightStepSize = (int) (rim.getRenderSize().getHeight() / this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
+            int widthStepSize = (int) (rim.getRenderSize().getWidth() / this.controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE());
 
-            for (int y = 0; y <= maxHeight; y+= heightStepSize)
-                g2d.drawLine(rim.getMargin(), rim.getMargin()+y, maxWidth+rim.getMargin(), rim.getMargin()+y);
-            for (int x = 0; x <= maxWidth; x+= widthStepSize)
-                g2d.drawLine(rim.getMargin()+x, rim.getMargin(), rim.getMargin()+x, maxHeight+rim.getMargin());
+            for (int y = 0; y <= maxHeight; y += heightStepSize)
+                g2d.drawLine(rim.getMargin(), rim.getMargin() + y, maxWidth + rim.getMargin(), rim.getMargin() + y);
+            for (int x = 0; x <= maxWidth; x += widthStepSize)
+                g2d.drawLine(rim.getMargin() + x, rim.getMargin(), rim.getMargin() + x, maxHeight + rim.getMargin());
 
 
             //DRAW TOLERANCE //TODO TAKE OTHER/EXTRA CONDITION
             RegionOfInterestImage roii = this.controller.getResultImageModel().getActualVisibleRoiImage();
             g2d.setColor(Color.YELLOW);
 
-            for(RegionOfInterest roi : roii.getRois()) {
+            for (RegionOfInterest roi : roii.getRois()) {
                 Rectangle2D r = roi.getShape().getBounds2D();
 
-                int diffStepSize = Math.abs(heightStepSize-widthStepSize)/2;
+                int diffStepSize = Math.abs(heightStepSize - widthStepSize) / 2;
 
-                int left=(int)(r.getX()*rim.getZoomFactor());
-                int top=(int)(r.getY()*rim.getZoomFactor());
-                int right=(int)((r.getX()+r.getWidth())*rim.getZoomFactor());
-                int bottom=(int)((r.getY()+r.getHeight())*rim.getZoomFactor());
+                int left = (int) (r.getX() * rim.getZoomFactor());
+                int top = (int) (r.getY() * rim.getZoomFactor());
+                int right = (int) ((r.getX() + r.getWidth()) * rim.getZoomFactor());
+                int bottom = (int) ((r.getY() + r.getHeight()) * rim.getZoomFactor());
 
-                if(heightStepSize>widthStepSize){
+                if (heightStepSize > widthStepSize) {
                     g2d.setStroke(new BasicStroke(heightStepSize));
-                    g2d.drawLine(left+diffStepSize+widthStepSize, top, right-diffStepSize-widthStepSize, top);
-                    g2d.drawLine(left+diffStepSize+widthStepSize, bottom, right-diffStepSize-widthStepSize, bottom);
+                    g2d.drawLine(left + diffStepSize + widthStepSize, top, right - diffStepSize - widthStepSize, top);
+                    g2d.drawLine(left + diffStepSize + widthStepSize, bottom, right - diffStepSize - widthStepSize, bottom);
                     g2d.setStroke(new BasicStroke(widthStepSize));
-                    g2d.drawLine(left,bottom+diffStepSize,left,top-diffStepSize);
-                    g2d.drawLine(right,bottom+diffStepSize,right,top-diffStepSize);
-                }else if(heightStepSize<widthStepSize){
+                    g2d.drawLine(left, bottom + diffStepSize, left, top - diffStepSize);
+                    g2d.drawLine(right, bottom + diffStepSize, right, top - diffStepSize);
+                } else if (heightStepSize < widthStepSize) {
                     g2d.setStroke(new BasicStroke(heightStepSize));
-                    g2d.drawLine(left-diffStepSize, top, right+diffStepSize, top);
-                    g2d.drawLine(left-diffStepSize, bottom, right+diffStepSize, bottom);
+                    g2d.drawLine(left - diffStepSize, top, right + diffStepSize, top);
+                    g2d.drawLine(left - diffStepSize, bottom, right + diffStepSize, bottom);
                     g2d.setStroke(new BasicStroke(widthStepSize));
-                    g2d.drawLine(left,bottom-diffStepSize-heightStepSize,left,top+diffStepSize+heightStepSize);
-                    g2d.drawLine(right,bottom-diffStepSize-heightStepSize,right,top+diffStepSize+heightStepSize);
+                    g2d.drawLine(left, bottom - diffStepSize - heightStepSize, left, top + diffStepSize + heightStepSize);
+                    g2d.drawLine(right, bottom - diffStepSize - heightStepSize, right, top + diffStepSize + heightStepSize);
                 }
 
 
@@ -188,14 +188,13 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
         }
 
 
-
         //Draw actual drawn roi!
         Shape s = this.controller.getResultImageModel().getActualDrawnRoi();
-        if(s!=null) {
+        if (s != null) {
             g2d.setColor(this.controller.getResultImageModel().getActualDrawColor());
             g2d.draw(s);
             ResultImageModel rim = this.controller.getResultImageModel();
-            if(rim.getPolygon() != null && rim.getPolygon().size()>0){
+            if (rim.getPolygon() != null && rim.getPolygon().size() > 0) {
                 Ellipse2D e2d = ShapeUtils.getEllipseFromCenter(rim.getPolygon().get(0).getX(), rim.getPolygon().get(0).getY(), rim.getPolygonSnapRadius(), rim.getPolygonSnapRadius());
                 g2d.draw(e2d);
                 ShapeUtils.setTransparency(g2d, 0.15f);
@@ -213,8 +212,8 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     @Override
     public Dimension getPreferredSize() {
         ResultImageModel m = this.controller.getResultImageModel();
-        if(m.getActualVisibleImage()==null)
-            return new Dimension(0,0);
+        if (m.getActualVisibleImage() == null)
+            return new Dimension(0, 0);
         return new Dimension(m.getRenderSize());
     }
 
@@ -228,9 +227,11 @@ public class CVResultImagePanel extends JPanel implements CstmObserver, Scrollab
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
+
     public void setScrollPane(JScrollPane scrollPane) {
         this.scrollPane = scrollPane;
     }
+
     @Override
     public Dimension getPreferredScrollableViewportSize() {
         return null;

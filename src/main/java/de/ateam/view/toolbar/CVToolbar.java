@@ -1,14 +1,17 @@
 package de.ateam.view.toolbar;
 
 import de.ateam.controller.ICollageController;
-import de.ateam.controller.listener.collage.*;
+import de.ateam.controller.listener.collage.CalculateAutomaticListener;
+import de.ateam.controller.listener.collage.CalculateManualListener;
+import de.ateam.controller.listener.collage.FontSelectionChangedListener;
+import de.ateam.controller.listener.collage.InputTextChangedListener;
 import de.ateam.controller.listener.loadedImages.ShowRoiImageListener;
-import de.ateam.controller.listener.resultImage.*;
+import de.ateam.controller.listener.resultImage.ZoomInListener;
+import de.ateam.controller.listener.resultImage.ZoomOutListener;
 import de.ateam.utils.CstmObservable;
 import de.ateam.utils.CstmObserver;
 import de.ateam.utils.FileLoader;
 import de.ateam.utils.FontLoader;
-import de.ateam.view.cstmcomponent.JSliderLabelPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -38,7 +41,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
     ICollageController controller;
 
-    public CVToolbar(ICollageController controller){
+    public CVToolbar(ICollageController controller) {
         this.controller = controller;
         this.createToolbar();
         this.controller.getResultImageModel().addObserver(this);
@@ -47,7 +50,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         update(null, this);
     }
 
-    public void setStyle(Graphics g){
+    public void setStyle(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         Color color1 = getBackground();
         Color color2 = color1.darker();
@@ -65,7 +68,7 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         setStyle(g);
     }
 
-    public void createToolbar(){
+    public void createToolbar() {
         this.btnNew = (JButton) createToolbarButton(new JButton(), "img/icons/buttons/new_project_32.png");
         this.add(this.btnNew);
 
@@ -114,15 +117,14 @@ public class CVToolbar extends JToolBar implements CstmObserver {
         this.add(progressBar);
     }
 
-    public AbstractButton createToolbarButton(AbstractButton btn, String filePath){
+    public AbstractButton createToolbarButton(AbstractButton btn, String filePath) {
         try {
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(FileLoader.loadFile(filePath)));
             btn.setIcon(imageIcon);
         } catch (Exception e) {
             String str = filePath.replace("img/", "");
             btn.setText(str.substring(0, str.indexOf(".")).toUpperCase());
-        }
-        finally{
+        } finally {
             btn.setMargin(new Insets(0, 0, 0, 0));
             btn.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         }
@@ -132,9 +134,9 @@ public class CVToolbar extends JToolBar implements CstmObserver {
 
     @Override
     public void update(CstmObservable arg0, Object arg1) {
-        if(this.controller.getRoiModel().getLetterCollection()==null){
+        if (this.controller.getRoiModel().getLetterCollection() == null) {
             this.cbxFonts.setBorder(BorderFactory.createLineBorder(Color.RED));
-        }else{
+        } else {
             this.cbxFonts.setSelectedItem(this.controller.getRoiModel().getLetterCollection().getFontResultImage().getFontName());
             this.cbxFonts.setBorder(BorderFactory.createEmptyBorder());
             this.progressBar.setMaximum(controller.getResultImageModel().getMaxWorker());
