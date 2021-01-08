@@ -1,9 +1,9 @@
-package main.java.de.ateam.controller.roi;
+package de.ateam.controller.roi;
 
 /**
  * Created by Florian on 22.11.2015.
  */
-public class CalculationResult implements Comparable{
+public class CalculationResult implements Comparable {
     private double scaleFactor;
     private double dX;
     private double dY;
@@ -14,20 +14,27 @@ public class CalculationResult implements Comparable{
     public double getScaleFactor() {
         return scaleFactor;
     }
+
     public double getdX() {
         return dX;
     }
+
     public double getdY() {
         return dY;
     }
+
     public double getIntersectAreaPercentage() {
         return intersectAreaPercentage;
     }
-    public double getWeight() { return weight; }
+
+    public double getWeight() {
+        return weight;
+    }
+
     public static CalculationResult zero;
 
-    static{
-        zero = new CalculationResult(1.0,0,0,0.0,0.0);
+    static {
+        zero = new CalculationResult(1.0, 0, 0, 0.0, 0.0);
     }
 
     public CalculationResult(double scaleFactor, double dX, double dY, double intersectAreaPercentage, double weight) {
@@ -35,11 +42,11 @@ public class CalculationResult implements Comparable{
         this.dX = dX;
         this.dY = dY;
         this.intersectAreaPercentage = intersectAreaPercentage;
-        this.weightedPercentage = intersectAreaPercentage+(0.2*weight);
+        this.weightedPercentage = intersectAreaPercentage + (0.2 * weight);
         this.weight = weight;
     }
 
-    public static CalculationResult getZero(){
+    public static CalculationResult getZero() {
         return zero;
     }
 
@@ -86,10 +93,10 @@ public class CalculationResult implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        CalculationResult c = (CalculationResult)o;
-        if(c.weightedPercentage > ((CalculationResult) o).weightedPercentage) {
+        CalculationResult c = (CalculationResult) o;
+        if (c.weightedPercentage > ((CalculationResult) o).weightedPercentage) {
             return -1;
-        } else if(c.weightedPercentage < ((CalculationResult) o).weightedPercentage) {
+        } else if (c.weightedPercentage < ((CalculationResult) o).weightedPercentage) {
             return 1;
         } else {
             return 0;

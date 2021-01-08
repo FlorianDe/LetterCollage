@@ -1,11 +1,11 @@
-package main.java.de.ateam.view.dialog;
+package de.ateam.view.dialog;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.*;
-import main.java.de.ateam.model.text.LetterCollection;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
-import main.java.de.ateam.view.cstmcomponent.JSliderLabelPanel;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.*;
+import de.ateam.model.text.LetterCollection;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
+import de.ateam.view.cstmcomponent.JSliderLabelPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Florian on 23.01.2016.
  */
-public class SettingsDialog extends JDialog implements CstmObserver{
+public class SettingsDialog extends JDialog implements CstmObserver {
     private static final long serialVersionUID = -3844798685587070198L;
     private final int COMP_HEIGHT = 10;
     private final int COMP_WIDTH = 20;
@@ -61,7 +61,7 @@ public class SettingsDialog extends JDialog implements CstmObserver{
 
     public SettingsDialog(ICollageController controller) {
         super(controller.getCollageView(), "Settings", false);
-        this.controller=controller;
+        this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);
 
         if (this.getOwner() != null) {
@@ -80,18 +80,18 @@ public class SettingsDialog extends JDialog implements CstmObserver{
         settingsPanel.setBorder(new EmptyBorder(5, 10, 5, 5));
 
         this.lblLetterSampleSize = new JLabel(str_lblLetterSampleSize);
-        this.sliderLetterSampleSize = new JSliderLabelPanel(controller, LetterCollection.SAMPLER_MIN, LetterCollection.SAMPLER_MAX,controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE(),1.0,"");
+        this.sliderLetterSampleSize = new JSliderLabelPanel(controller, LetterCollection.SAMPLER_MIN, LetterCollection.SAMPLER_MAX, controller.getRoiModel().getLetterCollection().getSAMPLER_SIZE(), 1.0, "");
 
         double scaleFactor = 0.1;
         this.lblScaleEnd = new JLabel(str_lblScaleEnd);
-        this.sliderScaleEnd = new JSliderLabelPanel(controller, (int)(controller.getRoiModel().SCALE_START/scaleFactor),(int)(controller.getRoiModel().SCALE_MAX/scaleFactor),(int)(controller.getRoiModel().getScaleEnd()/scaleFactor),scaleFactor,"");
+        this.sliderScaleEnd = new JSliderLabelPanel(controller, (int) (controller.getRoiModel().SCALE_START / scaleFactor), (int) (controller.getRoiModel().SCALE_MAX / scaleFactor), (int) (controller.getRoiModel().getScaleEnd() / scaleFactor), scaleFactor, "");
 
         double scaleFactorSteps = 0.05;
         this.lblScaleSteps = new JLabel(str_lblScaleSteps);
-        this.sliderScaleSteps = new JSliderLabelPanel(controller,(int)(controller.getRoiModel().SCALE_STEP_SIZE_MIN/scaleFactorSteps),(int)(controller.getRoiModel().SCALE_STEP_SIZE_MAX/scaleFactorSteps),(int)(controller.getRoiModel().getScaleStepSize()/scaleFactorSteps),scaleFactorSteps,"");
+        this.sliderScaleSteps = new JSliderLabelPanel(controller, (int) (controller.getRoiModel().SCALE_STEP_SIZE_MIN / scaleFactorSteps), (int) (controller.getRoiModel().SCALE_STEP_SIZE_MAX / scaleFactorSteps), (int) (controller.getRoiModel().getScaleStepSize() / scaleFactorSteps), scaleFactorSteps, "");
 
         this.lblBorderThickness = new JLabel("Border Thickness");
-        this.sliderBorderThickness = new JSliderLabelPanel(controller, 0, 50,controller.getResultImageModel().getFontOutlineThickness(),1.0,"");
+        this.sliderBorderThickness = new JSliderLabelPanel(controller, 0, 50, controller.getResultImageModel().getFontOutlineThickness(), 1.0, "");
         this.sliderBorderThickness.getValueSlider().addChangeListener(new BorderThicknessChangedListener(controller));
 
 
@@ -103,7 +103,6 @@ public class SettingsDialog extends JDialog implements CstmObserver{
         this.lblBackgroundColor = new JLabel(str_lblBackgroundColor);
         this.btnBackgroundColor = new JButton();
         this.btnBackgroundColor.addActionListener(new ChooseBackgroundColorListener(this.controller));
-
 
 
         this.cbSaliencyMap = new JCheckBox("Saliency Map Detection On/Off");

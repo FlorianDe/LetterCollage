@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.cstmcomponent.MThumbSlider;
+package de.ateam.view.cstmcomponent.MThumbSlider;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

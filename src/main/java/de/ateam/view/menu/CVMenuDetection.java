@@ -1,10 +1,12 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.*;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.EyeDetectionListener;
+import de.ateam.controller.listener.resultImage.FaceDetectionListener;
+import de.ateam.controller.listener.resultImage.FullbodyDetectionListener;
+import de.ateam.controller.listener.resultImage.SaliencyMapDetectionListener;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ import java.awt.event.ActionEvent;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVMenuDetection extends JMenu  implements CstmObserver {
+public class CVMenuDetection extends JMenu implements CstmObserver {
 
     JMenuExtension jme;
     JMenuItem menuItemEyeDetection;
@@ -22,7 +24,7 @@ public class CVMenuDetection extends JMenu  implements CstmObserver {
 
     ICollageController controller;
 
-    public CVMenuDetection(String name, ICollageController controller){
+    public CVMenuDetection(String name, ICollageController controller) {
         super(name);
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);

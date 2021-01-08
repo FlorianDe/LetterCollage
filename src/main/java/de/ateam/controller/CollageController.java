@@ -1,15 +1,15 @@
-package main.java.de.ateam.controller;
+package de.ateam.controller;
 
-import main.java.de.ateam.controller.roi.RegionOfInterestController;
-import main.java.de.ateam.model.CollageModel;
-import main.java.de.ateam.model.RoiModel;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.view.CollageFrame;
+import de.ateam.controller.roi.RegionOfInterestController;
+import de.ateam.model.CollageModel;
+import de.ateam.model.ResultImageModel;
+import de.ateam.model.RoiModel;
+import de.ateam.view.CollageFrame;
 
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CollageController implements ICollageController{
+public class CollageController implements ICollageController {
 
     //Main Model
     private RegionOfInterestController roiController;
@@ -31,7 +31,7 @@ public class CollageController implements ICollageController{
         return collageView;
     }
 
-    public CollageController(CollageModel collageModel){
+    public CollageController(CollageModel collageModel) {
         this.collageModel = collageModel;
         this.roiController = new RegionOfInterestController(this);
     }

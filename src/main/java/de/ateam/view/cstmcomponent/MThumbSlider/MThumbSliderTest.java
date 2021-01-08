@@ -1,12 +1,9 @@
-package main.java.de.ateam.view.cstmcomponent.MThumbSlider;
+package de.ateam.view.cstmcomponent.MThumbSlider;
 
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JSlider;
-import javax.swing.UIManager;
 
 /**
  * @version 1.0 9/3/99

@@ -1,6 +1,6 @@
-package main.java.de.ateam.model.roi;
+package de.ateam.model.roi;
 
-import main.java.de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObservable;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class RegionOfInterestImageCollection extends CstmObservable {
     }
 
     public boolean removeImage(RegionOfInterestImage roiImage) {
-        if(roiImages.contains(roiImage)) {
+        if (roiImages.contains(roiImage)) {
             roiImages.remove(roiImage);
-            if(autoArrange) {
+            if (autoArrange) {
                 arrangeImages();
             }
             this.setChanged();
@@ -41,14 +41,14 @@ public class RegionOfInterestImageCollection extends CstmObservable {
         return false;
     }
 
-    public void removeAllImages(){
+    public void removeAllImages() {
         this.getRoiImages().clear();
         this.setChanged();
         this.notifyObservers(null);
     }
 
     public RegionOfInterestImage getImage(int index) {
-        if(0 < index && index < roiImages.size())
+        if (0 < index && index < roiImages.size())
             return roiImages.get(index);
         return null;
     }
@@ -64,22 +64,22 @@ public class RegionOfInterestImageCollection extends CstmObservable {
         return roiImages;
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.getRoiImages().size();
     }
 
-    public boolean isArrangeable(){
+    public boolean isArrangeable() {
         return (this.getSize() > 0 && this.autoArrange);
     }
 
-    public RegionOfInterestImage getLastAddedImage(){
-        if(roiImages!= null && roiImages.size() > 0){
-            return roiImages.get(roiImages.size()-1);
+    public RegionOfInterestImage getLastAddedImage() {
+        if (roiImages != null && roiImages.size() > 0) {
+            return roiImages.get(roiImages.size() - 1);
         }
         return null;
     }
 
-    public void roiImageUpdated(RegionOfInterestImage roiImage){
+    public void roiImageUpdated(RegionOfInterestImage roiImage) {
         roiImage.repaintRoiImage();
         this.setChanged();
         this.notifyObservers(null);

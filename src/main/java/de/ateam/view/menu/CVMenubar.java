@@ -1,6 +1,6 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ public class CVMenubar extends JMenuBar {
 
     ICollageController controller;
 
-    public CVMenubar(ICollageController controller){
+    public CVMenubar(ICollageController controller) {
         this.controller = controller;
         initializeUI_Menu();
     }

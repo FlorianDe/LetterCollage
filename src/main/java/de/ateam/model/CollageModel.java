@@ -1,4 +1,4 @@
-package main.java.de.ateam.model;
+package de.ateam.model;
 
 /**
  * Created by Florian on 16.11.2015.
@@ -8,7 +8,7 @@ public class CollageModel {
     private RoiModel roiModel;
 
 
-    public CollageModel(){
+    public CollageModel() {
         this.resultImageModel = new ResultImageModel();
         this.roiModel = new RoiModel();
     }

@@ -1,20 +1,19 @@
-package main.java.de.ateam.controller.listener.loadedImages;
+package de.ateam.controller.listener.loadedImages;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.controller.ICollageController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteAllLoadedImagesListener implements ActionListener {
-	protected ICollageController controller;
+    protected ICollageController controller;
 
-	public DeleteAllLoadedImagesListener(ICollageController controller) {
-		this.controller = controller;
-	}
+    public DeleteAllLoadedImagesListener(ICollageController controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.controller.getRoiModel().getRoiCollection().removeAllImages();
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.controller.getRoiModel().getRoiCollection().removeAllImages();
+    }
 }

@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'de.ateam'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'org.openpnp', name: 'opencv', version: '4.3.0-3'
+
+    compile group: 'org.jocl', name: 'jocl', version: '0.1.9'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "de.ateam.EntryPoint"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

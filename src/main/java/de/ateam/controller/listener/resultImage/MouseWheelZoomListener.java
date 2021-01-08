@@ -1,6 +1,6 @@
-package main.java.de.ateam.controller.listener.resultImage;
+package de.ateam.controller.listener.resultImage;
 
-import main.java.de.ateam.controller.ICollageController;
+import de.ateam.controller.ICollageController;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseWheelEvent;
@@ -23,9 +23,9 @@ public class MouseWheelZoomListener implements MouseWheelListener {
             int notches = e.getWheelRotation();
 
             if (notches < 0) {
-                this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor()*1.05);
+                this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor() * 1.05);
             } else {
-                this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor()*0.95);
+                this.controller.getResultImageModel().setZoomFactor(this.controller.getResultImageModel().getZoomFactor() * 0.95);
             }
         }
     }

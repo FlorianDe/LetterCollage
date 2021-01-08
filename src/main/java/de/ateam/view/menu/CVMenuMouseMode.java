@@ -1,10 +1,10 @@
-package main.java.de.ateam.view.menu;
+package de.ateam.view.menu;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.controller.listener.resultImage.MouseModeSetListener;
-import main.java.de.ateam.model.ResultImageModel;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.CstmObserver;
+import de.ateam.controller.ICollageController;
+import de.ateam.controller.listener.resultImage.MouseModeSetListener;
+import de.ateam.model.ResultImageModel;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.CstmObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 /**
  * Created by Florian on 13.11.2015.
  */
-public class CVMenuMouseMode extends JMenu implements CstmObserver{
+public class CVMenuMouseMode extends JMenu implements CstmObserver {
 
     JMenuExtension jme;
     JMenuItem menuItemMouseModeDrag;
@@ -26,7 +26,7 @@ public class CVMenuMouseMode extends JMenu implements CstmObserver{
     ICollageController controller;
 
 
-    public CVMenuMouseMode(String name, ICollageController controller){
+    public CVMenuMouseMode(String name, ICollageController controller) {
         super(name);
         this.controller = controller;
         this.controller.getResultImageModel().addObserver(this);

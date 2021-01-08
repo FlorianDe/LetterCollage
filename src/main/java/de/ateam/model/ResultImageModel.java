@@ -1,8 +1,8 @@
-package main.java.de.ateam.model;
+package de.ateam.model;
 
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.CstmObservable;
-import main.java.de.ateam.utils.FileLoader;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.utils.CstmObservable;
+import de.ateam.utils.FileLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,9 +15,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by Florian on 13.11.2015.
  */
 public class ResultImageModel extends CstmObservable {
-    public enum MouseMode{
+    public enum MouseMode {
         DRAG, ZOOMIN, ZOOMOUT, DEFAULT, PAINT, ERASE, SETWEIGHT, SIMILAR_SELECT, POLYGONPAINT;
     }
+
     private MouseMode mouseMode;
     private RegionOfInterestImage endResultVisibleRoiImage;
     private RegionOfInterestImage actualVisibleRoiImage;
@@ -39,10 +40,10 @@ public class ResultImageModel extends CstmObservable {
     private int fontOutlineThickness;
     private Color fontOutlineColor;
 
-    public ResultImageModel(){
+    public ResultImageModel() {
         mouseMode = MouseMode.SETWEIGHT;
         try {
-            this.endResultVisibleRoiImage = new RegionOfInterestImage(ImageIO.read(FileLoader.loadFile("img/resultImage.png")));
+            this.endResultVisibleRoiImage = new RegionOfInterestImage(ImageIO.read(FileLoader.loadFile("img/result.png")));
             this.actualVisibleRoiImage = endResultVisibleRoiImage;
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,21 +61,23 @@ public class ResultImageModel extends CstmObservable {
         this.fullbodyDetection = true;
         this.fontOutlineThickness = 10;
         this.polygonSnapRadius = 10;
-        this.fontOutlineColor=Color.BLACK;
+        this.fontOutlineColor = Color.BLACK;
     }
 
     public void clearPolygon() {
         this.polygon.clear();
         this.setActualDrawnRoi(null);
     }
-    public void addPointToPolygon(Point p){
+
+    public void addPointToPolygon(Point p) {
         this.polygon.add(p);
         Polygon drawPoly = new Polygon();
         for (Point point : polygon) {
-            drawPoly.addPoint((int)point.getX(),(int)point.getY());
+            drawPoly.addPoint((int) point.getX(), (int) point.getY());
         }
         this.setActualDrawnRoi(drawPoly);
     }
+
     public ArrayList<Point> getPolygon() {
         return polygon;
     }
@@ -89,38 +92,42 @@ public class ResultImageModel extends CstmObservable {
         this.notifyObservers(null);
     }
 
-    public Rectangle getRealCoordinates(Rectangle rect){
+    public Rectangle getRealCoordinates(Rectangle rect) {
         Rectangle rTemp = new Rectangle();
         double zF = getZoomFactor();
-        rTemp.setRect((rect.getX()/zF), (rect.getY()/zF), (rect.getWidth()/zF), (rect.getHeight()/zF));
+        rTemp.setRect((rect.getX() / zF), (rect.getY() / zF), (rect.getWidth() / zF), (rect.getHeight() / zF));
         return rTemp;
     }
-    public Point getRealCoordinates(Point p){
-        return new Point((int)(p.getX()/getZoomFactor()), (int)(p.getY()/getZoomFactor()));
+
+    public Point getRealCoordinates(Point p) {
+        return new Point((int) (p.getX() / getZoomFactor()), (int) (p.getY() / getZoomFactor()));
     }
 
-    public double getStrokeThickness(){
-        return 1.0/getZoomFactor();
+    public double getStrokeThickness() {
+        return 1.0 / getZoomFactor();
     }
 
-    public Dimension getRenderSize(){
-        if(actualVisibleRoiImage!=null && actualVisibleRoiImage.getVisualImage() != null)
-            return new Dimension((int)(this.getActualVisibleImage().getWidth() * this.getZoomFactor()),
-                                (int)(this.getActualVisibleImage().getHeight() * this.getZoomFactor()));
-        return new Dimension(0,0);
+    public Dimension getRenderSize() {
+        if (actualVisibleRoiImage != null && actualVisibleRoiImage.getVisualImage() != null)
+            return new Dimension((int) (this.getActualVisibleImage().getWidth() * this.getZoomFactor()),
+                    (int) (this.getActualVisibleImage().getHeight() * this.getZoomFactor()));
+        return new Dimension(0, 0);
     }
 
     public double getZoomFactor() {
         return this.actualVisibleRoiImage.getZoomFactor();
     }
+
     public void setZoomFactor(double zoomFactor) {
         this.actualVisibleRoiImage.setZoomFactor(zoomFactor);
         this.setChanged();
         this.notifyObservers(null);
     }
+
     public MouseMode getMouseMode() {
         return mouseMode;
     }
+
     public void setMouseMode(MouseMode mouseMode) {
         this.mouseMode = mouseMode;
         this.setChanged();
@@ -130,6 +137,7 @@ public class ResultImageModel extends CstmObservable {
     public RegionOfInterestImage getEndResultRoiImage() {
         return endResultVisibleRoiImage;
     }
+
     public void setEndResultRoiImage(RegionOfInterestImage resultImage) {
         this.endResultVisibleRoiImage = resultImage;
         this.setChanged();
@@ -139,6 +147,7 @@ public class ResultImageModel extends CstmObservable {
     public Rectangle getViewRect() {
         return viewRect;
     }
+
     public void setViewRect(Rectangle viewRect) {
         this.viewRect = viewRect;
         this.setChanged();
@@ -158,6 +167,7 @@ public class ResultImageModel extends CstmObservable {
     public RegionOfInterestImage getEndResultVisibleRoiImage() {
         return endResultVisibleRoiImage;
     }
+
     public void setEndResultVisibleRoiImage(RegionOfInterestImage endResultVisibleRoiImage) {
         this.endResultVisibleRoiImage = endResultVisibleRoiImage;
     }
@@ -207,6 +217,7 @@ public class ResultImageModel extends CstmObservable {
         this.setChanged();
         this.notifyObservers(null);
     }
+
     public int incrementtWorkerDone() {
         int workerDone = this.workerDone.incrementAndGet();
         this.setChanged();

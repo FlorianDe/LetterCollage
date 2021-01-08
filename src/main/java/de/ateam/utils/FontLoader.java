@@ -1,11 +1,10 @@
-package main.java.de.ateam.utils;
+package de.ateam.utils;
 
 /**
  * Created by Florian on 04.11.2015.
  */
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
@@ -19,8 +18,8 @@ public class FontLoader {
 
     public static Font getFont(String fontName) {
         Font font = fonts.get(fontName);
-        if(fonts.containsKey(fontName)) {
-            if(fonts.get(fontName) == null) {
+        if (fonts.containsKey(fontName)) {
+            if (fonts.get(fontName) == null) {
                 font = Font.decode(fontName);
                 fonts.put(fontName, font);
             }
@@ -29,13 +28,13 @@ public class FontLoader {
     }
 
 
-    private static TreeMap<String, Font> loadFontHelper(){
+    private static TreeMap<String, Font> loadFontHelper() {
         fonts = new TreeMap<>();
         String[] systemFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         String path = OSUtils.getResourcePathForOS("fonts");
-        File folder = new File(path);
-        if(folder != null) {
-            for (File f : folder.listFiles()) {
+        File[] files = new File(path).listFiles();
+        if (files != null) {
+            for (File f : files) {
                 try {
                     Font font = Font.createFont(Font.TRUETYPE_FONT, f);
                     GraphicsEnvironment ge =
@@ -48,7 +47,7 @@ public class FontLoader {
             }
         }
 
-        for(String systemFontName: systemFonts) {
+        for (String systemFontName : systemFonts) {
             fonts.put(systemFontName, null);
         }
         return fonts;
@@ -59,7 +58,7 @@ public class FontLoader {
     }
 
     public static String[] loadFonts() {
-        if(fonts==null) {
+        if (fonts == null) {
             return loadFontHelper().keySet().toArray(new String[fonts.size()]);
         }
         return fonts.keySet().toArray(new String[fonts.size()]);

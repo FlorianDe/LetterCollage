@@ -1,4 +1,4 @@
-package main.java.de.ateam.view.cstmcomponent.MThumbSlider;
+package de.ateam.view.cstmcomponent.MThumbSlider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,12 +40,12 @@ class MThumbSlider extends JSlider {
         AssistantUIManager.setUIName(this);
         super.updateUI();
 
-    /*
-     * // another way // updateLabelUIs();
-     * setUI(AssistantUIManager.createUI(this)); //setUI(new
-     * BasicMThumbSliderUI(this)); //setUI(new MetalMThumbSliderUI(this));
-     * //setUI(new MotifMThumbSliderUI(this));
-     */
+        /*
+         * // another way // updateLabelUIs();
+         * setUI(AssistantUIManager.createUI(this)); //setUI(new
+         * BasicMThumbSliderUI(this)); //setUI(new MetalMThumbSliderUI(this));
+         * //setUI(new MotifMThumbSliderUI(this));
+         */
     }
 
     public String getUIClassID() {

@@ -1,4 +1,4 @@
-package main.java.de.ateam.exception;
+package de.ateam.exception;
 
 /**
  * Created by Florian on 02.12.2015.

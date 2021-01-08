@@ -1,15 +1,15 @@
-package main.java.de.ateam.controller.roi;
+package de.ateam.controller.roi;
 
-import main.java.de.ateam.controller.ICollageController;
-import main.java.de.ateam.model.roi.RegionOfInterest;
-import main.java.de.ateam.model.roi.RegionOfInterestImage;
-import main.java.de.ateam.utils.FileLoader;
-import main.java.de.ateam.utils.OpenCVUtils;
+import de.ateam.controller.ICollageController;
+import de.ateam.model.roi.RegionOfInterest;
+import de.ateam.model.roi.RegionOfInterestImage;
+import de.ateam.utils.FileLoader;
+import de.ateam.utils.OpenCVUtils;
 import org.opencv.core.*;
 import org.opencv.objdetect.CascadeClassifier;
 
-import java.awt.*;
 import java.awt.Point;
+import java.awt.*;
 import java.awt.image.DataBufferByte;
 
 /**
@@ -32,42 +32,46 @@ public class RegionOfInterestDetector {
 
     ICollageController controller;
 
-    static{
+    static {
         frontalfaceDetector = FileLoader.loadCascadeFile(haarcascades_frontalfaceString);
         eyeDetector = FileLoader.loadCascadeFile(haarcascades_eyeStringString);
         fullbodyDetector = FileLoader.loadCascadeFile(haarcascades_fullbodyStringString);
     }
 
-    public RegionOfInterestDetector(ICollageController controller){
+    public RegionOfInterestDetector(ICollageController controller) {
         this.controller = controller;
     }
 
-    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold){
-        cascadeRegognitionHelper(roiImage, cascadeClassifier, regionOfInterestColor, threshold, 1.0);
+    public void cascadeRecognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold) {
+        cascadeRecognitionHelper(roiImage, cascadeClassifier, regionOfInterestColor, threshold, 1.0);
     }
 
-    public void cascadeRegognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold, double weighting){
+    public void cascadeRecognitionHelper(RegionOfInterestImage roiImage, CascadeClassifier cascadeClassifier, Color regionOfInterestColor, double threshold, double weighting) {
         if (!frontalfaceDetector.empty()) {
-           // (new Thread() {
+            // (new Thread() {
             //    public void run() {
 
 
-                    Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
-                    MatOfRect detections = new MatOfRect();
-                    MatOfInt reject_levels = new MatOfInt();
-                    MatOfDouble level_weights = new MatOfDouble();
+            Mat image = OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage());
+            MatOfRect detections = new MatOfRect();
+            MatOfInt reject_levels = new MatOfInt();
+            MatOfDouble level_weights = new MatOfDouble();
 
-                    cascadeClassifier.detectMultiScale3(image, detections, reject_levels, level_weights, 1.2, 3, 1, new Size(30,30), new Size(image.width(),image.height()), true);
-                    System.out.println(String.format("Detected %s region(s)!", detections.toArray().length));
+            cascadeClassifier.detectMultiScale3(image, detections, reject_levels, level_weights, 1.2, 3, 1, new Size(30, 30), new Size(image.width(), image.height()), true);
+            Rect[] detectionArray = detections.toArray();
 
-                    // Draw a bounding box around each detection.
-                    Rect[] detectionArray = detections.toArray();
-                    double[] level_weightsArray = level_weights.toArray();
-                    for (int i = 0; i < detectionArray.length; i++) {
-                        System.out.println("Percentage: "+level_weightsArray[i]);
-                        if(level_weightsArray[i]>threshold)
-                            roiImage.addRegionOfInterest(new Rectangle(detectionArray[i].x, detectionArray[i].y, detectionArray[i].width, detectionArray[i].height), regionOfInterestColor, weighting);
-                    }
+            System.out.printf("Detected %s region(s)!\n", detectionArray.length);
+
+            // Draw a bounding box around each detection.
+            if (detectionArray.length > 0) {
+                double[] level_weightsArray = level_weights.toArray();
+
+                for (int i = 0; i < detectionArray.length; i++) {
+                    System.out.println("Percentage: " + level_weightsArray[i]);
+                    if (level_weightsArray[i] > threshold)
+                        roiImage.addRegionOfInterest(new Rectangle(detectionArray[i].x, detectionArray[i].y, detectionArray[i].width, detectionArray[i].height), regionOfInterestColor, weighting);
+                }
+            }
 
                     /*
                     for (Rect rect : detections.toArray()) {
@@ -75,26 +79,29 @@ public class RegionOfInterestDetector {
                         roiImage.addRegionOfInterest(new Rectangle(rect.x, rect.y, rect.width, rect.height), regionOfInterestColor, weighting);
                     }
                     */
-                    controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
-                //}
+            controller.getRoiModel().getRoiCollection().roiImageUpdated(roiImage);
+            //}
             //}).start();
         } else {
             System.out.println("Detector [" + cascadeClassifier.toString() + "] is empty...cannot detect faces!");
         }
     }
-    public void fullbodyRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage, fullbodyDetector,RegionOfInterest.COLOR_FULLBODY, 1.0, WEIGHTING_FULLBODY);
-    }
-    public void faceRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,frontalfaceDetector,RegionOfInterest.COLOR_FACEDETECTION, 3.8, WEIGHTING_FACE);
-    }
-    public void eyeRecognition(RegionOfInterestImage roiImage){
-        cascadeRegognitionHelper(roiImage,eyeDetector,RegionOfInterest.COLOR_EYEDETECTION, 1.7, WEIGHTING_EYE);
+
+    public void fullbodyRecognition(RegionOfInterestImage roiImage) {
+        cascadeRecognitionHelper(roiImage, fullbodyDetector, RegionOfInterest.COLOR_FULLBODY, 1.0, WEIGHTING_FULLBODY);
     }
 
-    public Mat saliencyMapDetector(RegionOfInterestImage roiImage){
+    public void faceRecognition(RegionOfInterestImage roiImage) {
+        cascadeRecognitionHelper(roiImage, frontalfaceDetector, RegionOfInterest.COLOR_FACEDETECTION, 3.8, WEIGHTING_FACE);
+    }
+
+    public void eyeRecognition(RegionOfInterestImage roiImage) {
+        cascadeRecognitionHelper(roiImage, eyeDetector, RegionOfInterest.COLOR_EYEDETECTION, 1.7, WEIGHTING_EYE);
+    }
+
+    public Mat saliencyMapDetector(RegionOfInterestImage roiImage) {
         SaliencyMapDetector smd = new SaliencyMapDetector();
-        return smd.calculate(OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage()),0.42);
+        return smd.calculate(OpenCVUtils.bufferedImageToMat(roiImage.getNormalImage()), 0.42);
     }
 
     public void similarDetection(RegionOfInterestImage roiImage, Point p) {
@@ -114,9 +121,9 @@ public class RegionOfInterestDetector {
         int xS = p.x + SIMILAR_SAMPLER_RADIUS;
         int yS = p.y + SIMILAR_SAMPLER_RADIUS;
 
-        for(int x = p.x - SIMILAR_SAMPLER_RADIUS+1; x < xS; x++) {
-            for(int y = p.y - SIMILAR_SAMPLER_RADIUS+1; y < yS; y++) {
-                if(x >= 0 && y >= 0 && x < width && y < height){
+        for (int x = p.x - SIMILAR_SAMPLER_RADIUS + 1; x < xS; x++) {
+            for (int y = p.y - SIMILAR_SAMPLER_RADIUS + 1; y < yS; y++) {
+                if (x >= 0 && y >= 0 && x < width && y < height) {
                     float[] hsv = OpenCVUtils.getHSVPixel(pixels, x, y, width);
                     average[0] += hsv[0];
                     average[1] += hsv[1];
@@ -125,7 +132,7 @@ public class RegionOfInterestDetector {
                 }
             }
         }
-        if(samples != 0) {
+        if (samples != 0) {
             // durchschnitt
             average[0] /= samples;
             average[1] /= samples;
@@ -136,18 +143,18 @@ public class RegionOfInterestDetector {
             float difA = 1;
             float difB = 1;
             // kreiself*cker
-            while(!pass) {
-                if(lMax > 1 && difA > SIMILAR_THRESHOLD) {
+            while (!pass) {
+                if (lMax > 1 && difA > SIMILAR_THRESHOLD) {
                     difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, lMax--, p.y, width));
                 } else {
                     difA = 0;
                 }
-                if(rMax < width && difB > SIMILAR_THRESHOLD) {
+                if (rMax < width && difB > SIMILAR_THRESHOLD) {
                     difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, rMax++, p.y, width));
-                } else{
+                } else {
                     difB = 0;
                 }
-                if(difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
+                if (difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
                     pass = true;
                 }
             }
@@ -161,25 +168,25 @@ public class RegionOfInterestDetector {
             samples = 0;
             difA = 1;
             difB = 1;
-            for(int x = lMax; x < rMax; x++) {
+            for (int x = lMax; x < rMax; x++) {
                 // top pass
                 pass = false;
-                while(!pass) {
-                    if(tMax > 1 && difA > SIMILAR_THRESHOLD/2) {
-                        difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x , tMax--, width));
-                        if(tMax < yMin)
+                while (!pass) {
+                    if (tMax > 1 && difA > SIMILAR_THRESHOLD / 2) {
+                        difA = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x, tMax--, width));
+                        if (tMax < yMin)
                             yMin = tMax;
                     } else {
                         difA = 0;
                     }
-                    if(bMin < height && difB > SIMILAR_THRESHOLD/2) {
+                    if (bMin < height && difB > SIMILAR_THRESHOLD / 2) {
                         difB = OpenCVUtils.hsvSimilarity(average, OpenCVUtils.getHSVPixel(pixels, x, bMin++, width));
-                        if(bMin > yMax)
+                        if (bMin > yMax)
                             yMax = bMin;
-                    } else{
+                    } else {
                         difB = 0;
                     }
-                    if(difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
+                    if (difA < SIMILAR_THRESHOLD && difB < SIMILAR_THRESHOLD) {
                         pass = true;
                         tMax = p.y;
                         bMin = p.y;
@@ -187,13 +194,13 @@ public class RegionOfInterestDetector {
                 }
             }
             System.out.printf("yMax %d  yMin %d\n", yMax, yMin);
-            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin),RegionOfInterest.COLOR_SIMILARSELECTION);
+            roiImage.addRegionOfInterest(new Rectangle(lMax, yMin, rMax - lMax, yMax - yMin), RegionOfInterest.COLOR_SIMILARSELECTION);
 
 
             roiImage.repaintRoiImage();
             long stopTime = System.currentTimeMillis();
             long elapsedTime = stopTime - startTime;
-            System.out.printf("Calculationtime for magic wand: %d\n",elapsedTime);
+            System.out.printf("Calculationtime for magic wand: %d\n", elapsedTime);
         }
     }
 
